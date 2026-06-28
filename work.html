@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=0.95" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Work and projects by Veroushka Ramjiawan — web development portfolio." />
-  <title>Work</title>
+  <title>Work — Veroushka Ramjiawan</title>
   <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Inter:wght@400;500;600&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/main.css" />
   <link rel="stylesheet" href="./css/work.css" />
 </head>
-<body>
+<body class="work-page">
 
   <!-- Navigation -->
   <nav class="nav" aria-label="Main navigation">
@@ -34,165 +36,191 @@
     </ul>
   </div>
 
-  <main>
+  <!-- ═══════════════════════════════════════════════════════
+       SUBWAY STATION
+  ═══════════════════════════════════════════════════════ -->
+  <main class="station" id="station" aria-label="Project showcase — subway station">
 
-    <!-- Page Header -->
-    <header class="work-header">
-      <div class="work-header__inner">
-        <h1 class="work-header__title reveal">My Work</h1>
-        <p class="work-header__subtitle reveal">
-          Projects I've built and things I've learned along the way.
-        </p>
+    <!-- ── CEILING / TOP HUD ── -->
+    <div class="station__ceiling">
+
+      <!-- Terminal log (top-left) -->
+      <div class="terminal-log" aria-live="polite" aria-label="System terminal">
+        <div class="terminal-log__header">VR.EXE ACTIVE</div>
+        <div class="terminal-log__body" id="terminal-body">
+          <div class="tl-line">&gt; INITIALIZING PROJECT FEED...</div>
+          <div class="tl-line">&gt; RETRIEVING DATA...</div>
+          <div class="tl-line tl-line--ok">&gt; CONNECTION ESTABLISHED.</div>
+          <div class="tl-line tl-line--cursor">_</div>
+        </div>
       </div>
-    </header>
 
-    <!-- Projects -->
-    <section class="work-projects" aria-labelledby="projects-heading">
-      <h2 class="sr-only" id="projects-heading">Projects</h2>
-      <div class="projects-list">
-
-        <!-- Project 1: TaskFlow -->
-        <article class="feature-card reveal" aria-label="TaskFlow project">
-          <div class="feature-card__image">
-            <div class="feature-card__image-gradient feature-card__image-gradient--alpha"
-                 role="img" aria-label="TaskFlow project preview — blue gradient">
-              TaskFlow
-            </div>
-            <span class="feature-card__status feature-card__status--completed" aria-label="Status: Completed">
-              Completed
-            </span>
-          </div>
-          <div class="feature-card__body">
-            <h3 class="feature-card__title">TaskFlow</h3>
-            <p class="feature-card__desc">
-              A full-stack Scrum project management platform built for teams. Features project
-              boards, sprint planning, task assignments, and real-time collaboration. Designed
-              to streamline agile workflows with an intuitive interface and robust backend.
-            </p>
-            <div class="feature-card__tags" aria-label="Technologies used">
-              <span class="tag">React</span>
-              <span class="tag">Node.js</span>
-              <span class="tag">PostgreSQL</span>
-              <span class="tag">Prisma</span>
-            </div>
-            <div class="feature-card__links">
-              <a href="https://github.com/Veroush/taskflow" class="btn btn--primary" aria-label="View TaskFlow on GitHub">GitHub ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 2: Chronicles of Booksteria -->
-        <article class="feature-card reveal" aria-label="Chronicles of Booksteria project">
-          <div class="feature-card__image">
-            <div class="feature-card__image-gradient feature-card__image-gradient--beta"
-                 role="img" aria-label="Chronicles of Booksteria project preview — warm gradient">
-              Booksteria
-            </div>
-            <span class="feature-card__status feature-card__status--completed" aria-label="Status: Completed">
-              Completed
-            </span>
-          </div>
-          <div class="feature-card__body">
-            <h3 class="feature-card__title">Chronicles of Booksteria</h3>
-            <p class="feature-card__desc">
-              An online webshop for books, manga, and more. Users can browse products,
-              manage a shopping cart, and complete purchases through a clean e-commerce
-              experience. Built with a focus on user-friendly design and smooth navigation.
-            </p>
-            <div class="feature-card__tags" aria-label="Technologies used">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">PHP</span>
-            </div>
-            <div class="feature-card__links">
-              <a href="https://github.com/Veroush/chronicles_of_booksteria" class="btn btn--primary" aria-label="View Chronicles of Booksteria on GitHub">GitHub ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 3: Pixel Jumper -->
-        <article class="feature-card reveal" aria-label="Pixel Jumper Arcade Odyssey project">
-          <div class="feature-card__image">
-            <div class="feature-card__image-gradient feature-card__image-gradient--gamma"
-                 role="img" aria-label="Pixel Jumper project preview — purple gradient">
-              Pixel Jumper
-            </div>
-            <span class="feature-card__status feature-card__status--completed" aria-label="Status: Completed">
-              Completed
-            </span>
-          </div>
-          <div class="feature-card__body">
-            <h3 class="feature-card__title">Pixel Jumper: Arcade Odyssey</h3>
-            <p class="feature-card__desc">
-              A retro 80s-style arcade platformer built with Phaser 3. Hop between game worlds,
-              battle unique bosses, and chase the high score in this nostalgic pixel-art adventure.
-              Features multiple levels, keyboard controls, and classic arcade gameplay.
-            </p>
-            <div class="feature-card__tags" aria-label="Technologies used">
-              <span class="tag">JavaScript</span>
-              <span class="tag">Phaser 3</span>
-              <span class="tag">HTML5 Canvas</span>
-            </div>
-            <div class="feature-card__links">
-              <a href="https://github.com/Veroush/pixel-jumper-arcade-odyssey" class="btn btn--primary" aria-label="View Pixel Jumper on GitHub">GitHub ↗</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 4: Studie4SU -->
-        <article class="feature-card reveal" aria-label="Studie4SU project">
-          <div class="feature-card__image">
-            <div class="feature-card__image-gradient feature-card__image-gradient--delta"
-                 role="img" aria-label="Studie4SU project preview — teal gradient">
-              Studie4SU
-            </div>
-            <span class="feature-card__status feature-card__status--completed" aria-label="Status: Completed">
-              Group Project
-            </span>
-          </div>
-          <div class="feature-card__body">
-            <h3 class="feature-card__title">Studie4SU</h3>
-            <p class="feature-card__desc">
-              A web platform for students in Suriname to explore higher-education options.
-              Compare study programs, view open house events, and take a study-choice quiz
-              to find the right path. Built collaboratively as part of a university group project.
-            </p>
-            <div class="feature-card__tags" aria-label="Technologies used">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">PHP</span>
-              <span class="tag">MySQL</span>
-            </div>
-            <div class="feature-card__links">
-              <a href="https://github.com/Veroush/Studie4SU" class="btn btn--primary" aria-label="View Studie4SU on GitHub">GitHub ↗</a>
-            </div>
-          </div>
-        </article>
-
+      <!-- Arrival board (center) -->
+      <div class="arrival-board" aria-live="polite" aria-label="Train arrival information">
+        <div class="arrival-board__row arrival-board__row--now">
+          <span class="ab-label">NOW ARRIVING</span>
+          <span class="ab-name" id="ab-now">TASKFLOW</span>
+        </div>
+        <div class="arrival-board__divider"></div>
+        <div class="arrival-board__row arrival-board__row--next">
+          <span class="ab-label">NEXT TRAIN</span>
+          <span class="ab-next" id="ab-next">BOOKSTERIA</span>
+          <span class="ab-eta" id="ab-eta">ETA: 00:05</span>
+        </div>
       </div>
-    </section>
 
+      <!-- Nav hint (top-right) -->
+      <div class="nav-hint" aria-label="Navigation controls">
+        <div class="nh-row">
+          <span class="nh-key">↑↓</span>
+          <span class="nh-desc">NAVIGATE<br><span class="nh-sub">NEXT TRAIN</span></span>
+        </div>
+        <div class="nh-row">
+          <span class="nh-key">↵</span>
+          <span class="nh-desc">SELECT<br><span class="nh-sub">OPEN GITHUB</span></span>
+        </div>
+      </div>
 
-  </main>
+    </div><!-- /.station__ceiling -->
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer__inner">
-      <nav class="footer__socials" aria-label="Social links">
-        <a href="https://www.linkedin.com/in/veroushka-ramjiawan-636114392/" class="footer__social-link" aria-label="LinkedIn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="https://github.com/Veroush" class="footer__social-link" aria-label="GitHub">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-        </a>
-      </nav>
-      <a href="#" class="footer__back-top" aria-label="Back to top">↑ Back to top</a>
+    <!-- ── PLATFORM WALL (behind train) ── -->
+    <div class="platform-wall" aria-hidden="true">
+      <!-- Graffiti SVG layer -->
+      <svg class="graffiti-layer" viewBox="0 0 1400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <!-- Left graffiti block -->
+        <text x="42" y="200" class="graffiti-tag graffiti-tag--lg graffiti-tag--pink">FOCUS</text>
+        <text x="38" y="258" class="graffiti-tag graffiti-tag--lg graffiti-tag--pink">BUILD</text>
+        <text x="32" y="316" class="graffiti-tag graffiti-tag--lg graffiti-tag--pink">CREATE</text>
+        <!-- VR tag -->
+        <text x="1220" y="240" class="graffiti-tag graffiti-tag--xl graffiti-tag--green">VR</text>
+        <!-- Small hidden tags -->
+        <text x="820" y="70" class="graffiti-tag graffiti-tag--sm graffiti-tag--dim">404</text>
+        <text x="900" y="55" class="graffiti-tag graffiti-tag--sm graffiti-tag--dim">SYSTEM</text>
+        <text x="980" y="72" class="graffiti-tag graffiti-tag--sm graffiti-tag--dim">ROOT</text>
+        <!-- Bottom strip graffiti -->
+        <text x="200" y="310" class="graffiti-tag graffiti-tag--xxl graffiti-tag--outline">VEROUSHKA</text>
+        <text x="870" y="305" class="graffiti-tag graffiti-tag--lg graffiti-tag--orange">404<tspan dy="0" class="graffiti-tag--sm"> NOT FOUND</tspan></text>
+        <text x="1050" y="300" class="graffiti-tag graffiti-tag--md graffiti-tag--green-bright">SYSTEM<tspan x="1050" dy="30">ONLINE</tspan></text>
+        <!-- Stencil tags -->
+        <text x="650" y="82" class="graffiti-tag graffiti-tag--sm graffiti-tag--teal">NULL</text>
+        <text x="700" y="68" class="graffiti-tag graffiti-tag--sm graffiti-tag--teal">ACCESS</text>
+        <!-- Pipe / structure lines -->
+        <line x1="0" y1="90" x2="180" y2="90" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+        <line x1="1220" y1="90" x2="1400" y2="90" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+        <rect x="155" y="72" width="28" height="36" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" rx="2"/>
+        <rect x="1210" y="72" width="28" height="36" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" rx="2"/>
+      </svg>
+
+      <!-- Neon strip lights -->
+      <div class="neon-strip neon-strip--left"></div>
+      <div class="neon-strip neon-strip--right"></div>
+
+      <!-- Drip marks -->
+      <div class="drip-marks" aria-hidden="true">
+        <div class="drip" style="left:8%;height:38px;background:#FF1F9A;opacity:0.18;width:2px;top:60%"></div>
+        <div class="drip" style="left:9.5%;height:22px;background:#FF1F9A;opacity:0.12;width:1.5px;top:72%"></div>
+        <div class="drip" style="left:88%;height:30px;background:#4aff8c;opacity:0.14;width:2px;top:55%"></div>
+      </div>
+    </div><!-- /.platform-wall -->
+
+    <!-- ── TRAIN VIEWPORT ── -->
+    <div class="train-viewport" id="train-viewport" aria-label="Train display">
+
+      <div class="train" id="train" role="region" aria-label="Current project train">
+
+        <!-- Train body left section -->
+        <div class="train-body train-body--left" aria-hidden="true">
+          <div class="train-panel">
+            <div class="train-rivet train-rivet--tl"></div>
+            <div class="train-rivet train-rivet--bl"></div>
+            <div class="train-window train-window--dark"></div>
+            <div class="train-graffiti" id="train-graffiti-left"></div>
+          </div>
+          <div class="train-light train-light--head" id="train-headlight"></div>
+          <div class="train-number" id="train-number">001</div>
+        </div>
+
+        <!-- Train doors + project display -->
+        <div class="train-center" aria-label="Train doors — project display">
+          <div class="train-door train-door--left" id="door-left" aria-hidden="true">
+            <div class="door-line"></div>
+            <div class="door-window"></div>
+          </div>
+
+          <!-- Project panel inside doors -->
+          <div class="project-panel" id="project-panel" aria-live="polite">
+            <div class="project-panel__inner">
+
+              <div class="pp-eyebrow" id="pp-eyebrow">PROJECT_001</div>
+              <h2 class="pp-title" id="pp-title">TaskFlow</h2>
+              <p class="pp-tagline" id="pp-tagline">Plan. Track. Deliver.</p>
+              <p class="pp-desc" id="pp-desc">
+                A professional Scrum-based project management platform. Built for teams who want clarity, speed, and structure.
+              </p>
+
+              <div class="pp-stack">
+                <span class="pp-stack-label">TECH STACK</span>
+                <div class="pp-tags" id="pp-tags"></div>
+              </div>
+
+              <div class="pp-actions">
+                <a href="#" class="pp-btn pp-btn--primary" id="pp-github" target="_blank" rel="noopener">
+                  <span>&gt; VIEW SOURCE</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="train-door train-door--right" id="door-right" aria-hidden="true">
+            <div class="door-line"></div>
+            <div class="door-window"></div>
+          </div>
+        </div>
+
+        <!-- Train body right section -->
+        <div class="train-body train-body--right" aria-hidden="true">
+          <div class="train-panel">
+            <div class="train-rivet train-rivet--tr"></div>
+            <div class="train-rivet train-rivet--br"></div>
+            <div class="train-window train-window--dark"></div>
+            <div class="train-graffiti" id="train-graffiti-right"></div>
+          </div>
+          <div class="train-dest" id="train-dest">TASKFLOW</div>
+        </div>
+
+      </div><!-- /.train -->
+    </div><!-- /.train-viewport -->
+
+    <!-- ── PLATFORM FLOOR ── -->
+    <div class="platform-floor" aria-hidden="true">
+      <div class="platform-edge"></div>
+      <div class="platform-surface">
+        <div class="platform-line platform-line--yellow"></div>
+        <div class="platform-puddle platform-puddle--1"></div>
+        <div class="platform-puddle platform-puddle--2"></div>
+      </div>
     </div>
-  </footer>
+
+    <!-- ── PROJECT COUNTER ── -->
+    <div class="project-counter" aria-label="Project navigation">
+      <div class="pc-dots" id="pc-dots" role="tablist" aria-label="Select project"></div>
+      <div class="pc-label"><span id="pc-current">1</span> / <span id="pc-total">4</span></div>
+    </div>
+
+    <!-- ── MOBILE NAV ARROWS ── -->
+    <div class="mobile-nav" aria-label="Project navigation controls">
+      <button class="mn-btn" id="mn-prev" aria-label="Previous project">↑</button>
+      <button class="mn-btn" id="mn-next" aria-label="Next project">↓</button>
+    </div>
+
+  </main><!-- /.station -->
+
+  <!-- Page transition overlay (from main.js) -->
+  <div class="page-transition-overlay" id="page-transition-overlay" aria-hidden="true"></div>
 
   <script type="module" src="./js/main.js"></script>
-  <script type="module" src="./js/work.js"></script>
+  <script src="./js/work.js"></script>
 </body>
 </html>
