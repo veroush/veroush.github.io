@@ -1,13 +1,13 @@
 /* ============================================================
-   WORK PAGE — Milestone 1: Station Init
+   work.js — Station bootstrap (updated for Milestone 2)
    ============================================================
-   Minimal JavaScript. No train logic, no project switching,
-   no scroll handlers. This file only:
-     1. Confirms the station DOM is ready.
-     2. Exposes a STATION object for Milestones 2–4 to attach to.
-     3. Stubs out the containers that later milestones will populate.
+   Responsibilities:
+     - Sets up window.STATION namespace
+     - Exposes all shared DOM refs
+     - Calls train.js (build) then animations.js (run) via the
+       STATION.ready() hook after DOMContentLoaded
 
-   Do NOT add animation or project logic here until Milestone 2.
+   Do NOT put train or animation logic here.
    ============================================================ */
 
 (function () {
@@ -16,30 +16,45 @@
   /* ── DOM REFS ─────────────────────────────────────────── */
   const station        = document.getElementById('station');
   const trainContainer = document.getElementById('train-container');
+  const train          = document.getElementById('train');
   const uiContainer    = document.getElementById('ui-container');
   const fxContainer    = document.getElementById('fx-container');
   const dotNav         = document.getElementById('dot-nav');
   const mobileNav      = document.getElementById('mobile-nav');
 
   /* ── STATION NAMESPACE ───────────────────────────────── */
-  // Attach to window so Milestone 2+ scripts can extend without
-  // re-querying the DOM or duplicating references.
   window.STATION = {
     els: {
       station,
       trainContainer,
+      train,
       uiContainer,
       fxContainer,
       dotNav,
       mobileNav,
     },
+
+    // Lifecycle hooks — train.js and animations.js attach to these
+    _readyCallbacks: [],
+    ready(fn) {
+      this._readyCallbacks.push(fn);
+    },
+    _fireReady() {
+      this._readyCallbacks.forEach(fn => fn());
+    },
+
+    // State shared between modules
+    state: {
+      arrived: false,
+      doorsOpen: false,      // Milestone 3
+      currentProject: null,  // Milestone 3
+    },
   };
 
-  /* ── INIT ────────────────────────────────────────────── */
+  /* ── INIT ─────────────────────────────────────────────── */
   function init() {
-    // Milestone 1: nothing to animate. Station environment is
-    // entirely CSS-driven. We just log readiness.
-    console.log('[STATION] Milestone 1 — environment ready.');
+    console.log('[STATION] Bootstrap — firing ready callbacks.');
+    window.STATION._fireReady();
   }
 
   if (document.readyState === 'loading') {

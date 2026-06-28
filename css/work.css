@@ -111,7 +111,7 @@
 /* Layer 3 — Tracks */
 .env-layer--tracks     { z-index: var(--z-tracks); }
 .env-layer--tracks .env-img {
-  object-position: center 100%;
+  position: center 100%;
   filter: saturate(0.6) brightness(0.55);
 }
 
@@ -715,5 +715,290 @@
   .neon-strip,
   .tl--cursor {
     animation: none !important;
+  }
+}
+
+
+/* ============================================================
+   MILESTONE 2 — TRAIN ASSEMBLY & ANIMATION
+   ============================================================
+   Section map:
+     1. Train container & wrapper
+     2. Train layer base rules
+     3. Individual layer overrides (opacity, z-index, blend)
+     4. Animation keyframes
+     5. Animation utility classes (JS adds/removes these)
+     6. Responsive train scaling
+   ============================================================ */
+
+/* ── 1. TRAIN CONTAINER & WRAPPER ────────────────────────── */
+
+/*
+  .train-container already positioned/z-indexed in M1.
+  We just need to align the train within it.
+*/
+.train-container {
+  /* Allow pointer events so future UI inside train works */
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;    /* train sits on the platform floor */
+  justify-content: center;
+  /* Vertically: train bottom aligns with top of platform edge */
+  padding-bottom: 59px;     /* matches .platform-edge (7px) + .platform-surface (52px) */
+}
+
+/*
+  .train — the single movable unit.
+  Everything translates together; JS only touches this element
+  for position. Individual layers animate independently.
+*/
+.train {
+  position: relative;
+  /* Intrinsic size set by the base SVG asset dimensions.
+     We use a CSS custom property so responsive code can change one value. */
+  --train-width:  1100px;
+  --train-height: 340px;
+
+  width:  var(--train-width);
+  height: var(--train-height);
+  flex-shrink: 0;
+
+  /* Start far off-screen to the left */
+  transform: translate3d(calc(-50vw - var(--train-width)), 0, 0);
+  /* No transition here — JS controls movement via Web Animations API */
+  will-change: transform;
+}
+
+/* ── 2. TRAIN LAYER BASE RULES ───────────────────────────── */
+
+/*
+  Every .train-layer is absolute, fills the train box, and
+  positions its img to fill. No transition by default — the
+  JS animation system handles movement; CSS transitions handle
+  opacity fades on individual layers.
+*/
+.train-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.train-layer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center bottom;
+  user-select: none;
+  pointer-events: none;
+  /* GPU-accelerate the img itself for opacity changes */
+  will-change: opacity;
+}
+
+/* ── 3. INDIVIDUAL LAYER OVERRIDES ──────────────────────── */
+
+/* Interior light — hidden until train stops, then fades in */
+.train-layer--interior-light {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  mix-blend-mode: screen;
+}
+.train-layer--interior-light.is-lit {
+  opacity: 1;
+}
+
+/* Headlights — hidden on load, fade in as train approaches */
+.train-layer--headlights {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  mix-blend-mode: screen;
+}
+.train-layer--headlights.is-approaching {
+  opacity: 0.9;
+}
+.train-layer--headlights.is-stopped {
+  opacity: 0.55;   /* dims slightly once stationary */
+  transition: opacity 1.4s ease;
+}
+
+/* Window reflections — subtle horizontal shift while moving,
+   handled by JS via CSS custom property */
+.train-layer--window-reflections {
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+/* Brake sparks — invisible by default, shown briefly by JS */
+.train-layer--brake-sparks {
+  opacity: 0;
+  /* No transition — we want an instant flash, not a fade */
+  mix-blend-mode: screen;
+}
+.train-layer--brake-sparks.is-sparking {
+  opacity: 1;
+}
+
+/* Door steam — off for entire Milestone 2 */
+.train-layer--door-steam {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Motion blur — visible only while moving */
+.train-layer--motion-blur {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  mix-blend-mode: screen;
+}
+.train-layer--motion-blur.is-moving {
+  opacity: 0.85;
+}
+
+/* Destination sign — very faint glow after stopping */
+.train-layer--destination {
+  opacity: 0.3;
+  transition: opacity 1s ease;
+}
+.train-layer--destination.is-lit {
+  opacity: 0.65;
+}
+
+/* Coupling — sits at z-index above base so bounce reads */
+.train-layer--coupling {
+  z-index: 2;
+}
+
+/* Bogies — slight vibration layer during braking */
+.train-layer--bogies {
+  will-change: transform;
+}
+
+/* Window glass — blend into layers beneath */
+.train-layer--window-glass {
+  mix-blend-mode: screen;
+  opacity: 0.35;
+}
+
+/* Remove any visible container borders */
+#train-container,
+.train {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ── 4. KEYFRAME ANIMATIONS ──────────────────────────────── */
+
+/*
+  Train body settle — tiny vertical suspension drop after stop.
+  Applied to .train itself by JS after arrival.
+*/
+@keyframes train-settle {
+  0%   { transform: translate3d(0, 0, 0); }
+  20%  { transform: translate3d(0, 3px, 0); }
+  45%  { transform: translate3d(0, -1.5px, 0); }
+  70%  { transform: translate3d(0, 1px, 0); }
+  88%  { transform: translate3d(0, -0.5px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/*
+  Coupling mechanical bounce — applied to .train-layer--coupling
+  after the train body reaches center.
+*/
+@keyframes coupling-bounce {
+  0%   { transform: translate3d(0, 0, 0); }
+  18%  { transform: translate3d(-6px, 0, 0); }
+  38%  { transform: translate3d(3px, 0, 0); }
+  58%  { transform: translate3d(-2px, 0, 0); }
+  76%  { transform: translate3d(1px, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/*
+  Bogie vibration during braking — very subtle, implies friction.
+*/
+@keyframes bogie-brake {
+  0%,  100% { transform: translate3d(0, 0, 0); }
+  20%        { transform: translate3d(1px, 1px, 0); }
+  40%        { transform: translate3d(-1px, 0, 0); }
+  60%        { transform: translate3d(0, 1px, 0); }
+  80%        { transform: translate3d(1px, -1px, 0); }
+}
+
+/* ── 5. ANIMATION UTILITY CLASSES ────────────────────────── */
+
+/*
+  JS adds .train--settling to .train to play the settle animation.
+  translate3d(0,0,0) here is the resting position — the train's
+  final translateX is applied via inline style by animations.js,
+  so the settle keyframe only moves on Y axis.
+*/
+.train--settling {
+  animation: train-settle 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* JS adds to .train-layer--coupling after arrival */
+.coupling--bouncing {
+  animation: coupling-bounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* JS adds to .train-layer--bogies during braking */
+.bogies--braking {
+  animation: bogie-brake 0.28s linear 3;
+}
+
+#tl-brake-sparks img,
+#tl-door-steam img {
+  opacity: 0 !important;
+}
+
+#train-container {
+  border: none;
+  outline: none;
+}
+
+.train {
+  border: none;
+  outline: none;
+}
+
+/* ── 6. RESPONSIVE TRAIN SCALING ─────────────────────────── */
+
+@media (max-width: 1200px) {
+  .train {
+    --train-width:  900px;
+    --train-height: 280px;
+  }
+}
+
+@media (max-width: 900px) {
+  .train {
+    --train-width:  720px;
+    --train-height: 224px;
+  }
+  .train-container {
+    padding-bottom: 52px;
+  }
+}
+
+@media (max-width: 600px) {
+  .train {
+    --train-width:  100vw;
+    --train-height: 180px;
+  }
+  .train-container {
+    padding-bottom: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .train,
+  .train-layer,
+  .train-layer img {
+    transition-duration: 0.01ms !important;
+    animation-duration:  0.01ms !important;
   }
 }

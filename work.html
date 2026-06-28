@@ -41,59 +41,29 @@
   ══════════════════════════════════════════════════════════ -->
   <main class="station" id="station" aria-label="Project showcase — subway station">
 
-    <!-- ── LAYER 1: SUBWAY WALL (furthest back) ── -->
+    <!-- ── LAYER 1: SUBWAY WALL ── -->
     <div class="env-layer env-layer--wall" aria-hidden="true">
-      <img
-        src="./img/assets/backgrounds/subway-wall.webp"
-        alt=""
-        class="env-img"
-        draggable="false"
-      />
-      <!-- Graffiti SVG painted on the wall -->
-      <svg
-        class="graffiti-svg"
-        viewBox="0 0 1400 480"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-      >
-        <!-- Left column — stacked slogans -->
+      <img src="./img/assets/backgrounds/subway-wall.webp" alt="" class="env-img" draggable="false" />
+      <svg class="graffiti-svg" viewBox="0 0 1400 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <text x="52"  y="210" class="g-tag g-tag--xl  g-pink">FOCUS</text>
         <text x="48"  y="278" class="g-tag g-tag--xl  g-pink">BUILD</text>
         <text x="42"  y="346" class="g-tag g-tag--xl  g-pink">CREATE</text>
-
-        <!-- Centre top — faded system tags -->
         <text x="620" y="72"  class="g-tag g-tag--sm  g-dim">NULL</text>
         <text x="690" y="58"  class="g-tag g-tag--sm  g-dim">ACCESS</text>
         <text x="820" y="76"  class="g-tag g-tag--sm  g-dim">404</text>
         <text x="900" y="60"  class="g-tag g-tag--sm  g-dim">SYSTEM</text>
         <text x="980" y="78"  class="g-tag g-tag--sm  g-dim">ROOT</text>
-
-        <!-- Large outline signature across mid-wall -->
         <text x="195" y="400" class="g-tag g-tag--xxl g-outline">VEROUSHKA</text>
-
-        <!-- Right cluster -->
-        <text x="870" y="390" class="g-tag g-tag--lg  g-orange">
-          404<tspan class="g-tag--sm"> NOT FOUND</tspan>
-        </text>
-        <text x="1050" y="380" class="g-tag g-tag--md  g-green-bright">
-          SYSTEM<tspan x="1050" dy="38">ONLINE</tspan>
-        </text>
-
-        <!-- Top-right VR tag -->
+        <text x="870" y="390" class="g-tag g-tag--lg  g-orange">404<tspan class="g-tag--sm"> NOT FOUND</tspan></text>
+        <text x="1050" y="380" class="g-tag g-tag--md g-green-bright">SYSTEM<tspan x="1050" dy="38">ONLINE</tspan></text>
         <text x="1250" y="280" class="g-tag g-tag--xxl g-green">VR</text>
-
-        <!-- Pipe / bracket structure lines -->
         <line x1="0"    y1="100" x2="185"  y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
         <line x1="1215" y1="100" x2="1400" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
         <rect x="158" y="82" width="30" height="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" rx="2"/>
         <rect x="1210" y="82" width="30" height="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" rx="2"/>
       </svg>
-
-      <!-- Neon strip lights bolted to the wall -->
       <div class="neon-strip neon-strip--left"  aria-hidden="true"></div>
       <div class="neon-strip neon-strip--right" aria-hidden="true"></div>
-
-      <!-- Paint drips -->
       <div class="drip" style="left:8.2%; height:44px; background:#FF1F9A; top:62%"></div>
       <div class="drip" style="left:9.8%; height:26px; background:#FF1F9A; top:74%; opacity:0.1"></div>
       <div class="drip" style="left:88%;  height:32px; background:#4aff8c; top:56%; opacity:0.12"></div>
@@ -101,52 +71,32 @@
 
     <!-- ── LAYER 2: PLATFORM ── -->
     <div class="env-layer env-layer--platform" aria-hidden="true">
-      <img
-        src="./img/assets/backgrounds/platform.webp"
-        alt=""
-        class="env-img"
-        draggable="false"
-      />
+      <img src="./img/assets/backgrounds/platform.webp" alt="" class="env-img" draggable="false" />
     </div>
 
     <!-- ── LAYER 3: TRACKS ── -->
     <div class="env-layer env-layer--tracks" aria-hidden="true">
-      <img
-        src="./img/assets/backgrounds/tracks.webp"
-        alt=""
-        class="env-img"
-        draggable="false"
-      />
+      <img src="./img/assets/backgrounds/tracks.webp" alt="" class="env-img" draggable="false" />
     </div>
 
-    <!-- ── LAYER 4: FOREGROUND (closest — vignette / frame) ── -->
+    <!-- ── LAYER 4: FOREGROUND ── -->
     <div class="env-layer env-layer--foreground" aria-hidden="true">
-      <img
-        src="./img/assets/backgrounds/foreground.webp"
-        alt=""
-        class="env-img"
-        draggable="false"
-      />
-      <!-- CSS foreground vignette on top of the image -->
+      <img src="./img/assets/backgrounds/foreground.webp" alt="" class="env-img" draggable="false" />
       <div class="foreground-vignette"></div>
     </div>
 
-    <!-- ── AMBIENT ATMOSPHERE (CSS-only overlays, no asset) ── -->
+    <!-- ── ATMOSPHERE ── -->
     <div class="env-atmosphere" aria-hidden="true">
-      <!-- Overhead light cone casting down from ceiling -->
       <div class="light-cone light-cone--left"></div>
       <div class="light-cone light-cone--right"></div>
-      <!-- Dust / grain texture overlay -->
       <div class="grain-overlay"></div>
     </div>
 
-    <!-- ── PLATFORM EDGE + FLOOR (sits above track layer) ── -->
+    <!-- ── PLATFORM FLOOR ── -->
     <div class="platform-floor" aria-hidden="true">
       <div class="platform-edge"></div>
       <div class="platform-surface">
-        <!-- Dashed safety line -->
         <div class="safety-line"></div>
-        <!-- Puddle reflections -->
         <div class="puddle puddle--1"></div>
         <div class="puddle puddle--2"></div>
         <div class="puddle puddle--3"></div>
@@ -155,8 +105,6 @@
 
     <!-- ── HUD OVERLAY ── -->
     <div class="hud" aria-label="Station HUD">
-
-      <!-- Terminal log — top left -->
       <aside class="hud-terminal" aria-live="polite" aria-label="System terminal">
         <div class="hud-terminal__bar">VR.EXE ACTIVE</div>
         <div class="hud-terminal__body">
@@ -167,8 +115,6 @@
           <p class="tl tl--cursor">_</p>
         </div>
       </aside>
-
-      <!-- Arrival board — top centre -->
       <div class="hud-board" aria-live="polite" aria-label="Train arrival information">
         <div class="hud-board__row hud-board__row--now">
           <span class="board-label">NOW ARRIVING</span>
@@ -181,8 +127,6 @@
           <span class="board-eta"  id="ab-eta">ETA: —:——</span>
         </div>
       </div>
-
-      <!-- Keyboard hint — top right -->
       <div class="hud-hint" aria-label="Navigation controls">
         <div class="hint-row">
           <kbd class="hint-key">↑↓</kbd>
@@ -193,23 +137,138 @@
           <span class="hint-desc">SELECT<br><span class="hint-sub">OPEN GITHUB</span></span>
         </div>
       </div>
+    </div>
 
-    </div><!-- /.hud -->
+    <!-- ══════════════════════════════════════════════════════
+         TRAIN CONTAINER — Milestone 2
+         The entire train lives here, assembled from SVG/PNG layers.
+         Starts off-screen left; JS slides it into center.
+    ══════════════════════════════════════════════════════ -->
+    <div class="train-container" id="train-container" aria-label="Arriving train">
 
-    <!-- ── EMPTY CONTAINERS for Milestones 2–4 ── -->
-    <!-- Train will be assembled here in Milestone 2 -->
-    <div class="train-container" id="train-container" aria-label="Train display area"></div>
+      <div class="train" id="train" role="region" aria-label="Subway train">
 
-    <!-- Project UI will be injected here in Milestone 3 -->
-    <div class="ui-container"    id="ui-container"    aria-hidden="true"></div>
+        <!-- ── LAYER 01: Train base body ── -->
+        <div class="train-layer train-layer--base" id="tl-base">
+          <img src="./img/assets/train/train-rebase.png" alt="" draggable="false" />
+        </div>
 
-    <!-- Post-processing / particle effects go here in Milestone 4 -->
-    <div class="fx-container"    id="fx-container"    aria-hidden="true"></div>
+        <!-- ── LAYER 02: Wheel bogies ── -->
+        <div class="train-layer train-layer--bogies" id="tl-bogies">
+          <img src="./img/assets/train/wheel-bogies.png" alt="" draggable="false" />
+        </div>
 
-    <!-- Dot navigation (right edge) — wired up in Milestone 4 -->
+        <!-- ── LAYER 03: Access panels (x2) ── -->
+        <div class="train-layer train-layer--access-1" id="tl-access-1">
+          <img src="./img/assets/train/access-panels1.png" alt="" draggable="false" />
+        </div>
+        <div class="train-layer train-layer--access-2" id="tl-access-2">
+          <img src="./img/assets/train/access-panels2.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 04: Door track ── -->
+        <div class="train-layer train-layer--door-track" id="tl-door-track">
+          <img src="./img/assets/train/door-track.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 05: Interior ── -->
+        <div class="train-layer train-layer--interior" id="tl-interior">
+          <img src="./img/assets/train/interior.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 06: Interior light (off until stopped) ── -->
+        <div class="train-layer train-layer--interior-light" id="tl-interior-light">
+          <img src="./img/assets/train/interior-light.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 07: Window glass ── -->
+        <div class="train-layer train-layer--window-glass" id="tl-window-glass">
+          <img src="./img/assets/train/window-glass.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 08: Window reflections ── -->
+        <div class="train-layer train-layer--window-reflections" id="tl-window-reflections">
+          <img src="./img/assets/train/window-reflections.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 09: Window frames ── -->
+        <div class="train-layer train-layer--windows" id="tl-windows">
+          <img src="./img/assets/train/windows.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 10: Window frame overlay ── -->
+        <div class="train-layer train-layer--window-frame" id="tl-window-frame">
+          <img src="./img/assets/train/window-frame.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 11: Doors — left ── -->
+        <div class="train-layer train-layer--doors-left" id="tl-doors-left">
+          <img src="./img/assets/train/doors-left.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 12: Doors — right ── -->
+        <div class="train-layer train-layer--doors-right" id="tl-doors-right">
+          <img src="./img/assets/train/doors-right.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 13: Warning decals ── -->
+        <div class="train-layer train-layer--warning-decals" id="tl-warning-decals">
+          <img src="./img/assets/train/warning-decals.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 14: Car number ── -->
+        <div class="train-layer train-layer--car-number" id="tl-car-number">
+          <img src="./img/assets/train/car-number.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 15: Destination sign (blank for now) ── -->
+        <div class="train-layer train-layer--destination" id="tl-destination">
+          <img src="./img/assets/train/destination-sign.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 16: Roof equipment ── -->
+        <div class="train-layer train-layer--roof" id="tl-roof">
+          <img src="./img/assets/train/roof-equipment.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 17: Headlights ── -->
+        <div class="train-layer train-layer--headlights" id="tl-headlights">
+          <img src="./img/assets/train/headlights.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 18: Coupling ── -->
+        <div class="train-layer train-layer--coupling" id="tl-coupling">
+          <img src="./img/assets/train/coupling.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 19: Brake sparks (hidden until braking) ── -->
+        <div class="train-layer train-layer--brake-sparks" id="tl-brake-sparks">
+          <img src="./img/assets/train/brake-sparks.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 20: Door steam (reserved for Milestone 3) ── -->
+        <div class="train-layer train-layer--door-steam" id="tl-door-steam">
+          <img src="./img/assets/train/door-steam.png" alt="" draggable="false" />
+        </div>
+
+        <!-- ── LAYER 21: Motion blur overlay (moving only) ── -->
+        <div class="train-layer train-layer--motion-blur" id="tl-motion-blur">
+          <img src="./img/assets/train/motion-blur-overlay.png" alt="" draggable="false" />
+        </div>
+
+      </div><!-- /.train -->
+    </div><!-- /#train-container -->
+
+    <!-- ── UI CONTAINER — Milestone 3 ── -->
+    <div class="ui-container" id="ui-container" aria-hidden="true"></div>
+
+    <!-- ── FX CONTAINER — Milestone 4 ── -->
+    <div class="fx-container" id="fx-container" aria-hidden="true"></div>
+
+    <!-- ── DOT NAV — Milestone 4 ── -->
     <nav class="dot-nav" id="dot-nav" aria-label="Project navigation" aria-hidden="true"></nav>
 
-    <!-- Mobile nav arrows — wired in Milestone 4 -->
+    <!-- ── MOBILE NAV — Milestone 4 ── -->
     <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
       <button class="mnav-btn" id="mn-prev" aria-label="Previous project" disabled>↑</button>
       <button class="mnav-btn" id="mn-next" aria-label="Next project"     disabled>↓</button>
@@ -217,10 +276,12 @@
 
   </main><!-- /.station -->
 
-  <!-- Page transition overlay (from main.js) -->
   <div class="page-transition-overlay" id="page-transition-overlay" aria-hidden="true"></div>
 
+  <!-- Scripts: order matters — work.js sets STATION, train.js builds, animations.js runs -->
   <script type="module" src="./js/main.js"></script>
   <script src="./js/work.js"></script>
+  <script src="./js/train.js"></script>
+  <script src="./js/animations.js"></script>
 </body>
 </html>
