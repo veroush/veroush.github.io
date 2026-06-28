@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact Veroushka Ramjiawan — get in touch for collaborations and opportunities." />
+  <title>Contact — Veroushka Ramjiawan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0e0e10;
+      --bg-mid:      #141418;
+      --phone-top:   #232328;
+      --phone-body:  #1c1c20;
+      --phone-base:  #161618;
+      --phone-edge:  #2e2e34;
+      --key-face:    #2a2a30;
+      --key-hi:      #38383e;
+      --key-shadow:  #0a0a0c;
+      --lcd-bg:      #3d5229;
+      --lcd-on:      #4d6634;
+      --lcd-dim:     #2e3d1e;
+      --lcd-px:      #c8d9a0;
+      --lcd-dark:    #1a2610;
+      --lcd-mid:     #8fab6c;
+      --lcd-glow:    rgba(140,190,80,0.08);
+      --green-call:  #1a3a1a;
+      --green-hi:    #2a5a2a;
+      --red-end:     #3a1a1a;
+      --red-hi:      #5a2a2a;
+      --accent:      #ff1f9a;
+      --text-dim:    rgba(255,255,255,0.18);
+      --text-faint:  rgba(255,255,255,0.08);
+      --nav-h:       56px;
+      --phone-w:     252px;
+      --radius-phone: 28px 28px 36px 36px;
+      --font-lcd:    'VT323', monospace;
+      --font-mono:   'Share Tech Mono', monospace;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: rgba(255,255,255,0.7);
+      font-family: var(--font-mono);
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAVIGATION  (matches main site aesthetic)
+    ═══════════════════════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+      background: linear-gradient(180deg, rgba(14,14,16,0.95) 0%, rgba(14,14,16,0) 100%);
+    }
+
+    .nav__logo {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+
+    .nav__links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav__link {
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+
+    .nav__link:hover,
+    .nav__link.active {
+      color: rgba(255,255,255,0.85);
+    }
+
+    .nav__link.active {
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE LAYOUT
+    ═══════════════════════════════════════════════════════════════ */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--nav-h) + 24px) 1rem 3rem;
+      position: relative;
+    }
+
+    /* Ambient light — pulls eye toward phone */
+    .page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 55% at 50% 54%,
+          rgba(140,190,80,0.04) 0%, transparent 65%),
+        radial-gradient(ellipse 70% 40% at 50% 50%,
+          rgba(255,31,154,0.025) 0%, transparent 80%);
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PHONE SHELL — Industrial design
+    ═══════════════════════════════════════════════════════════════ */
+    .phone-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .phone {
+      width: var(--phone-w);
+      position: relative;
+      user-select: none;
+      /* Cast shadow on the "surface" beneath */
+      filter: drop-shadow(0 40px 60px rgba(0,0,0,0.75))
+              drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    }
+
+    /* The main body — three zones: top bezel, mid body, lower body */
+    .phone-body {
+      background:
+        linear-gradient(172deg,
+          #2c2c32 0%,
+          #232328 18%,
+          #1e1e22 40%,
+          #1a1a1e 60%,
+          #161618 100%);
+      border-radius: var(--radius-phone);
+      padding: 0 0 22px;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.055);
+      /* Inner rim highlight */
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.09),
+        inset 1px 0 0 rgba(255,255,255,0.04),
+        inset -1px 0 0 rgba(255,255,255,0.02),
+        inset 0 -1px 0 rgba(0,0,0,0.6),
+        0 0 0 1px rgba(0,0,0,0.8);
+    }
+
+    /* Curved specular highlight on top half */
+    .phone-body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 8%; right: 8%;
+      height: 52%;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.055) 0%,
+        rgba(255,255,255,0.01) 50%,
+        transparent 100%);
+      border-radius: 24px 24px 0 0;
+      pointer-events: none;
+    }
+
+    /* Very subtle side edge catch-light */
+    .phone-body::after {
+      content: '';
+      position: absolute;
+      top: 15%; bottom: 20%;
+      left: -1px;
+      width: 2px;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(255,255,255,0.04) 30%,
+        rgba(255,255,255,0.06) 50%,
+        rgba(255,255,255,0.03) 70%,
+        transparent 100%);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* ─── TOP ZONE ─────────────────────────────────────────────── */
+    .phone-top {
+      padding: 16px 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Earpiece — a single recessed slit */
+    .earpiece {
+      width: 42px;
+      height: 5px;
+      background: #0c0c0e;
+      border-radius: 3px;
+      margin-bottom: 14px;
+      position: relative;
+      box-shadow:
+        inset 0 1px 2px rgba(0,0,0,0.9),
+        0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    /* Grill holes punched in the earpiece */
+    .earpiece::before {
+      content: '';
+      position: absolute;
+      top: 1px; left: 6px; right: 6px; bottom: 1px;
+      background: repeating-linear-gradient(
+        90deg,
+        #0c0c0e 0px,
+        #0c0c0e 2px,
+        #111114 2px,
+        #111114 4px
+      );
+      border-radius: 2px;
+    }
+
+    /* Brand mark */
+    .brand {
+      font-family: Arial, sans-serif;
+      font-size: 7.5px;
+      font-weight: 800;
+      letter-spacing: 0.45em;
+      color: rgba(255,255,255,0.14);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-left: 0.45em; /* optical compensation for letter-spacing */
+    }
+
+    /* ─── LCD ASSEMBLY ─────────────────────────────────────────── */
+    .lcd-assembly {
+      padding: 0 14px;
+      margin-bottom: 10px;
+    }
+
+    /* Outer bezel — injection-molded frame around screen */
+    .lcd-bezel {
+      background: #101012;
+      border-radius: 6px;
+      padding: 5px;
+      box-shadow:
+        inset 0 2px 6px rgba(0,0,0,0.95),
+        inset 0 0 0 1px rgba(0,0,0,0.9),
+        0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    /* The screen itself */
+    .lcd {
+      width: 100%;
+      height: 148px;
+      background: var(--lcd-bg);
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+      transition: background 1.2s ease;
+      /* Subtle vignette on the LCD edges */
+      box-shadow:
+        inset 0 0 12px rgba(0,0,0,0.4),
+        inset 0 0 4px rgba(0,0,0,0.3);
+    }
+
+    /* States */
+    .lcd.lit     { background: var(--lcd-on); }
+    .lcd.dim     { background: var(--lcd-dim); }
+    .lcd.off     { background: #1a1a14; }
+
+    /* Pixel grid — makes text feel printed not rendered */
+    .lcd::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 2px,
+          rgba(0,0,0,0.06) 2px,
+          rgba(0,0,0,0.06) 3px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 2px,
+          rgba(0,0,0,0.03) 2px,
+          rgba(0,0,0,0.03) 3px
+        );
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    /* Glass reflection — faint diagonal sheen */
+    .lcd::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -30%;
+      width: 60%;
+      height: 160%;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255,255,255,0.025) 40%,
+        rgba(255,255,255,0.04) 50%,
+        rgba(255,255,255,0.015) 60%,
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: 25;
+    }
+
+    /* LCD content layer */
+    .lcd-inner {
+      position: absolute;
+      inset: 0;
+      padding: 5px 6px;
+      z-index: 10;
+      font-family: var(--font-lcd);
+      font-size: 14px;
+      color: var(--lcd-dark);
+      line-height: 1.3;
+    }
+
+    /* ─── STATUS BAR ───────────────────────────────────────────── */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      line-height: 1;
+      color: var(--lcd-dark);
+      opacity: 0.9;
+    }
+
+    .signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.5px;
+    }
+    .signal span {
+      width: 2.5px;
+      background: var(--lcd-dark);
+      border-radius: 1px 1px 0 0;
+      opacity: 0.3;
+    }
+    .signal span:nth-child(1) { height: 3px; }
+    .signal span:nth-child(2) { height: 5px; }
+    .signal span:nth-child(3) { height: 7px; }
+    .signal span:nth-child(4) { height: 9px; }
+    .signal.s1 span:nth-child(1) { opacity: 1; }
+    .signal.s2 span:nth-child(1),
+    .signal.s2 span:nth-child(2) { opacity: 1; }
+    .signal.s3 span:nth-child(1),
+    .signal.s3 span:nth-child(2),
+    .signal.s3 span:nth-child(3) { opacity: 1; }
+    .signal.s4 span { opacity: 1; }
+
+    .batt {
+      display: flex;
+      align-items: center;
+    }
+    .batt-body {
+      width: 13px; height: 6px;
+      border: 1px solid var(--lcd-dark);
+      border-radius: 1px;
+      display: flex;
+      align-items: center;
+      padding: 1px;
+      gap: 1px;
+    }
+    .batt-body span {
+      flex: 1;
+      height: 100%;
+      background: var(--lcd-dark);
+      border-radius: 0.5px;
+    }
+    .batt-nub {
+      width: 2px; height: 3px;
+      background: var(--lcd-dark);
+      border-radius: 0 1px 1px 0;
+    }
+
+    /* ─── LCD SCREENS ──────────────────────────────────────────── */
+    .lcd-screen {
+      display: none;
+      height: calc(100% - 16px); /* below status bar */
+      flex-direction: column;
+    }
+    .lcd-screen.active { display: flex; }
+
+    /* Divider line */
+    .lcd-rule {
+      border: none;
+      border-top: 1px solid var(--lcd-dark);
+      opacity: 0.35;
+      margin: 0 0 3px;
+    }
+
+    /* Screen title bar */
+    .s-title {
+      font-size: 13px;
+      font-weight: normal;
+      border-bottom: 1px solid var(--lcd-dark);
+      padding-bottom: 2px;
+      margin-bottom: 4px;
+      opacity: 0.9;
+      letter-spacing: 0.04em;
+    }
+
+    /* Softkey labels at bottom of LCD */
+    .s-softkeys {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      margin-top: auto;
+      padding-top: 2px;
+      opacity: 0.6;
+    }
+
+    /* ─── BOOT SCREEN ──────────────────────────────────────────── */
+    .boot-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 8px;
+      font-family: var(--font-mono);
+    }
+
+    .boot-wordmark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5em;
+      color: var(--lcd-dark);
+      text-transform: uppercase;
+      padding-left: 0.5em;
+    }
+
+    .boot-tagline {
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      opacity: 0.55;
+      color: var(--lcd-dark);
+    }
+
+    .boot-progress {
+      width: 80px;
+      height: 4px;
+      border: 1px solid rgba(26,38,16,0.5);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .boot-fill {
+      height: 100%;
+      background: var(--lcd-dark);
+      width: 0%;
+      transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .boot-msg {
+      font-size: 9px;
+      color: var(--lcd-dark);
+      opacity: 0.6;
+      min-height: 12px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── HOME SCREEN ──────────────────────────────────────────── */
+    .home-time {
+      font-size: 30px;
+      color: var(--lcd-dark);
+      text-align: center;
+      line-height: 1;
+      margin: 2px 0 3px;
+      letter-spacing: 0.02em;
+    }
+
+    .home-date {
+      font-size: 9px;
+      font-family: var(--font-mono);
+      color: var(--lcd-dark);
+      text-align: center;
+      opacity: 0.55;
+      margin-bottom: 4px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0;
+      flex: 1;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 3px;
+      font-size: 12px;
+      color: var(--lcd-dark);
+      border-radius: 1px;
+      cursor: pointer;
+      line-height: 1.3;
+    }
+
+    .menu-item .arrow {
+      font-size: 10px;
+      opacity: 0;
+      width: 8px;
+      flex-shrink: 0;
+    }
+
+    .menu-item .num {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      opacity: 0.45;
+      width: 10px;
+      flex-shrink: 0;
+    }
+
+    .menu-item.sel {
+      background: var(--lcd-dark);
+      color: var(--lcd-on);
+    }
+
+    .menu-item.sel .arrow { opacity: 1; }
+
+    /* ─── CONTACT INFO SCREEN ──────────────────────────────────── */
+    .ci-name {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .ci-row {
+      margin-bottom: 3px;
+    }
+
+    .ci-label {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      opacity: 0.5;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .ci-value {
+      font-size: 11px;
+    }
+
+    /* ─── COMPOSE SCREENS ──────────────────────────────────────── */
+    .c-prompt {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      opacity: 0.55;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    /* The text display area — pure firmware, no HTML inputs */
+    .c-display {
+      background: rgba(26,38,16,0.12);
+      border: 1px solid rgba(26,38,16,0.3);
+      border-radius: 1px;
+      padding: 4px 5px;
+      min-height: 44px;
+      font-size: 13px;
+      color: var(--lcd-dark);
+      word-break: break-all;
+      flex: 1;
+      position: relative;
+    }
+
+    .c-display.message-field {
+      min-height: 62px;
+    }
+
+    .char-count {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      opacity: 0.4;
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    .input-mode {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      opacity: 0.4;
+      text-align: right;
+    }
+
+    /* Animated cursor */
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 1px;
+      background: var(--lcd-dark);
+      vertical-align: baseline;
+      margin-left: 1px;
+      position: relative;
+      top: -2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* Pending (multi-tap) character — underlined, fading */
+    .pending {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      animation: pending-pulse 0.4s step-end infinite;
+    }
+
+    @keyframes pending-pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* ─── SENDING SCREEN ───────────────────────────────────────── */
+    .send-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .send-title {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+    }
+
+    .send-progress {
+      width: 90%;
+      height: 6px;
+      border: 1px solid rgba(26,38,16,0.5);
+      border-radius: 1px;
+    }
+
+    .send-fill {
+      height: 100%;
+      background: var(--lcd-dark);
+      width: 0%;
+      transition: width 0.25s linear;
+    }
+
+    .send-dots {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      animation: dots-fade 1.2s step-end infinite;
+    }
+
+    @keyframes dots-fade {
+      0%   { opacity: 1;   }
+      33%  { opacity: 0.4; }
+      66%  { opacity: 0.7; }
+      100% { opacity: 1;   }
+    }
+
+    /* ─── SUCCESS SCREEN ───────────────────────────────────────── */
+    .ok-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .ok-mark {
+      font-size: 26px;
+      animation: pop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      display: block;
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .ok-msg {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      opacity: 0.6;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
+
+    /* ─── SETTINGS SCREEN ──────────────────────────────────────── */
+    .s-section-label {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      opacity: 0.4;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .s-hint {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      opacity: 0.35;
+      margin-top: 6px;
+    }
+
+    /* About screen */
+    .about-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .about-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+    }
+    .about-row span:first-child {
+      font-family: var(--font-mono);
+      font-size: 7px;
+      opacity: 0.5;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      align-self: center;
+    }
+
+    /* LCD flicker transition */
+    @keyframes lcd-flicker {
+      0%   { opacity: 1; }
+      20%  { opacity: 0.7; }
+      40%  { opacity: 0.9; }
+      60%  { opacity: 0.75; }
+      80%  { opacity: 0.95; }
+      100% { opacity: 1; }
+    }
+    .lcd.flicker {
+      animation: lcd-flicker 0.12s ease;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAV PAD
+    ═══════════════════════════════════════════════════════════════ */
+    .pad-zone {
+      padding: 4px 14px 8px;
+    }
+
+    .d-pad {
+      position: relative;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 8px;
+    }
+
+    /* Common button base */
+    .d-btn {
+      position: absolute;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: rgba(255,255,255,0.45);
+      background:
+        linear-gradient(160deg, var(--key-hi) 0%, var(--key-face) 60%, var(--key-shadow) 100%);
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.6),
+        0 1px 0 rgba(255,255,255,0.06) inset,
+        0 -1px 0 rgba(0,0,0,0.5) inset;
+      transition:
+        transform 60ms ease,
+        box-shadow 60ms ease,
+        filter 60ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .d-btn:active, .d-btn.pressed {
+      transform: translateY(1px) scale(0.97) !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.6) !important;
+      filter: brightness(1.25);
+    }
+
+    .d-up    { top: 0; left: 50%; transform: translateX(-50%);
+               width: 28px; height: 25px; border-radius: 5px 5px 2px 2px; }
+    .d-down  { bottom: 0; left: 50%; transform: translateX(-50%);
+               width: 28px; height: 25px; border-radius: 2px 2px 5px 5px; }
+    .d-left  { left: 0; top: 50%; transform: translateY(-50%);
+               width: 25px; height: 28px; border-radius: 5px 2px 2px 5px; }
+    .d-right { right: 0; top: 50%; transform: translateY(-50%);
+               width: 25px; height: 28px; border-radius: 2px 5px 5px 2px; }
+
+    .d-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: radial-gradient(circle at 35% 30%, #3c3c44, #242428);
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.7),
+        0 1px 0 rgba(255,255,255,0.08) inset;
+      font-family: var(--font-mono);
+      font-size: 8px;
+      color: rgba(255,255,255,0.5);
+      transition: transform 60ms ease, box-shadow 60ms ease, filter 60ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .d-center:active, .d-center.pressed {
+      transform: translate(-50%, -50%) scale(0.93);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.7);
+      filter: brightness(1.3);
+    }
+
+    /* Soft key row */
+    .soft-row {
+      display: flex;
+      gap: 6px;
+      padding: 0 14px;
+      margin-bottom: 8px;
+    }
+
+    .soft-btn {
+      flex: 1;
+      height: 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.42);
+      background:
+        linear-gradient(160deg, #34343c 0%, #26262c 100%);
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.55),
+        0 1px 0 rgba(255,255,255,0.05) inset;
+      transition: transform 60ms ease, box-shadow 60ms ease, filter 60ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .soft-btn:active, .soft-btn.pressed {
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.55);
+      filter: brightness(1.3);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       KEYPAD
+    ═══════════════════════════════════════════════════════════════ */
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 0 14px;
+    }
+
+    .key {
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      background:
+        linear-gradient(165deg, #333339 0%, #252529 50%, #1e1e22 100%);
+      box-shadow:
+        0 3px 5px rgba(0,0,0,0.6),
+        0 1px 0 rgba(255,255,255,0.07) inset,
+        0 -2px 0 rgba(0,0,0,0.45) inset;
+      transition: transform 60ms ease, box-shadow 60ms ease, filter 60ms ease;
+      position: relative;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .key::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.04) 0%,
+        transparent 100%);
+      border-radius: 6px 6px 0 0;
+    }
+
+    .key:active, .key.pressed {
+      transform: translateY(2px);
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.6),
+        0 1px 0 rgba(255,255,255,0.04) inset;
+      filter: brightness(1.2);
+    }
+
+    .key-digit {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.82);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .key-alpha {
+      font-family: Arial, sans-serif;
+      font-size: 6.5px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.28);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .key-call {
+      background: linear-gradient(165deg, #1e3d1e 0%, #142814 100%);
+    }
+    .key-call .key-digit { color: rgba(90,190,90,0.85); font-size: 15px; }
+
+    .key-end {
+      background: linear-gradient(165deg, #3d1e1e 0%, #281414 100%);
+    }
+    .key-end .key-digit { color: rgba(190,70,70,0.85); font-size: 15px; }
+
+    .key-star .key-digit,
+    .key-hash .key-digit {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PHONE ANIMATIONS
+    ═══════════════════════════════════════════════════════════════ */
+    @keyframes vibrate {
+      0%, 100% { transform: translateX(0) rotate(0); }
+      20%       { transform: translateX(-2px) rotate(-0.3deg); }
+      40%       { transform: translateX(2px) rotate(0.3deg); }
+      60%       { transform: translateX(-1.5px); }
+      80%       { transform: translateX(1.5px); }
+    }
+
+    .phone.vibrating {
+      animation: vibrate 0.3s ease;
+    }
+
+    /* Backlight dim after inactivity */
+    .lcd-inner {
+      transition: opacity 0.8s ease;
+    }
+    .lcd-inner.dimmed {
+      opacity: 0.45;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HINT
+    ═══════════════════════════════════════════════════════════════ */
+    .hint {
+      margin-top: 18px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.12);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .hint kbd {
+      display: inline-block;
+      padding: 0 3px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px;
+      font-size: 9px;
+      font-family: inherit;
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ACCESSIBILITY
+    ═══════════════════════════════════════════════════════════════ */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    *:focus-visible {
+      outline: 1px solid rgba(140,190,80,0.6);
+      outline-offset: 1px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 360px) {
+      :root { --phone-w: 220px; }
+      .lcd { height: 130px; }
+      .key { height: 28px; }
+    }
+
+    @media (max-height: 680px) {
+      .page { padding-top: 70px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ─── NAVIGATION ─────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Main navigation">
+    <a href="./index.html" class="nav__logo" aria-label="Veroushka Ramjiawan — Home">VR</a>
+    <ul class="nav__links" role="list">
+      <li><a href="./index.html"   class="nav__link">Home</a></li>
+      <li><a href="./about.html"   class="nav__link">About</a></li>
+      <li><a href="./work.html"    class="nav__link">Work</a></li>
+      <li><a href="./contact.html" class="nav__link active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <h1 class="sr-only">Contact Veroushka Ramjiawan</h1>
+
+  <!-- ─── PHONE ──────────────────────────────────────────────────── -->
+  <main class="page">
+    <div class="phone-wrap" role="main">
+      <div class="phone" id="phone" aria-label="Interactive phone interface">
+        <div class="phone-body">
+
+          <!-- Top zone -->
+          <div class="phone-top">
+            <div class="earpiece" aria-hidden="true"></div>
+            <div class="brand" aria-hidden="true">NOKIA</div>
+          </div>
+
+          <!-- LCD -->
+          <div class="lcd-assembly" aria-hidden="true">
+            <div class="lcd-bezel">
+              <div class="lcd off" id="lcd" role="region" aria-live="polite" aria-label="Phone display">
+                <div class="lcd-inner" id="lcd-inner">
+
+                  <!-- Status bar -->
+                  <div class="status-bar" id="status-bar" style="display:none">
+                    <div class="signal s4" id="signal-el">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <span id="clock-el" style="font-family:var(--font-mono);font-size:8px">12:00</span>
+                    <div class="batt">
+                      <div class="batt-body">
+                        <span></span><span></span><span></span>
+                      </div>
+                      <div class="batt-nub"></div>
+                    </div>
+                  </div>
+
+                  <!-- ── BOOT ── -->
+                  <div class="lcd-screen active" id="s-boot">
+                    <div class="boot-screen">
+                      <div class="boot-wordmark" id="boot-word" style="opacity:0">NOKIA</div>
+                      <div class="boot-tagline"  id="boot-tag"  style="opacity:0">Connecting People</div>
+                      <div class="boot-progress" id="boot-prog" style="opacity:0">
+                        <div class="boot-fill" id="boot-fill"></div>
+                      </div>
+                      <div class="boot-msg" id="boot-msg"></div>
+                    </div>
+                  </div>
+
+                  <!-- ── HOME ── -->
+                  <div class="lcd-screen" id="s-home">
+                    <div class="home-time" id="home-time">12:00</div>
+                    <div class="home-date" id="home-date">MON 27 JUN</div>
+                    <hr class="lcd-rule">
+                    <nav class="menu" id="main-menu" role="menu">
+                      <div class="menu-item sel" data-action="newMessage" role="menuitem" tabindex="0">
+                        <span class="arrow">&#9658;</span>
+                        <span class="num">1.</span>
+                        <span>New Message</span>
+                      </div>
+                      <div class="menu-item" data-action="contacts" role="menuitem" tabindex="-1">
+                        <span class="arrow">&#9658;</span>
+                        <span class="num">2.</span>
+                        <span>Contacts</span>
+                      </div>
+                      <div class="menu-item" data-action="settings" role="menuitem" tabindex="-1">
+                        <span class="arrow">&#9658;</span>
+                        <span class="num">3.</span>
+                        <span>Settings</span>
+                      </div>
+                      <div class="menu-item" data-action="about" role="menuitem" tabindex="-1">
+                        <span class="arrow">&#9658;</span>
+                        <span class="num">4.</span>
+                        <span>About Device</span>
+                      </div>
+                    </nav>
+                    <div class="s-softkeys">
+                      <span>Menu</span>
+                      <span>Select</span>
+                    </div>
+                  </div>
+
+                  <!-- ── CONTACTS ── -->
+                  <div class="lcd-screen" id="s-contacts">
+                    <div class="s-title">Contacts</div>
+                    <div class="ci-name">Veroushka R.</div>
+                    <div class="ci-row">
+                      <div class="ci-label">Mobile</div>
+                      <div class="ci-value">+597 746 2470</div>
+                    </div>
+                    <div class="ci-row">
+                      <div class="ci-label">Email</div>
+                      <div class="ci-value" style="font-size:9px">v.ramjiawan95@gmail.com</div>
+                    </div>
+                    <div class="ci-row">
+                      <div class="ci-label">LinkedIn</div>
+                      <div class="ci-value" style="font-size:9px">veroushka-ramjiawan</div>
+                    </div>
+                    <div class="ci-row">
+                      <div class="ci-label">GitHub</div>
+                      <div class="ci-value" style="font-size:9px">github.com/Veroush</div>
+                    </div>
+                    <div class="s-softkeys">
+                      <span id="sk-contacts-l">Back</span>
+                      <span></span>
+                    </div>
+                  </div>
+
+                  <!-- ── SETTINGS ── -->
+                  <div class="lcd-screen" id="s-settings">
+                    <div class="s-title">Settings</div>
+                    <div class="s-section-label">Input Method</div>
+                    <nav class="menu" id="settings-menu" role="menu">
+                      <div class="menu-item sel" data-setting="multitap" role="menuitem" tabindex="0">
+                        <span class="arrow">&#9658;</span>
+                        <span>Multi-Tap</span>
+                      </div>
+                      <div class="menu-item" data-setting="keyboard" role="menuitem" tabindex="-1">
+                        <span class="arrow">&#9658;</span>
+                        <span>Keyboard</span>
+                      </div>
+                    </nav>
+                    <div class="s-hint" id="settings-active">Active: Multi-Tap</div>
+                    <div class="s-softkeys">
+                      <span>Back</span>
+                      <span>Select</span>
+                    </div>
+                  </div>
+
+                  <!-- ── ABOUT ── -->
+                  <div class="lcd-screen" id="s-about">
+                    <div class="s-title">About Device</div>
+                    <div class="about-rows">
+                      <div class="about-row"><span>Model</span><span>VR-3310</span></div>
+                      <div class="about-row"><span>SW</span><span>v2.1.04</span></div>
+                      <div class="about-row"><span>Design</span><span>VR Studio</span></div>
+                      <div class="about-row"><span>Year</span><span>2025</span></div>
+                    </div>
+                    <div class="s-softkeys">
+                      <span>Back</span>
+                      <span></span>
+                    </div>
+                  </div>
+
+                  <!-- ── COMPOSE: NAME ── -->
+                  <div class="lcd-screen" id="s-cname">
+                    <div class="s-title">New Message  1/4</div>
+                    <div class="c-prompt">Your name</div>
+                    <div class="c-display" id="d-name" aria-label="Name field"></div>
+                    <div class="input-mode" id="im-name">abc</div>
+                    <div class="s-softkeys">
+                      <span>Back</span>
+                      <span>Next</span>
+                    </div>
+                  </div>
+
+                  <!-- ── COMPOSE: EMAIL ── -->
+                  <div class="lcd-screen" id="s-cemail">
+                    <div class="s-title">New Message  2/4</div>
+                    <div class="c-prompt">Your email</div>
+                    <div class="c-display" id="d-email" aria-label="Email field"></div>
+                    <div class="input-mode" id="im-email">abc</div>
+                    <div class="s-softkeys">
+                      <span>Back</span>
+                      <span>Next</span>
+                    </div>
+                  </div>
+
+                  <!-- ── COMPOSE: SUBJECT ── -->
+                  <div class="lcd-screen" id="s-csubject">
+                    <div class="s-title">New Message  3/4</div>
+                    <div class="c-prompt">Subject</div>
+                    <div class="c-display" id="d-subject" aria-label="Subject field"></div>
+                    <div class="input-mode" id="im-subject">abc</div>
+                    <div class="s-softkeys">
+                      <span>Back</span>
+                      <span>Next</span>
+                    </div>
+                  </div>
+
+                  <!-- ── COMPOSE: MESSAGE ── -->
+                  <div class="lcd-screen" id="s-cmessage">
+                    <div class="s-title">New Message  4/4</div>
+                    <div class="c-prompt">Message</div>
+                    <div class="c-display message-field" id="d-message" aria-label="Message field"></div>
+                    <div class="input-mode" id="im-message">abc</div>
+                    <div class="s-softkeys">
+                      <span>Back</span>
+                      <span>Send</span>
+                    </div>
+                  </div>
+
+                  <!-- ── SENDING ── -->
+                  <div class="lcd-screen" id="s-sending">
+                    <div class="send-screen">
+                      <div class="send-title">SENDING MESSAGE</div>
+                      <div class="send-progress">
+                        <div class="send-fill" id="send-fill"></div>
+                      </div>
+                      <div class="send-dots">· · ·</div>
+                    </div>
+                  </div>
+
+                  <!-- ── SUCCESS ── -->
+                  <div class="lcd-screen" id="s-success">
+                    <div class="ok-screen">
+                      <span class="ok-mark">&#10003;</span>
+                      <div class="ok-msg">Message sent!<br>I'll reply soon.</div>
+                    </div>
+                  </div>
+
+                </div><!-- /.lcd-inner -->
+              </div><!-- /.lcd -->
+            </div><!-- /.lcd-bezel -->
+          </div><!-- /.lcd-assembly -->
+
+          <!-- D-pad zone -->
+          <div class="pad-zone">
+            <div class="d-pad" aria-label="Navigation pad">
+              <button class="d-btn d-up"     id="btn-up"     aria-label="Up">&#9650;</button>
+              <button class="d-btn d-down"   id="btn-down"   aria-label="Down">&#9660;</button>
+              <button class="d-btn d-left"   id="btn-left"   aria-label="Left">&#9664;</button>
+              <button class="d-btn d-right"  id="btn-right"  aria-label="Right">&#9654;</button>
+              <button class="d-center"       id="btn-ok"     aria-label="OK">OK</button>
+            </div>
+          </div>
+
+          <!-- Soft keys -->
+          <div class="soft-row">
+            <button class="soft-btn" id="btn-lsoft" aria-label="Left soft key">Back</button>
+            <button class="soft-btn" id="btn-rsoft" aria-label="Right soft key">Select</button>
+          </div>
+
+          <!-- Keypad -->
+          <div class="keypad" role="group" aria-label="Keypad">
+            <button class="key key-call" data-k="call" aria-label="Call">
+              <span class="key-digit">&#9742;</span>
+            </button>
+            <button class="key" data-k="1" aria-label="1">
+              <span class="key-digit">1</span>
+              <span class="key-alpha">.,!?'</span>
+            </button>
+            <button class="key key-end" data-k="end" aria-label="End">
+              <span class="key-digit">&#128530;</span>
+            </button>
+
+            <button class="key" data-k="2" aria-label="2 ABC">
+              <span class="key-digit">2</span>
+              <span class="key-alpha">ABC</span>
+            </button>
+            <button class="key" data-k="3" aria-label="3 DEF">
+              <span class="key-digit">3</span>
+              <span class="key-alpha">DEF</span>
+            </button>
+            <button class="key" data-k="4" aria-label="4 GHI">
+              <span class="key-digit">4</span>
+              <span class="key-alpha">GHI</span>
+            </button>
+
+            <button class="key" data-k="5" aria-label="5 JKL">
+              <span class="key-digit">5</span>
+              <span class="key-alpha">JKL</span>
+            </button>
+            <button class="key" data-k="6" aria-label="6 MNO">
+              <span class="key-digit">6</span>
+              <span class="key-alpha">MNO</span>
+            </button>
+            <button class="key" data-k="7" aria-label="7 PQRS">
+              <span class="key-digit">7</span>
+              <span class="key-alpha">PQRS</span>
+            </button>
+
+            <button class="key" data-k="8" aria-label="8 TUV">
+              <span class="key-digit">8</span>
+              <span class="key-alpha">TUV</span>
+            </button>
+            <button class="key" data-k="9" aria-label="9 WXYZ">
+              <span class="key-digit">9</span>
+              <span class="key-alpha">WXYZ</span>
+            </button>
+            <button class="key" data-k="0" aria-label="0 space">
+              <span class="key-digit">0</span>
+              <span class="key-alpha">+_</span>
+            </button>
+
+            <button class="key key-star" data-k="star" aria-label="Star">
+              <span class="key-digit">*</span>
+            </button>
+            <button class="key" data-k="clr" aria-label="Clear">
+              <span class="key-digit" style="font-size:9px;color:rgba(255,255,255,0.55)">CLR</span>
+            </button>
+            <button class="key key-hash" data-k="hash" aria-label="Hash">
+              <span class="key-digit">#</span>
+            </button>
+          </div>
+
+        </div><!-- /.phone-body -->
+      </div><!-- /.phone -->
+
+      <p class="hint" aria-hidden="true">
+        <kbd>&#8593;</kbd><kbd>&#8595;</kbd> navigate &nbsp;·&nbsp;
+        <kbd>Enter</kbd> select &nbsp;·&nbsp;
+        <kbd>Esc</kbd> back
+      </p>
+    </div><!-- /.phone-wrap -->
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       HIDDEN INPUT for keyboard mode
+  ════════════════════════════════════════════════════════════════ -->
+  <input id="kbd-proxy" type="text" aria-hidden="true" tabindex="-1"
+    style="position:fixed;opacity:0;pointer-events:none;top:0;left:0;width:1px;height:1px;" />
+
+  <script>
+  (() => {
+    'use strict';
+
+    /* ── CONFIG ──────────────────────────────────────────────────── */
+    const MULTITAP_MAP = {
+      '1': ['.', ',', '!', '?', "'", '-', '1'],
+      '2': ['a','b','c','2'],
+      '3': ['d','e','f','3'],
+      '4': ['g','h','i','4'],
+      '5': ['j','k','l','5'],
+      '6': ['m','n','o','6'],
+      '7': ['p','q','r','s','7'],
+      '8': ['t','u','v','8'],
+      '9': ['w','x','y','z','9'],
+      '0': [' ','0'],
+      'star': ['@', '.', '_', '-', '+', '~'],
+      'hash': [' '],
+    };
+
+    const MULTITAP_DELAY = 900; // ms before commit
+
+    const COMPOSE_FLOW   = ['name','email','subject','message'];
+    const MENU_ACTIONS   = ['newMessage','contacts','settings','about'];
+    const SETTINGS_OPTS  = ['multitap','keyboard'];
+
+    /* ── DOM ─────────────────────────────────────────────────────── */
+    const phone     = document.getElementById('phone');
+    const lcdEl     = document.getElementById('lcd');
+    const lcdInner  = document.getElementById('lcd-inner');
+    const statusBar = document.getElementById('status-bar');
+    const signalEl  = document.getElementById('signal-el');
+    const clockEl   = document.getElementById('clock-el');
+    const homeClock = document.getElementById('home-time');
+    const homeDate  = document.getElementById('home-date');
+    const kbdProxy  = document.getElementById('kbd-proxy');
+    const sendFill  = document.getElementById('send-fill');
+    const bootWord  = document.getElementById('boot-word');
+    const bootTag   = document.getElementById('boot-tag');
+    const bootProg  = document.getElementById('boot-prog');
+    const bootFill  = document.getElementById('boot-fill');
+    const bootMsg   = document.getElementById('boot-msg');
+
+    const screens = {};
+    ['boot','home','contacts','settings','about',
+     'cname','cemail','csubject','cmessage','sending','success']
+      .forEach(id => { screens[id] = document.getElementById('s-' + id); });
+
+    const displays = {
+      name:    document.getElementById('d-name'),
+      email:   document.getElementById('d-email'),
+      subject: document.getElementById('d-subject'),
+      message: document.getElementById('d-message'),
+    };
+
+    const modeBadges = {
+      name:    document.getElementById('im-name'),
+      email:   document.getElementById('im-email'),
+      subject: document.getElementById('im-subject'),
+      message: document.getElementById('im-message'),
+    };
+
+    const lsoftBtn  = document.getElementById('btn-lsoft');
+    const rsoftBtn  = document.getElementById('btn-rsoft');
+
+    /* ── STATE ───────────────────────────────────────────────────── */
+    const S = {
+      screen:        'boot',
+      menuIdx:       0,
+      settingsIdx:   0,
+      inputMode:     'multitap',
+      caps:          false,
+      form:          { name:'', email:'', subject:'', message:'' },
+      field:         'name',
+      text:          '',
+      pending:       null,   // { key, chars, idx, timer }
+    };
+
+    /* ── AUDIO ───────────────────────────────────────────────────── */
+    let audioCtx = null;
+
+    function ctx() {
+      if (!audioCtx) {
+        try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        catch(e) { audioCtx = null; }
+      }
+      return audioCtx;
+    }
+
+    function tone(freq, dur, type = 'square', vol = 0.05) {
+      const c = ctx();
+      if (!c) return;
+      try {
+        const osc  = c.createOscillator();
+        const gain = c.createGain();
+        osc.connect(gain);
+        gain.connect(c.destination);
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(vol, c.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + dur);
+        osc.start();
+        osc.stop(c.currentTime + dur);
+      } catch(e) {}
+    }
+
+    function clickSound()   { tone(1100 + Math.random()*200, 0.04); }
+    function navSound()     { tone(800, 0.03); }
+    function backSound()    { tone(600, 0.04); }
+    function successSound() {
+      [880,1108,1318,1760].forEach((f,i) =>
+        setTimeout(() => tone(f, 0.12, 'sine', 0.06), i*80));
+    }
+
+    /* ── VIBRATION ───────────────────────────────────────────────── */
+    function vibrate(pattern = [35,25,35]) {
+      if (navigator.vibrate) navigator.vibrate(pattern);
+      phone.classList.add('vibrating');
+      setTimeout(() => phone.classList.remove('vibrating'), 350);
+    }
+
+    /* ── CLOCK ───────────────────────────────────────────────────── */
+    function updateClock() {
+      const now = new Date();
+      const h   = now.getHours();
+      const m   = String(now.getMinutes()).padStart(2,'0');
+      const str = `${h%12||12}:${m}`;
+      const ap  = h >= 12 ? 'PM' : 'AM';
+      clockEl.textContent  = str + ' ' + ap;
+      homeClock.textContent = str;
+      const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+      const months = ['JAN','FEB','MAR','APR','MAY','JUN',
+                      'JUL','AUG','SEP','OCT','NOV','DEC'];
+      homeDate.textContent =
+        `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    /* ── BACKLIGHT / INACTIVITY ──────────────────────────────────── */
+    let backlightTimer = null;
+
+    function wakeScreen() {
+      lcdEl.classList.remove('dim','off');
+      lcdEl.classList.add('lit');
+      lcdInner.classList.remove('dimmed');
+      resetBacklightTimer();
+    }
+
+    function resetBacklightTimer() {
+      clearTimeout(backlightTimer);
+      if (S.screen === 'boot') return;
+      backlightTimer = setTimeout(() => {
+        lcdInner.classList.add('dimmed');
+        // After another 12s completely dim the lcd
+        backlightTimer = setTimeout(() => {
+          lcdEl.classList.remove('lit');
+          lcdEl.classList.add('dim');
+        }, 12000);
+      }, 8000);
+    }
+
+    document.addEventListener('click', wakeScreen);
+    document.addEventListener('keydown', wakeScreen);
+
+    /* ── SCREEN MANAGEMENT ───────────────────────────────────────── */
+    function showScreen(name) {
+      Object.values(screens).forEach(el => el && el.classList.remove('active'));
+      if (screens[name]) screens[name].classList.add('active');
+      S.screen = name;
+
+      // Flicker on transition
+      lcdEl.classList.add('flicker');
+      setTimeout(() => lcdEl.classList.remove('flicker'), 120);
+
+      wakeScreen();
+    }
+
+    /* ── MENU HIGHLIGHT ──────────────────────────────────────────── */
+    function highlightMenu() {
+      document.querySelectorAll('#main-menu .menu-item').forEach((el, i) => {
+        el.classList.toggle('sel', i === S.menuIdx);
+        el.tabIndex = i === S.menuIdx ? 0 : -1;
+      });
+    }
+
+    function highlightSettings() {
+      document.querySelectorAll('#settings-menu .menu-item').forEach((el, i) => {
+        el.classList.toggle('sel', i === S.settingsIdx);
+        el.tabIndex = i === S.settingsIdx ? 0 : -1;
+      });
+    }
+
+    function setSoftKeys(left, right) {
+      lsoftBtn.textContent = left;
+      rsoftBtn.textContent = right;
+    }
+
+    /* ── NAVIGATION ──────────────────────────────────────────────── */
+    function navUp() {
+      navSound();
+      if (S.screen === 'home') {
+        S.menuIdx = Math.max(0, S.menuIdx - 1);
+        highlightMenu();
+      } else if (S.screen === 'settings') {
+        S.settingsIdx = Math.max(0, S.settingsIdx - 1);
+        highlightSettings();
+      }
+    }
+
+    function navDown() {
+      navSound();
+      if (S.screen === 'home') {
+        S.menuIdx = Math.min(MENU_ACTIONS.length - 1, S.menuIdx + 1);
+        highlightMenu();
+      } else if (S.screen === 'settings') {
+        S.settingsIdx = Math.min(SETTINGS_OPTS.length - 1, S.settingsIdx + 1);
+        highlightSettings();
+      }
+    }
+
+    function navSelect() {
+      tone(1000, 0.05);
+
+      if (S.screen === 'home') {
+        const action = MENU_ACTIONS[S.menuIdx];
+        if (action === 'newMessage') {
+          S.form = { name:'', email:'', subject:'', message:'' };
+          gotoField('name');
+        } else if (action === 'contacts') {
+          showScreen('contacts');
+          setSoftKeys('Back', '');
+        } else if (action === 'settings') {
+          showScreen('settings');
+          highlightSettings();
+          setSoftKeys('Back', 'Select');
+        } else if (action === 'about') {
+          showScreen('about');
+          setSoftKeys('Back', '');
+        }
+      } else if (S.screen === 'settings') {
+        S.inputMode = SETTINGS_OPTS[S.settingsIdx];
+        document.getElementById('settings-active').textContent =
+          'Active: ' + (S.inputMode === 'keyboard' ? 'Keyboard' : 'Multi-Tap');
+        vibrate([20]);
+        tone(660, 0.07);
+      }
+    }
+
+    function navBack() {
+      backSound();
+      commitPending();
+
+      const composeScreens = ['cname','cemail','csubject','cmessage'];
+
+      if (['contacts','settings','about'].includes(S.screen)) {
+        goHome();
+      } else if (S.screen === 'cname') {
+        goHome();
+      } else if (S.screen === 'cemail') {
+        gotoField('name');
+      } else if (S.screen === 'csubject') {
+        gotoField('email');
+      } else if (S.screen === 'cmessage') {
+        gotoField('subject');
+      } else if (S.screen === 'success') {
+        goHome();
+      } else if (composeScreens.includes(S.screen)) {
+        goHome();
+      }
+    }
+
+    function navNext() {
+      tone(1000, 0.05);
+      commitPending();
+
+      const map = { cname:'name', cemail:'email', csubject:'subject', cmessage:'message' };
+      const field = map[S.screen];
+      if (!field) return;
+
+      S.form[field] = S.text;
+
+      const nextField = { name:'email', email:'subject', subject:'message', message:null };
+      const nf = nextField[field];
+      if (nf) {
+        gotoField(nf);
+      } else {
+        doSend();
+      }
+    }
+
+    function goHome() {
+      showScreen('home');
+      highlightMenu();
+      setSoftKeys('Menu', 'Select');
+    }
+
+    /* ── COMPOSE FLOW ────────────────────────────────────────────── */
+    const fieldToScreen = {
+      name:    'cname',
+      email:   'cemail',
+      subject: 'csubject',
+      message: 'cmessage',
+    };
+
+    function gotoField(field) {
+      S.field = field;
+      S.text  = S.form[field] || '';
+      clearPending();
+      showScreen(fieldToScreen[field]);
+      setSoftKeys('Back', field === 'message' ? 'Send' : 'Next');
+      updateModeBadge(field);
+      renderDisplay(field);
+
+      if (S.inputMode === 'keyboard') {
+        kbdProxy.value = S.text;
+        setTimeout(() => kbdProxy.focus(), 80);
+      }
+    }
+
+    function updateModeBadge(field) {
+      const b = modeBadges[field];
+      if (!b) return;
+      if (S.inputMode === 'keyboard') {
+        b.textContent = 'kbd';
+      } else {
+        b.textContent = S.caps ? 'ABC' : 'abc';
+      }
+    }
+
+    function renderDisplay(field) {
+      const el = displays[field];
+      if (!el) return;
+
+      let html = esc(S.text);
+
+      // Show pending char
+      if (S.pending) {
+        const pc = S.pending.chars[S.pending.idx];
+        const ch = S.caps ? pc.toUpperCase() : pc;
+        html += `<span class="pending">${esc(ch)}</span>`;
+      }
+
+      html += '<span class="cursor"></span>';
+      el.innerHTML = html;
+    }
+
+    function esc(str) {
+      return str
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/ /g,'&nbsp;');
+    }
+
+    /* ── MULTI-TAP ───────────────────────────────────────────────── */
+    function clearPending() {
+      if (S.pending) {
+        clearTimeout(S.pending.timer);
+        S.pending = null;
+      }
+    }
+
+    function commitPending() {
+      if (!S.pending) return;
+      clearTimeout(S.pending.timer);
+      const c = S.pending.chars[S.pending.idx];
+      S.text += S.caps ? c.toUpperCase() : c;
+      S.pending = null;
+      S.form[S.field] = S.text;
+      renderDisplay(S.field);
+    }
+
+    function handleMultiTap(key) {
+      const chars = MULTITAP_MAP[key];
+      if (!chars) return;
+
+      if (S.pending && S.pending.key === key) {
+        // Same key: cycle
+        clearTimeout(S.pending.timer);
+        S.pending.idx = (S.pending.idx + 1) % chars.length;
+      } else {
+        // Different key: commit previous first
+        commitPending();
+        S.pending = { key, chars, idx: 0, timer: null };
+      }
+
+      renderDisplay(S.field);
+
+      S.pending.timer = setTimeout(() => {
+        commitPending();
+      }, MULTITAP_DELAY);
+    }
+
+    /* ── KEY HANDLING ────────────────────────────────────────────── */
+    const composeSet = new Set(['cname','cemail','csubject','cmessage']);
+
+    function handleKey(key) {
+      if (!composeSet.has(S.screen)) return;
+
+      clickSound();
+
+      if (key === 'clr') {
+        if (S.pending) {
+          clearPending();
+          renderDisplay(S.field);
+        } else {
+          S.text = S.text.slice(0, -1);
+          S.form[S.field] = S.text;
+          renderDisplay(S.field);
+        }
+        return;
+      }
+
+      if (key === 'star') {
+        if (S.inputMode === 'multitap') {
+          handleMultiTap('star');
+        } else {
+          S.caps = !S.caps;
+          updateModeBadge(S.field);
+        }
+        return;
+      }
+
+      if (key === 'hash') {
+        if (S.inputMode === 'multitap') {
+          commitPending();
+          S.text += ' ';
+          S.form[S.field] = S.text;
+          renderDisplay(S.field);
+        }
+        return;
+      }
+
+      if (key === 'call' || key === 'end') return;
+
+      if (S.inputMode === 'multitap') {
+        handleMultiTap(key);
+      } else {
+        // Keyboard mode: focus proxy
+        kbdProxy.value = S.text;
+        kbdProxy.focus();
+      }
+    }
+
+    /* ── KEYBOARD PROXY ──────────────────────────────────────────── */
+    kbdProxy.addEventListener('input', () => {
+      if (S.inputMode !== 'keyboard' || !composeSet.has(S.screen)) return;
+      S.text = kbdProxy.value;
+      S.form[S.field] = S.text;
+      renderDisplay(S.field);
+    });
+
+    kbdProxy.addEventListener('keydown', e => {
+      if (e.key === 'Enter')  { e.preventDefault(); navNext(); }
+      if (e.key === 'Escape') { e.preventDefault(); navBack(); }
+      if (e.key === 'Backspace') {
+        // Let the event propagate; sync on input event
+        setTimeout(() => {
+          if (S.inputMode !== 'keyboard') return;
+          S.text = kbdProxy.value;
+          S.form[S.field] = S.text;
+          renderDisplay(S.field);
+        }, 0);
+      }
+    });
+
+    /* ── SEND ────────────────────────────────────────────────────── */
+    function doSend() {
+      showScreen('sending');
+      setSoftKeys('', '');
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 15 + 8;
+        if (progress > 100) progress = 100;
+        if (sendFill) sendFill.style.width = progress + '%';
+        // Animate signal while sending
+        const cls = ['s1','s2','s3','s4'];
+        const r = cls[Math.floor(Math.random() * cls.length)];
+        signalEl.className = 'signal ' + r;
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          signalEl.className = 'signal s4';
+          setTimeout(showSuccess, 400);
+        }
+      }, 200);
+
+      submitFormData({ ...S.form });
+    }
+
+    function showSuccess() {
+      showScreen('success');
+      vibrate([40, 30, 40, 30, 80]);
+      successSound();
+      setSoftKeys('Back', '');
+
+      setTimeout(() => {
+        S.form = { name:'', email:'', subject:'', message:'' };
+        goHome();
+      }, 4000);
+    }
+
+    async function submitFormData(data) {
+      console.log('📬 Contact form:', data);
+      // TODO: connect to real backend
+      // await fetch('/api/contact', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // });
+    }
+
+    /* ── BUTTON PRESS ANIMATION ──────────────────────────────────── */
+    function press(el) {
+      el.classList.add('pressed');
+      setTimeout(() => el.classList.remove('pressed'), 130);
+    }
+
+    /* ── PHYSICAL BUTTON WIRING ──────────────────────────────────── */
+    document.getElementById('btn-up').addEventListener('click', e => {
+      press(e.currentTarget); navUp();
+    });
+    document.getElementById('btn-down').addEventListener('click', e => {
+      press(e.currentTarget); navDown();
+    });
+    document.getElementById('btn-left').addEventListener('click', e => {
+      press(e.currentTarget);
+      if (composeSet.has(S.screen)) navBack();
+    });
+    document.getElementById('btn-right').addEventListener('click', e => {
+      press(e.currentTarget);
+      if (composeSet.has(S.screen)) navNext();
+    });
+    document.getElementById('btn-ok').addEventListener('click', e => {
+      press(e.currentTarget); navSelect();
+    });
+
+    lsoftBtn.addEventListener('click', e => {
+      press(e.currentTarget); backSound(); navBack();
+    });
+    rsoftBtn.addEventListener('click', e => {
+      press(e.currentTarget);
+      const t = e.currentTarget.textContent.trim();
+      if (t === 'Select') navSelect();
+      else if (t === 'Next' || t === 'Send') navNext();
+    });
+
+    // Keypad
+    document.querySelectorAll('.key[data-k]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const k = e.currentTarget.dataset.k;
+        press(e.currentTarget);
+
+        if (k === 'end') { navBack(); return; }
+        if (k === 'call') {
+          if (composeSet.has(S.screen)) navNext();
+          else navSelect();
+          return;
+        }
+        handleKey(k);
+      });
+    });
+
+    // Home menu clicks
+    document.querySelectorAll('#main-menu .menu-item').forEach((el, i) => {
+      el.addEventListener('click', () => { S.menuIdx = i; highlightMenu(); navSelect(); });
+    });
+
+    // Settings clicks
+    document.querySelectorAll('#settings-menu .menu-item').forEach((el, i) => {
+      el.addEventListener('click', () => { S.settingsIdx = i; highlightSettings(); navSelect(); });
+    });
+
+    /* ── PHYSICAL KEYBOARD ───────────────────────────────────────── */
+    document.addEventListener('keydown', e => {
+      if (document.activeElement === kbdProxy && S.inputMode === 'keyboard') return;
+
+      switch(e.key) {
+        case 'ArrowUp':
+          e.preventDefault();
+          press(document.getElementById('btn-up'));
+          navUp();
+          break;
+        case 'ArrowDown':
+          e.preventDefault();
+          press(document.getElementById('btn-down'));
+          navDown();
+          break;
+        case 'Enter':
+          e.preventDefault();
+          press(document.getElementById('btn-ok'));
+          composeSet.has(S.screen) ? navNext() : navSelect();
+          break;
+        case 'Escape':
+        case 'Backspace':
+          if (!composeSet.has(S.screen)) {
+            e.preventDefault();
+            press(lsoftBtn);
+            navBack();
+          }
+          break;
+        default:
+          if (S.inputMode === 'keyboard' && composeSet.has(S.screen)) {
+            kbdProxy.value = S.text;
+            kbdProxy.focus();
+          }
+      }
+    });
+
+    /* ── BOOT SEQUENCE ───────────────────────────────────────────── */
+    function runBoot() {
+      const steps = [
+        { t: 100,  fn: () => { lcdEl.classList.remove('off'); lcdEl.classList.add('lit'); } },
+        { t: 280,  fn: () => { bootWord.style.opacity = '1'; } },
+        { t: 600,  fn: () => { bootTag.style.opacity  = '1'; } },
+        { t: 900,  fn: () => { bootProg.style.opacity = '1'; bootMsg.textContent = 'Initializing...'; } },
+        { t: 1100, fn: () => { bootFill.style.width = '30%'; } },
+        { t: 1400, fn: () => { bootFill.style.width = '55%'; bootMsg.textContent = 'Searching network...'; } },
+        { t: 1700, fn: () => { bootFill.style.width = '80%'; tone(440, 0.08); } },
+        { t: 1950, fn: () => { bootFill.style.width = '100%'; bootMsg.textContent = 'Connected!'; tone(660, 0.08); } },
+        { t: 2300, fn: () => {
+            vibrate();
+            statusBar.style.display = 'flex';
+            showScreen('home');
+            highlightMenu();
+            setSoftKeys('Menu', 'Select');
+            sessionStorage.setItem('vr_booted','1');
+          }
+        },
+      ];
+      steps.forEach(s => setTimeout(s.fn, s.t));
+    }
+
+    // Skip boot if already visited this session
+    if (sessionStorage.getItem('vr_booted')) {
+      lcdEl.classList.remove('off');
+      lcdEl.classList.add('lit');
+      statusBar.style.display = 'flex';
+      setTimeout(() => {
+        showScreen('home');
+        highlightMenu();
+        setSoftKeys('Menu', 'Select');
+        resetBacklightTimer();
+      }, 50);
+    } else {
+      runBoot();
+    }
+
+  })();
+  </script>
+</body>
+</html>
