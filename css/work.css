@@ -1,84 +1,497 @@
 /* ============================================================
-   WORK PAGE — Cyberpunk Subway Station
+   WORK PAGE — Milestone 1: Subway Station Environment
+   ============================================================
+   Architecture:
+     .station              — full-viewport root
+       .env-layer--wall    — Layer 1: subway wall + graffiti + neons
+       .env-layer--platform— Layer 2: platform structure
+       .env-layer--tracks  — Layer 3: track bed
+       .env-layer--foreground — Layer 4: foreground frame + vignette
+       .env-atmosphere     — CSS-only light cones + grain
+       .platform-floor     — CSS platform edge & surface
+       .hud                — overlay HUD (terminal, board, hint)
+       .train-container    — empty: Milestone 2
+       .ui-container       — empty: Milestone 3
+       .fx-container       — empty: Milestone 4
+       .dot-nav            — empty: Milestone 4
+       .mobile-nav         — empty: Milestone 4
    ============================================================ */
 
-/* ── BASE ─────────────────────────────────────────────────── */
+/* ── DESIGN TOKENS ───────────────────────────────────────── */
+:root {
+  /* Station palette */
+  --col-void:       #06050a;
+  --col-wall:       #0d0b14;
+  --col-surface:    #111015;
+
+  /* Accent: neon pink */
+  --col-pink:       #FF1F9A;
+  --col-pink-dim:   rgba(255, 31, 154, 0.35);
+
+  /* Accent: neon green */
+  --col-green:      #4aff8c;
+  --col-green-dim:  rgba(74, 255, 140, 0.3);
+
+  /* Amber: arrival board */
+  --col-amber:      #ffc400;
+  --col-amber-dim:  rgba(255, 196, 0, 0.45);
+
+  /* Typography */
+  --font-mono:   'Share Tech Mono', monospace;
+  --font-grunge: 'Boogaloo', sans-serif;
+
+  /* Z-index stack */
+  --z-wall:        1;
+  --z-platform:    2;
+  --z-tracks:      3;
+  --z-foreground:  4;
+  --z-atmosphere:  5;
+  --z-floor:       6;
+  --z-train:       10;
+  --z-ui:          15;
+  --z-hud:         30;
+  --z-nav-dots:    35;
+  --z-mobile-nav:  35;
+}
+
+/* ── PAGE BASE ───────────────────────────────────────────── */
 .work-page {
   overflow: hidden;
   height: 100vh;
-  background: #0a0a0c;
+  background: var(--col-void);
 }
 
-/* ── STATION WRAPPER ─────────────────────────────────────── */
+/* ── STATION ROOT ────────────────────────────────────────── */
 .station {
   position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(40,20,60,0.7) 0%, transparent 70%),
-    linear-gradient(180deg,
-      #0d0a14 0%,
-      #100d18 30%,
-      #0c0a10 55%,
-      #111010 70%,
-      #0e0c0c 100%
-    );
 }
 
-/* ── CEILING / TOP HUD ───────────────────────────────────── */
-.station__ceiling {
+/* ══════════════════════════════════════════════════════════
+   ENVIRONMENT LAYERS
+   All layers are position:absolute, inset:0, stacked by z-index.
+   Each holds one <img class="env-img"> that fills its layer via
+   object-fit:cover.  Additional SVG/CSS decoration sits on top
+   inside the same layer div.
+══════════════════════════════════════════════════════════ */
+
+.env-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.env-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  user-select: none;
+  pointer-events: none;
+  /* Subtle desaturation so graffiti colours pop against photos */
+  filter: saturate(0.75) brightness(0.72);
+}
+
+/* Layer 1 — Wall */
+.env-layer--wall       { z-index: var(--z-wall); }
+
+/* Layer 2 — Platform structure */
+.env-layer--platform   { z-index: var(--z-platform); }
+.env-layer--platform .env-img {
+  /* Platform sits in lower two-thirds */
+  object-position: center 80%;
+  /* Slightly more brightness than wall so it reads as closer */
+  filter: saturate(0.7) brightness(0.65);
+}
+
+/* Layer 3 — Tracks */
+.env-layer--tracks     { z-index: var(--z-tracks); }
+.env-layer--tracks .env-img {
+  object-position: center 100%;
+  filter: saturate(0.6) brightness(0.55);
+}
+
+/* Layer 4 — Foreground */
+.env-layer--foreground { z-index: var(--z-foreground); }
+.env-layer--foreground .env-img {
+  object-position: center 100%;
+  /* Foreground is darker; it frames the scene */
+  filter: saturate(0.55) brightness(0.45);
+}
+
+/* Cinematic vignette painted over the foreground image */
+.foreground-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    /* Bottom darkness — ground feels heavy */
+    linear-gradient(
+      to top,
+      rgba(6, 5, 10, 0.92) 0%,
+      rgba(6, 5, 10, 0.6)  18%,
+      transparent          42%
+    ),
+    /* Top darkness — ceiling */
+    linear-gradient(
+      to bottom,
+      rgba(6, 5, 10, 0.82) 0%,
+      rgba(6, 5, 10, 0.4)  16%,
+      transparent          38%
+    ),
+    /* Left tunnel mouth */
+    linear-gradient(
+      to right,
+      rgba(6, 5, 10, 0.9)  0%,
+      rgba(6, 5, 10, 0.5)  12%,
+      transparent          32%
+    ),
+    /* Right tunnel mouth */
+    linear-gradient(
+      to left,
+      rgba(6, 5, 10, 0.9)  0%,
+      rgba(6, 5, 10, 0.5)  12%,
+      transparent          32%
+    );
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   GRAFFITI LAYER (inside .env-layer--wall)
+══════════════════════════════════════════════════════════ */
+
+.graffiti-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Base tag style — all graffiti inherits this */
+.g-tag {
+  font-family: var(--font-grunge);
+  paint-order: stroke fill;
+  fill-opacity: 0.82;
+}
+
+/* Size modifiers */
+.g-tag--sm  { font-size: 17px; }
+.g-tag--md  { font-size: 38px; }
+.g-tag--lg  { font-size: 58px; }
+.g-tag--xl  { font-size: 72px; }
+.g-tag--xxl { font-size: 108px; font-style: italic; }
+
+/* Colour / style variants */
+.g-pink {
+  fill: var(--col-pink);
+  stroke: rgba(100, 0, 50, 0.9);
+  stroke-width: 3.5px;
+  fill-opacity: 0.78;
+}
+
+.g-green {
+  fill: var(--col-green);
+  stroke: rgba(0, 40, 20, 0.9);
+  stroke-width: 4px;
+  fill-opacity: 0.72;
+}
+
+.g-green-bright {
+  fill: #00ff66;
+  stroke: rgba(0, 40, 15, 0.8);
+  stroke-width: 2px;
+  fill-opacity: 0.68;
+}
+
+.g-orange {
+  fill: #ff6b1a;
+  stroke: rgba(80, 28, 0, 0.9);
+  stroke-width: 2px;
+  fill-opacity: 0.82;
+}
+
+.g-dim {
+  fill: rgba(255, 255, 255, 0.11);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+}
+
+.g-outline {
+  fill: transparent;
+  stroke: rgba(255, 90, 40, 0.18);
+  stroke-width: 2px;
+  font-style: italic;
+}
+
+/* ── NEON STRIP LIGHTS ───────────────────────────────────── */
+
+.neon-strip {
+  position: absolute;
+  width: 3px;
+  height: 52%;
+  top: 8%;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.neon-strip--left {
+  left: 13.5%;
+  background: linear-gradient(180deg, transparent 0%, var(--col-pink) 40%, transparent 100%);
+  box-shadow:
+    0 0 16px var(--col-pink),
+    0 0 48px var(--col-pink-dim);
+  animation: neon-flicker-l 7s ease-in-out infinite;
+}
+
+.neon-strip--right {
+  right: 11%;
+  background: linear-gradient(180deg, transparent 0%, var(--col-green) 40%, transparent 100%);
+  box-shadow:
+    0 0 16px var(--col-green),
+    0 0 48px var(--col-green-dim);
+  animation: neon-flicker-r 9s ease-in-out 2s infinite;
+}
+
+@keyframes neon-flicker-l {
+  0%,  100% { opacity: 0.52; }
+  18%        { opacity: 0.28; }
+  20%        { opacity: 0.58; }
+  48%        { opacity: 0.44; }
+  80%        { opacity: 0.52; }
+  84%        { opacity: 0.18; }
+  86%        { opacity: 0.55; }
+}
+
+@keyframes neon-flicker-r {
+  0%,  100% { opacity: 0.40; }
+  25%        { opacity: 0.22; }
+  27%        { opacity: 0.46; }
+  60%        { opacity: 0.36; }
+  88%        { opacity: 0.15; }
+  90%        { opacity: 0.44; }
+}
+
+/* ── PAINT DRIPS ─────────────────────────────────────────── */
+
+.drip {
+  position: absolute;
+  width: 2px;
+  opacity: 0.16;
+  border-radius: 0 0 2px 2px;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ATMOSPHERE (light cones + grain)
+   z-index: --z-atmosphere (above all env layers, below floor)
+══════════════════════════════════════════════════════════ */
+
+.env-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-atmosphere);
+  pointer-events: none;
+}
+
+/* Overhead ceiling spotlights */
+.light-cone {
+  position: absolute;
+  top: 0;
+  width: 340px;
+  height: 70%;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 235, 180, 0.045) 0%,
+    rgba(255, 220, 120, 0.018) 55%,
+    transparent 100%
+  );
+}
+
+.light-cone--left  { left:  14%; }
+.light-cone--right { right: 12%; }
+
+/* Film grain overlay — gives photographic grit */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  /* SVG noise via data URI — repeating tile, very subtle */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PLATFORM FLOOR
+   Sits above track layer, below HUD and train.
+   Pure CSS — no image asset needed for this strip.
+══════════════════════════════════════════════════════════ */
+
+.platform-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-floor);
+  pointer-events: none;
+}
+
+.platform-edge {
+  height: 7px;
+  background: linear-gradient(
+    90deg,
+    #181818 0%,
+    #2c2c2c 15%,
+    #242424 40%,
+    #2c2c2c 70%,
+    #1a1a1a 100%
+  );
+  border-top: 2px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 -6px 28px rgba(0, 0, 0, 0.9),
+    0 -1px  0   rgba(255, 255, 255, 0.05);
+}
+
+.platform-surface {
+  height: 52px;
+  background:
+    /* Subtle tile seam grid */
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.018) 0px,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px,
+      transparent 64px
+    ),
+    /* Surface gradient — slightly lighter at top so edge reads */
+    linear-gradient(180deg, #1e1b1b 0%, #141111 100%);
   position: relative;
-  z-index: 30;
+}
+
+/* Dashed yellow safety line */
+.safety-line {
+  position: absolute;
+  top: 10px;
+  left: 4%;
+  right: 4%;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    #c49a00 0px,
+    #c49a00 26px,
+    transparent 26px,
+    transparent 38px
+  );
+  opacity: 0.48;
+}
+
+/* Puddle reflections — neon light caught in wet concrete */
+.puddle {
+  position: absolute;
+  bottom: 8px;
+  border-radius: 50%;
+  filter: blur(3px);
+}
+
+.puddle--1 {
+  left: 20%;
+  width: 90px;
+  height: 18px;
+  background: radial-gradient(ellipse,
+    rgba(255, 31, 154, 0.20) 0%,
+    rgba(74, 255, 140, 0.08) 55%,
+    transparent 80%
+  );
+}
+
+.puddle--2 {
+  right: 25%;
+  width: 64px;
+  height: 13px;
+  background: radial-gradient(ellipse,
+    rgba(74, 255, 140, 0.18) 0%,
+    rgba(255, 31, 154, 0.07) 60%,
+    transparent 80%
+  );
+}
+
+.puddle--3 {
+  left: 48%;
+  width: 40px;
+  height: 9px;
+  background: radial-gradient(ellipse,
+    rgba(255, 196, 0, 0.12) 0%,
+    transparent 75%
+  );
+}
+
+/* ══════════════════════════════════════════════════════════
+   HUD OVERLAY
+   Navigation bar sits in front of everything via main.css.
+   The HUD sits just below the nav (top padding 64px matches
+   nav height).
+══════════════════════════════════════════════════════════ */
+
+.hud {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-hud);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 64px 24px 0;
-  flex-shrink: 0;
-  gap: 12px;
+  padding: 68px 24px 0;
+  gap: 14px;
+  pointer-events: none; /* children re-enable as needed */
 }
 
-/* ── TERMINAL LOG ────────────────────────────────────────── */
-.terminal-log {
-  width: 220px;
+/* ── TERMINAL LOG ─────────────────────────────── */
+.hud-terminal {
+  width: 224px;
   flex-shrink: 0;
-  font-family: 'Share Tech Mono', monospace;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(0, 255, 100, 0.2);
-  border-radius: 4px;
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(74, 255, 140, 0.18);
+  border-radius: 3px;
   overflow: hidden;
+  pointer-events: auto;
 }
 
-.terminal-log__header {
-  background: rgba(0, 255, 100, 0.1);
-  color: #4aff8c;
+.hud-terminal__bar {
+  background: rgba(74, 255, 140, 0.09);
+  color: var(--col-green);
   font-size: 9px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.16em;
   padding: 5px 10px;
-  border-bottom: 1px solid rgba(0, 255, 100, 0.15);
+  border-bottom: 1px solid rgba(74, 255, 140, 0.13);
 }
 
-.terminal-log__body {
+.hud-terminal__body {
   padding: 8px 10px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.tl-line {
+/* Terminal lines */
+.tl {
+  margin: 0;
   font-size: 9px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.38);
   letter-spacing: 0.04em;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
-.tl-line--ok { color: #4aff8c; }
+.tl--ok     { color: var(--col-green); }
 
-.tl-line--cursor {
-  color: #4aff8c;
-  animation: cursor-blink 1s step-end infinite;
+.tl--cursor {
+  color: var(--col-green);
+  animation: cursor-blink 1.1s step-end infinite;
 }
 
 @keyframes cursor-blink {
@@ -87,845 +500,220 @@
 }
 
 /* ── ARRIVAL BOARD ───────────────────────────────────────── */
-.arrival-board {
+.hud-board {
   flex: 1;
-  max-width: 520px;
-  background: #0a0a08;
-  border: 1px solid rgba(255, 200, 0, 0.2);
-  border-radius: 4px;
+  max-width: 540px;
+  background: #08080a;
+  border: 1px solid rgba(255, 196, 0, 0.18);
+  border-radius: 3px;
   overflow: hidden;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   box-shadow:
-    0 0 30px rgba(255, 180, 0, 0.08),
-    inset 0 0 20px rgba(0,0,0,0.8);
+    0 0 32px rgba(255, 180, 0, 0.07),
+    inset 0 0 24px rgba(0, 0, 0, 0.85);
+  pointer-events: auto;
 }
 
-.arrival-board__row {
+.hud-board__row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 14px;
-  flex-wrap: wrap;
+  gap: 14px;
+  padding: 9px 16px;
 }
 
-.arrival-board__row--now {
-  background: rgba(255, 180, 0, 0.06);
-  border-bottom: 1px solid rgba(255, 180, 0, 0.12);
+.hud-board__row--now {
+  background: rgba(255, 180, 0, 0.055);
 }
 
-.ab-label {
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  color: rgba(255, 200, 0, 0.5);
+.hud-board__divider {
+  height: 1px;
+  background: rgba(255, 196, 0, 0.09);
+}
+
+.board-label {
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  color: var(--col-amber-dim);
   text-transform: uppercase;
-  min-width: 90px;
+  min-width: 96px;
+  flex-shrink: 0;
 }
 
-.ab-name {
-  font-size: 22px;
-  color: #ffc400;
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 20px rgba(255, 196, 0, 0.6);
-  transition: opacity 0.2s;
+.board-name {
+  font-size: 24px;
+  color: var(--col-amber);
+  letter-spacing: 0.09em;
+  text-shadow: 0 0 22px rgba(255, 196, 0, 0.55);
+  transition: opacity 0.2s ease;
 }
 
-.ab-name.flipping { opacity: 0; }
-
-.ab-next {
-  font-size: 12px;
-  color: rgba(255, 200, 0, 0.65);
+.board-next {
+  font-size: 13px;
+  color: rgba(255, 196, 0, 0.60);
   letter-spacing: 0.06em;
   flex: 1;
 }
 
-.ab-eta {
+.board-eta {
   font-size: 10px;
-  color: rgba(255, 200, 0, 0.4);
+  color: rgba(255, 196, 0, 0.38);
   letter-spacing: 0.08em;
   margin-left: auto;
 }
 
-.arrival-board__divider {
-  height: 1px;
-  background: rgba(255, 200, 0, 0.08);
-}
-
-/* ── NAV HINT ────────────────────────────────────────────── */
-.nav-hint {
-  width: 160px;
+/* ── KEYBOARD HINT ───────────────────────────────────────── */
+.hud-hint {
+  width: 158px;
   flex-shrink: 0;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   align-items: flex-end;
 }
 
-.nh-row {
+.hint-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   justify-content: flex-end;
 }
 
-.nh-key {
+.hint-key {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 24px;
-  height: 20px;
+  min-width: 26px;
+  height: 22px;
   padding: 0 5px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 3px;
+  font-family: var(--font-mono);
   font-size: 10px;
-  color: rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.05);
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
 }
 
-.nh-desc {
-  font-size: 8.5px;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 0.1em;
-  line-height: 1.3;
+.hint-desc {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 0.12em;
+  line-height: 1.35;
   text-align: left;
 }
 
-.nh-sub {
-  color: rgba(255,255,255,0.18);
+.hint-sub {
+  color: rgba(255, 255, 255, 0.15);
 }
 
-/* ── PLATFORM WALL ───────────────────────────────────────── */
-.platform-wall {
+/* ══════════════════════════════════════════════════════════
+   EMPTY CONTAINERS (Milestone 2–4 placeholders)
+   Correct z-indexes so they slot in without CSS changes later.
+══════════════════════════════════════════════════════════ */
+
+.train-container {
   position: absolute;
-  left: 0; right: 0;
-  top: 0; bottom: 0;
-  z-index: 1;
+  inset: 0;
+  z-index: var(--z-train);
   pointer-events: none;
 }
 
-.graffiti-layer {
-  position: absolute;
-  left: 0; top: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Graffiti text styles */
-.graffiti-tag {
-  font-family: 'Boogaloo', sans-serif;
-  fill-opacity: 0.85;
-  paint-order: stroke fill;
-}
-
-.graffiti-tag--lg   { font-size: 62px; }
-.graffiti-tag--xl   { font-size: 90px; }
-.graffiti-tag--xxl  { font-size: 110px; font-style: italic; }
-.graffiti-tag--md   { font-size: 38px; }
-.graffiti-tag--sm   { font-size: 18px; }
-
-.graffiti-tag--pink        { fill: #FF1F9A; stroke: #80005a; stroke-width: 3px; fill-opacity: 0.75; }
-.graffiti-tag--green       { fill: #4aff8c; stroke: #003320; stroke-width: 4px; fill-opacity: 0.7; }
-.graffiti-tag--green-bright{ fill: #00ff66; stroke: #003310; stroke-width: 2px; fill-opacity: 0.65; }
-.graffiti-tag--orange      { fill: #ff6b1a; stroke: #6b2200; stroke-width: 2px; fill-opacity: 0.8; }
-.graffiti-tag--teal        { fill: #1affd8; fill-opacity: 0.5; }
-.graffiti-tag--dim         { fill: rgba(255,255,255,0.12); font-size: 16px; letter-spacing: 0.1em; }
-.graffiti-tag--outline     {
-  fill: transparent;
-  stroke: rgba(255,100,50,0.2);
-  stroke-width: 2px;
-  font-style: italic;
-}
-
-/* Neon strips */
-.neon-strip {
-  position: absolute;
-  top: 10%;
-  width: 3px;
-  height: 55%;
-  border-radius: 2px;
-}
-
-.neon-strip--left  {
-  left: 13%;
-  background: linear-gradient(180deg, transparent, #FF1F9A, transparent);
-  box-shadow: 0 0 18px #FF1F9A, 0 0 40px rgba(255,31,154,0.3);
-  opacity: 0.55;
-  animation: neon-flicker 6s ease-in-out infinite;
-}
-
-.neon-strip--right {
-  right: 11%;
-  background: linear-gradient(180deg, transparent, #4aff8c, transparent);
-  box-shadow: 0 0 18px #4aff8c, 0 0 40px rgba(74,255,140,0.3);
-  opacity: 0.4;
-  animation: neon-flicker 8s ease-in-out 1.5s infinite;
-}
-
-@keyframes neon-flicker {
-  0%, 100% { opacity: 0.55; }
-  20%       { opacity: 0.3;  }
-  22%       { opacity: 0.6;  }
-  50%       { opacity: 0.45; }
-  80%       { opacity: 0.55; }
-  85%       { opacity: 0.2;  }
-  87%       { opacity: 0.55; }
-}
-
-/* ── TRAIN VIEWPORT ──────────────────────────────────────── */
-.train-viewport {
-  position: relative;
-  z-index: 10;
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 0 20px;
-  overflow: hidden;
-}
-
-/* ── TRAIN ───────────────────────────────────────────────── */
-.train {
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
-  max-width: 1100px;
-  height: 300px;
-  position: relative;
-  transform: translateX(-120%);
-  transition: none;
-}
-
-.train.train--parked {
-  transform: translateX(0);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.train.train--depart-left {
-  transform: translateX(-130%);
-  transition: transform 0.6s cubic-bezier(0.55, 0, 1, 0.45);
-}
-
-.train.train--depart-right {
-  transform: translateX(130%);
-  transition: transform 0.6s cubic-bezier(0.55, 0, 1, 0.45);
-}
-
-.train.train--arrive-right {
-  transform: translateX(120%);
-  transition: none;
-}
-
-/* Train body panels */
-.train-body {
-  flex-shrink: 0;
-  height: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.train-body--left  { width: 18%; }
-.train-body--right { width: 18%; }
-
-.train-panel {
-  width: 100%;
-  height: 88%;
-  border-radius: 8px 8px 0 0;
-  position: relative;
-  overflow: hidden;
-  border: 1.5px solid rgba(255,255,255,0.08);
-  border-bottom: none;
-  box-shadow:
-    inset 0 0 30px rgba(0,0,0,0.5),
-    inset 1px 0 0 rgba(255,255,255,0.06);
-  transition: background 0.4s ease;
-}
-
-/* Rivets */
-.train-rivet {
-  position: absolute;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #666, #222);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.8);
-}
-.train-rivet--tl { top: 10px; left: 10px; }
-.train-rivet--bl { bottom: 10px; left: 10px; }
-.train-rivet--tr { top: 10px; right: 10px; }
-.train-rivet--br { bottom: 10px; right: 10px; }
-
-.train-window {
-  position: absolute;
-  top: 22%;
-  left: 15%; right: 15%;
-  height: 28%;
-  border-radius: 3px;
-  background: #0a0a14;
-  border: 1px solid rgba(255,255,255,0.07);
-  box-shadow: inset 0 0 12px rgba(0,0,0,0.9);
-}
-
-.train-graffiti {
-  position: absolute;
-  bottom: 8px;
-  left: 6px; right: 6px;
-  font-family: 'Boogaloo', sans-serif;
-  font-size: 18px;
-  color: rgba(255,255,255,0.25);
-  text-align: center;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.2;
-  transition: color 0.4s;
-}
-
-.train-light--head {
-  position: absolute;
-  bottom: 16%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff8e0 0%, #ffc400 40%, rgba(255,180,0,0.2) 70%, transparent 100%);
-  box-shadow:
-    0 0 30px rgba(255, 220, 50, 0.8),
-    0 0 80px rgba(255, 200, 0, 0.3);
-  animation: headlight-pulse 4s ease-in-out infinite;
-}
-
-@keyframes headlight-pulse {
-  0%, 100% { opacity: 0.9; }
-  50%       { opacity: 0.7; }
-}
-
-.train-number {
-  position: absolute;
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 16px;
-  color: #ff3a2a;
-  text-shadow: 0 0 12px rgba(255, 50, 40, 0.9);
-  letter-spacing: 0.12em;
-  transition: color 0.4s;
-}
-
-.train-dest {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: #4aff8c;
-  text-shadow: 0 0 10px rgba(74, 255, 140, 0.7);
-  position: absolute;
-  top: 18%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  transition: color 0.4s, text-shadow 0.4s;
-}
-
-/* ── TRAIN CENTER / DOORS ────────────────────────────────── */
-.train-center {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
-  position: relative;
-}
-
-.train-door {
-  width: 50%;
-  height: 100%;
-  position: relative;
-  z-index: 5;
-  overflow: hidden;
-  transition: background 0.4s ease;
-}
-
-.train-door--left {
-  border-radius: 4px 0 0 0;
-  border-right: 2px solid rgba(255,255,255,0.06);
-}
-
-.train-door--right {
-  border-radius: 0 4px 0 0;
-  border-left: 2px solid rgba(255,255,255,0.06);
-}
-
-/* Default door face colour — overridden per project */
-.train-door {
-  background:
-    linear-gradient(180deg,
-      rgba(255,255,255,0.04) 0%,
-      transparent 20%,
-      transparent 80%,
-      rgba(0,0,0,0.2) 100%
-    ),
-    var(--train-door-bg, #1e1f26);
-  border-top: 1.5px solid rgba(255,255,255,0.09);
-  box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-}
-
-.door-line {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 3px;
-  background: rgba(0,0,0,0.6);
-}
-
-.train-door--left  .door-line { right: 0; }
-.train-door--right .door-line { left: 0; }
-
-.door-window {
-  position: absolute;
-  top: 12%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 42%;
-  height: 22%;
-  border-radius: 3px;
-  background: #080810;
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
-}
-
-/* Door open/close transforms */
-.train-door--left  { transform-origin: left;  }
-.train-door--right { transform-origin: right; }
-
-.train-door--left.door--open  { transform: scaleX(0); }
-.train-door--right.door--open { transform: scaleX(0); }
-
-.train-door {
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ── PROJECT PANEL ───────────────────────────────────────── */
-.project-panel {
+.ui-container {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: stretch;
-  background: #0d0d12;
-  border-top: 2px solid rgba(255,255,255,0.06);
-  overflow: hidden;
-}
-
-.project-panel::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 3px,
-    rgba(255,255,255,0.012) 3px,
-    rgba(255,255,255,0.012) 4px
-  );
+  z-index: var(--z-ui);
   pointer-events: none;
-  z-index: 0;
 }
 
-.project-panel__inner {
-  position: relative;
-  z-index: 1;
-  padding: 20px 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  overflow: hidden;
-}
-
-.pp-eyebrow {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.3);
-  transition: color 0.3s;
-}
-
-.pp-title {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.1;
-  transition: color 0.3s;
-}
-
-.pp-tagline {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
-  color: #FF1F9A;
-  letter-spacing: 0.04em;
-  transition: color 0.3s;
-}
-
-.pp-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.72rem, 1.1vw, 0.85rem);
-  color: rgba(255,255,255,0.65);
-  line-height: 1.6;
-  max-width: 400px;
-}
-
-.pp-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.pp-stack-label {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.25);
-}
-
-.pp-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.pp-tag {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
-  padding: 3px 8px;
-  border-radius: 2px;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.55);
-  background: rgba(255,255,255,0.04);
-  letter-spacing: 0.05em;
-}
-
-.pp-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 4px;
-}
-
-.pp-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 3px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.pp-btn--primary {
-  background: transparent;
-  border: 1px solid #FF1F9A;
-  color: #FF1F9A;
-}
-
-.pp-btn--primary:hover {
-  background: rgba(255,31,154,0.12);
-  box-shadow: 0 0 20px rgba(255,31,154,0.3);
-  transform: translateY(-1px);
-}
-
-.pp-btn--secondary {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.5);
-}
-
-.pp-btn--secondary:hover {
-  border-color: rgba(255,255,255,0.5);
-  color: #fff;
-}
-
-/* ── PER-PROJECT THEMES ──────────────────────────────────── */
-
-/* TaskFlow — dark graphite, corporate */
-.train--theme-taskflow .train-panel {
-  background: linear-gradient(165deg, #2a2b38 0%, #1a1b24 50%, #141520 100%);
-}
-.train--theme-taskflow .train-door {
-  --train-door-bg: #1c1d28;
-}
-.train--theme-taskflow .pp-tagline { color: #3B6FE8; }
-.train--theme-taskflow .pp-btn--primary { border-color: #3B6FE8; color: #3B6FE8; }
-.train--theme-taskflow .pp-btn--primary:hover {
-  background: rgba(59,111,232,0.12);
-  box-shadow: 0 0 20px rgba(59,111,232,0.3);
-}
-.train--theme-taskflow .train-dest { color: #3B6FE8; text-shadow: 0 0 10px rgba(59,111,232,0.7); }
-
-/* Booksteria — warm amber, worn */
-.train--theme-booksteria .train-panel {
-  background: linear-gradient(165deg, #2e1f10 0%, #1e1408 50%, #180f05 100%);
-}
-.train--theme-booksteria .train-door {
-  --train-door-bg: #1a1208;
-}
-.train--theme-booksteria .pp-tagline { color: #F5C842; }
-.train--theme-booksteria .pp-btn--primary { border-color: #F5C842; color: #F5C842; }
-.train--theme-booksteria .pp-btn--primary:hover {
-  background: rgba(245,200,66,0.1);
-  box-shadow: 0 0 20px rgba(245,200,66,0.25);
-}
-.train--theme-booksteria .train-dest { color: #F5C842; text-shadow: 0 0 10px rgba(245,200,66,0.7); }
-
-/* Pixel Jumper — purple neon, CRT */
-.train--theme-pixeljumper .train-panel {
-  background: linear-gradient(165deg, #1a0a2e 0%, #130820 50%, #0d0518 100%);
-}
-.train--theme-pixeljumper .train-door {
-  --train-door-bg: #0f0620;
-}
-.train--theme-pixeljumper .project-panel {
-  background: #080610;
-  image-rendering: pixelated;
-}
-.train--theme-pixeljumper .project-panel::after {
-  content: '';
+.fx-container {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(120,60,255,0.04) 0px,
-    rgba(120,60,255,0.04) 2px,
-    transparent 2px,
-    transparent 4px
-  );
+  z-index: var(--z-atmosphere);
   pointer-events: none;
-  z-index: 0;
-}
-.train--theme-pixeljumper .pp-title { font-family: 'VT323', monospace; font-size: clamp(1.8rem, 3vw, 2.8rem); color: #c084fc; }
-.train--theme-pixeljumper .pp-tagline { color: #a855f7; }
-.train--theme-pixeljumper .pp-btn--primary { border-color: #a855f7; color: #a855f7; }
-.train--theme-pixeljumper .pp-btn--primary:hover {
-  background: rgba(168,85,247,0.12);
-  box-shadow: 0 0 20px rgba(168,85,247,0.35);
-}
-.train--theme-pixeljumper .train-dest { color: #c084fc; text-shadow: 0 0 14px rgba(192,132,252,0.9); font-family: 'VT323', monospace; font-size: 14px; }
-.train--theme-pixeljumper .pp-tag { border-color: rgba(168,85,247,0.3); color: rgba(192,132,252,0.7); }
-
-/* Studie4SU — blue, educational */
-.train--theme-studie .train-panel {
-  background: linear-gradient(165deg, #0a1428 0%, #081020 50%, #050c18 100%);
-}
-.train--theme-studie .train-door {
-  --train-door-bg: #080e20;
-}
-.train--theme-studie .pp-tagline { color: #1A6B6B; }
-.train--theme-studie .pp-btn--primary { border-color: #1A6B6B; color: #1affd8; }
-.train--theme-studie .pp-btn--primary:hover {
-  background: rgba(26,107,107,0.15);
-  box-shadow: 0 0 20px rgba(26,255,216,0.2);
-}
-.train--theme-studie .train-dest { color: #1affd8; text-shadow: 0 0 10px rgba(26,255,216,0.6); }
-
-/* ── PLATFORM FLOOR ──────────────────────────────────────── */
-.platform-floor {
-  position: relative;
-  z-index: 8;
-  flex-shrink: 0;
 }
 
-.platform-edge {
-  height: 6px;
-  background: linear-gradient(90deg,
-    #1a1a1a 0%,
-    #2a2a2a 20%,
-    #222 50%,
-    #2a2a2a 80%,
-    #1a1a1a 100%
-  );
-  border-top: 2px solid rgba(255,255,255,0.12);
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.8);
-}
-
-.platform-surface {
-  height: 48px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255,255,255,0.02) 0px,
-      rgba(255,255,255,0.02) 1px,
-      transparent 1px,
-      transparent 60px
-    ),
-    linear-gradient(180deg, #1a1818 0%, #141212 100%);
-  position: relative;
-}
-
-.platform-line--yellow {
-  position: absolute;
-  top: 10px;
-  left: 5%; right: 5%;
-  height: 3px;
-  background: repeating-linear-gradient(
-    90deg,
-    #d4a500 0px,
-    #d4a500 24px,
-    transparent 24px,
-    transparent 36px
-  );
-  opacity: 0.5;
-}
-
-/* Puddle reflections */
-.platform-puddle {
-  position: absolute;
-  bottom: 6px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255,31,154,0.15) 0%, rgba(74,255,140,0.06) 50%, transparent 80%);
-  filter: blur(2px);
-}
-
-.platform-puddle--1 { left: 22%; width: 80px; height: 18px; }
-.platform-puddle--2 { right: 28%; width: 55px; height: 12px; }
-
-/* ── PROJECT COUNTER ─────────────────────────────────────── */
-.project-counter {
+/* ── DOT NAVIGATION ─────────────────────────────────────── */
+.dot-nav {
   position: fixed;
   right: 24px;
-  bottom: 70px;
-  z-index: 40;
+  bottom: 80px;
+  z-index: var(--z-nav-dots);
   display: flex;
   flex-direction: column;
+  gap: 8px;
   align-items: center;
-  gap: 10px;
 }
 
-.pc-dots {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.pc-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  border: 1px solid rgba(255,255,255,0.1);
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.pc-dot.active {
-  background: #FF1F9A;
-  border-color: #FF1F9A;
-  transform: scale(1.4);
-  box-shadow: 0 0 8px rgba(255,31,154,0.6);
-}
-
-.pc-label {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
-  color: rgba(255,255,255,0.25);
-  letter-spacing: 0.1em;
-}
-
-/* ── MOBILE NAV ──────────────────────────────────────────── */
+/* ── MOBILE ARROW BUTTONS ────────────────────────────────── */
 .mobile-nav {
   position: fixed;
-  bottom: 16px;
+  bottom: 18px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 40;
+  z-index: var(--z-mobile-nav);
   display: none;
-  gap: 12px;
+  gap: 14px;
 }
 
-.mn-btn {
-  width: 44px; height: 44px;
+.mnav-btn {
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(0,0,0,0.6);
-  color: rgba(255,255,255,0.6);
-  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 17px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s;
   backdrop-filter: blur(8px);
 }
 
-.mn-btn:hover {
-  border-color: #FF1F9A;
-  color: #FF1F9A;
+.mnav-btn:hover {
+  border-color: var(--col-pink);
+  color: var(--col-pink);
 }
 
-/* ── PANEL TRANSITION ────────────────────────────────────── */
-.project-panel.pp--fade-out {
-  opacity: 0;
-  transition: opacity 0.2s ease;
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .hud-terminal { width: 190px; }
+  .hud-hint     { width: 130px; }
+  .hud-board    { max-width: 100%; }
 }
 
-.project-panel.pp--fade-in {
-  opacity: 1;
-  transition: opacity 0.3s ease 0.1s;
-}
-
-/* ── SETTLE SHAKE ────────────────────────────────────────── */
-@keyframes train-settle {
-  0%   { transform: translateX(0); }
-  15%  { transform: translateX(-4px); }
-  30%  { transform: translateX(3px); }
-  50%  { transform: translateX(-2px); }
-  70%  { transform: translateX(1px); }
-  100% { transform: translateX(0); }
-}
-
-.train--settling {
-  animation: train-settle 0.4s ease 0.05s;
-}
-
-/* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .terminal-log  { display: none; }
-  .nav-hint      { display: none; }
-  .mobile-nav    { display: flex; }
+  .hud-terminal { display: none; }
+  .hud-hint     { display: none; }
+  .mobile-nav   { display: flex; }
 
-  .arrival-board {
+  .hud {
+    justify-content: center;
+    padding: 60px 12px 0;
+  }
+
+  .hud-board {
     max-width: 100%;
   }
-
-  .station__ceiling {
-    padding: 60px 12px 0;
-    justify-content: center;
-  }
-
-  .train { height: 240px; }
-  .train-body--left, .train-body--right { width: 14%; }
-
-  .project-panel__inner {
-    padding: 12px 16px;
-    gap: 5px;
-  }
-
-  .pp-desc { display: none; }
 }
 
 @media (max-width: 480px) {
-  .train { height: 200px; }
-  .pp-title { font-size: 1.2rem; }
-  .pp-tagline { font-size: 0.7rem; }
-  .pp-tags { gap: 3px; }
-  .pp-tag { font-size: 8px; padding: 2px 5px; }
+  .board-name  { font-size: 18px; }
+  .board-label { min-width: 72px; font-size: 7.5px; }
 }
 
+/* ══════════════════════════════════════════════════════════
+   REDUCED MOTION
+══════════════════════════════════════════════════════════ */
+
 @media (prefers-reduced-motion: reduce) {
-  .train, .train-door { transition-duration: 0.01ms !important; }
-  .neon-strip { animation: none; }
-  .train-light--head { animation: none; }
+  .neon-strip,
+  .tl--cursor {
+    animation: none !important;
+  }
 }

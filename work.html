@@ -13,7 +13,7 @@
 </head>
 <body class="work-page">
 
-  <!-- Navigation -->
+  <!-- ── NAVIGATION ── -->
   <nav class="nav" aria-label="Main navigation">
     <a href="./index.html" class="nav__logo" aria-label="Veroushka Ramjiawan — Home">VR</a>
     <ul class="nav__links" role="list">
@@ -36,183 +36,183 @@
     </ul>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       SUBWAY STATION
-  ═══════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════
+       STATION — full viewport environment
+  ══════════════════════════════════════════════════════════ -->
   <main class="station" id="station" aria-label="Project showcase — subway station">
 
-    <!-- ── CEILING / TOP HUD ── -->
-    <div class="station__ceiling">
+    <!-- ── LAYER 1: SUBWAY WALL (furthest back) ── -->
+    <div class="env-layer env-layer--wall" aria-hidden="true">
+      <img
+        src="./img/assets/backgrounds/subway-wall.webp"
+        alt=""
+        class="env-img"
+        draggable="false"
+      />
+      <!-- Graffiti SVG painted on the wall -->
+      <svg
+        class="graffiti-svg"
+        viewBox="0 0 1400 480"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        <!-- Left column — stacked slogans -->
+        <text x="52"  y="210" class="g-tag g-tag--xl  g-pink">FOCUS</text>
+        <text x="48"  y="278" class="g-tag g-tag--xl  g-pink">BUILD</text>
+        <text x="42"  y="346" class="g-tag g-tag--xl  g-pink">CREATE</text>
 
-      <!-- Terminal log (top-left) -->
-      <div class="terminal-log" aria-live="polite" aria-label="System terminal">
-        <div class="terminal-log__header">VR.EXE ACTIVE</div>
-        <div class="terminal-log__body" id="terminal-body">
-          <div class="tl-line">&gt; INITIALIZING PROJECT FEED...</div>
-          <div class="tl-line">&gt; RETRIEVING DATA...</div>
-          <div class="tl-line tl-line--ok">&gt; CONNECTION ESTABLISHED.</div>
-          <div class="tl-line tl-line--cursor">_</div>
-        </div>
-      </div>
+        <!-- Centre top — faded system tags -->
+        <text x="620" y="72"  class="g-tag g-tag--sm  g-dim">NULL</text>
+        <text x="690" y="58"  class="g-tag g-tag--sm  g-dim">ACCESS</text>
+        <text x="820" y="76"  class="g-tag g-tag--sm  g-dim">404</text>
+        <text x="900" y="60"  class="g-tag g-tag--sm  g-dim">SYSTEM</text>
+        <text x="980" y="78"  class="g-tag g-tag--sm  g-dim">ROOT</text>
 
-      <!-- Arrival board (center) -->
-      <div class="arrival-board" aria-live="polite" aria-label="Train arrival information">
-        <div class="arrival-board__row arrival-board__row--now">
-          <span class="ab-label">NOW ARRIVING</span>
-          <span class="ab-name" id="ab-now">TASKFLOW</span>
-        </div>
-        <div class="arrival-board__divider"></div>
-        <div class="arrival-board__row arrival-board__row--next">
-          <span class="ab-label">NEXT TRAIN</span>
-          <span class="ab-next" id="ab-next">BOOKSTERIA</span>
-          <span class="ab-eta" id="ab-eta">ETA: 00:05</span>
-        </div>
-      </div>
+        <!-- Large outline signature across mid-wall -->
+        <text x="195" y="400" class="g-tag g-tag--xxl g-outline">VEROUSHKA</text>
 
-      <!-- Nav hint (top-right) -->
-      <div class="nav-hint" aria-label="Navigation controls">
-        <div class="nh-row">
-          <span class="nh-key">↑↓</span>
-          <span class="nh-desc">NAVIGATE<br><span class="nh-sub">NEXT TRAIN</span></span>
-        </div>
-        <div class="nh-row">
-          <span class="nh-key">↵</span>
-          <span class="nh-desc">SELECT<br><span class="nh-sub">OPEN GITHUB</span></span>
-        </div>
-      </div>
+        <!-- Right cluster -->
+        <text x="870" y="390" class="g-tag g-tag--lg  g-orange">
+          404<tspan class="g-tag--sm"> NOT FOUND</tspan>
+        </text>
+        <text x="1050" y="380" class="g-tag g-tag--md  g-green-bright">
+          SYSTEM<tspan x="1050" dy="38">ONLINE</tspan>
+        </text>
 
-    </div><!-- /.station__ceiling -->
+        <!-- Top-right VR tag -->
+        <text x="1250" y="280" class="g-tag g-tag--xxl g-green">VR</text>
 
-    <!-- ── PLATFORM WALL (behind train) ── -->
-    <div class="platform-wall" aria-hidden="true">
-      <!-- Graffiti SVG layer -->
-      <svg class="graffiti-layer" viewBox="0 0 1400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <!-- Left graffiti block -->
-        <text x="42" y="200" class="graffiti-tag graffiti-tag--lg graffiti-tag--pink">FOCUS</text>
-        <text x="38" y="258" class="graffiti-tag graffiti-tag--lg graffiti-tag--pink">BUILD</text>
-        <text x="32" y="316" class="graffiti-tag graffiti-tag--lg graffiti-tag--pink">CREATE</text>
-        <!-- VR tag -->
-        <text x="1220" y="240" class="graffiti-tag graffiti-tag--xl graffiti-tag--green">VR</text>
-        <!-- Small hidden tags -->
-        <text x="820" y="70" class="graffiti-tag graffiti-tag--sm graffiti-tag--dim">404</text>
-        <text x="900" y="55" class="graffiti-tag graffiti-tag--sm graffiti-tag--dim">SYSTEM</text>
-        <text x="980" y="72" class="graffiti-tag graffiti-tag--sm graffiti-tag--dim">ROOT</text>
-        <!-- Bottom strip graffiti -->
-        <text x="200" y="310" class="graffiti-tag graffiti-tag--xxl graffiti-tag--outline">VEROUSHKA</text>
-        <text x="870" y="305" class="graffiti-tag graffiti-tag--lg graffiti-tag--orange">404<tspan dy="0" class="graffiti-tag--sm"> NOT FOUND</tspan></text>
-        <text x="1050" y="300" class="graffiti-tag graffiti-tag--md graffiti-tag--green-bright">SYSTEM<tspan x="1050" dy="30">ONLINE</tspan></text>
-        <!-- Stencil tags -->
-        <text x="650" y="82" class="graffiti-tag graffiti-tag--sm graffiti-tag--teal">NULL</text>
-        <text x="700" y="68" class="graffiti-tag graffiti-tag--sm graffiti-tag--teal">ACCESS</text>
-        <!-- Pipe / structure lines -->
-        <line x1="0" y1="90" x2="180" y2="90" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
-        <line x1="1220" y1="90" x2="1400" y2="90" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
-        <rect x="155" y="72" width="28" height="36" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" rx="2"/>
-        <rect x="1210" y="72" width="28" height="36" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" rx="2"/>
+        <!-- Pipe / bracket structure lines -->
+        <line x1="0"    y1="100" x2="185"  y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
+        <line x1="1215" y1="100" x2="1400" y2="100" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
+        <rect x="158" y="82" width="30" height="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" rx="2"/>
+        <rect x="1210" y="82" width="30" height="38" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" rx="2"/>
       </svg>
 
-      <!-- Neon strip lights -->
-      <div class="neon-strip neon-strip--left"></div>
-      <div class="neon-strip neon-strip--right"></div>
+      <!-- Neon strip lights bolted to the wall -->
+      <div class="neon-strip neon-strip--left"  aria-hidden="true"></div>
+      <div class="neon-strip neon-strip--right" aria-hidden="true"></div>
 
-      <!-- Drip marks -->
-      <div class="drip-marks" aria-hidden="true">
-        <div class="drip" style="left:8%;height:38px;background:#FF1F9A;opacity:0.18;width:2px;top:60%"></div>
-        <div class="drip" style="left:9.5%;height:22px;background:#FF1F9A;opacity:0.12;width:1.5px;top:72%"></div>
-        <div class="drip" style="left:88%;height:30px;background:#4aff8c;opacity:0.14;width:2px;top:55%"></div>
-      </div>
-    </div><!-- /.platform-wall -->
+      <!-- Paint drips -->
+      <div class="drip" style="left:8.2%; height:44px; background:#FF1F9A; top:62%"></div>
+      <div class="drip" style="left:9.8%; height:26px; background:#FF1F9A; top:74%; opacity:0.1"></div>
+      <div class="drip" style="left:88%;  height:32px; background:#4aff8c; top:56%; opacity:0.12"></div>
+    </div>
 
-    <!-- ── TRAIN VIEWPORT ── -->
-    <div class="train-viewport" id="train-viewport" aria-label="Train display">
+    <!-- ── LAYER 2: PLATFORM ── -->
+    <div class="env-layer env-layer--platform" aria-hidden="true">
+      <img
+        src="./img/assets/backgrounds/platform.webp"
+        alt=""
+        class="env-img"
+        draggable="false"
+      />
+    </div>
 
-      <div class="train" id="train" role="region" aria-label="Current project train">
+    <!-- ── LAYER 3: TRACKS ── -->
+    <div class="env-layer env-layer--tracks" aria-hidden="true">
+      <img
+        src="./img/assets/backgrounds/tracks.webp"
+        alt=""
+        class="env-img"
+        draggable="false"
+      />
+    </div>
 
-        <!-- Train body left section -->
-        <div class="train-body train-body--left" aria-hidden="true">
-          <div class="train-panel">
-            <div class="train-rivet train-rivet--tl"></div>
-            <div class="train-rivet train-rivet--bl"></div>
-            <div class="train-window train-window--dark"></div>
-            <div class="train-graffiti" id="train-graffiti-left"></div>
-          </div>
-          <div class="train-light train-light--head" id="train-headlight"></div>
-          <div class="train-number" id="train-number">001</div>
-        </div>
+    <!-- ── LAYER 4: FOREGROUND (closest — vignette / frame) ── -->
+    <div class="env-layer env-layer--foreground" aria-hidden="true">
+      <img
+        src="./img/assets/backgrounds/foreground.webp"
+        alt=""
+        class="env-img"
+        draggable="false"
+      />
+      <!-- CSS foreground vignette on top of the image -->
+      <div class="foreground-vignette"></div>
+    </div>
 
-        <!-- Train doors + project display -->
-        <div class="train-center" aria-label="Train doors — project display">
-          <div class="train-door train-door--left" id="door-left" aria-hidden="true">
-            <div class="door-line"></div>
-            <div class="door-window"></div>
-          </div>
+    <!-- ── AMBIENT ATMOSPHERE (CSS-only overlays, no asset) ── -->
+    <div class="env-atmosphere" aria-hidden="true">
+      <!-- Overhead light cone casting down from ceiling -->
+      <div class="light-cone light-cone--left"></div>
+      <div class="light-cone light-cone--right"></div>
+      <!-- Dust / grain texture overlay -->
+      <div class="grain-overlay"></div>
+    </div>
 
-          <!-- Project panel inside doors -->
-          <div class="project-panel" id="project-panel" aria-live="polite">
-            <div class="project-panel__inner">
-
-              <div class="pp-eyebrow" id="pp-eyebrow">PROJECT_001</div>
-              <h2 class="pp-title" id="pp-title">TaskFlow</h2>
-              <p class="pp-tagline" id="pp-tagline">Plan. Track. Deliver.</p>
-              <p class="pp-desc" id="pp-desc">
-                A professional Scrum-based project management platform. Built for teams who want clarity, speed, and structure.
-              </p>
-
-              <div class="pp-stack">
-                <span class="pp-stack-label">TECH STACK</span>
-                <div class="pp-tags" id="pp-tags"></div>
-              </div>
-
-              <div class="pp-actions">
-                <a href="#" class="pp-btn pp-btn--primary" id="pp-github" target="_blank" rel="noopener">
-                  <span>&gt; VIEW SOURCE</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                </a>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="train-door train-door--right" id="door-right" aria-hidden="true">
-            <div class="door-line"></div>
-            <div class="door-window"></div>
-          </div>
-        </div>
-
-        <!-- Train body right section -->
-        <div class="train-body train-body--right" aria-hidden="true">
-          <div class="train-panel">
-            <div class="train-rivet train-rivet--tr"></div>
-            <div class="train-rivet train-rivet--br"></div>
-            <div class="train-window train-window--dark"></div>
-            <div class="train-graffiti" id="train-graffiti-right"></div>
-          </div>
-          <div class="train-dest" id="train-dest">TASKFLOW</div>
-        </div>
-
-      </div><!-- /.train -->
-    </div><!-- /.train-viewport -->
-
-    <!-- ── PLATFORM FLOOR ── -->
+    <!-- ── PLATFORM EDGE + FLOOR (sits above track layer) ── -->
     <div class="platform-floor" aria-hidden="true">
       <div class="platform-edge"></div>
       <div class="platform-surface">
-        <div class="platform-line platform-line--yellow"></div>
-        <div class="platform-puddle platform-puddle--1"></div>
-        <div class="platform-puddle platform-puddle--2"></div>
+        <!-- Dashed safety line -->
+        <div class="safety-line"></div>
+        <!-- Puddle reflections -->
+        <div class="puddle puddle--1"></div>
+        <div class="puddle puddle--2"></div>
+        <div class="puddle puddle--3"></div>
       </div>
     </div>
 
-    <!-- ── PROJECT COUNTER ── -->
-    <div class="project-counter" aria-label="Project navigation">
-      <div class="pc-dots" id="pc-dots" role="tablist" aria-label="Select project"></div>
-      <div class="pc-label"><span id="pc-current">1</span> / <span id="pc-total">4</span></div>
-    </div>
+    <!-- ── HUD OVERLAY ── -->
+    <div class="hud" aria-label="Station HUD">
 
-    <!-- ── MOBILE NAV ARROWS ── -->
-    <div class="mobile-nav" aria-label="Project navigation controls">
-      <button class="mn-btn" id="mn-prev" aria-label="Previous project">↑</button>
-      <button class="mn-btn" id="mn-next" aria-label="Next project">↓</button>
+      <!-- Terminal log — top left -->
+      <aside class="hud-terminal" aria-live="polite" aria-label="System terminal">
+        <div class="hud-terminal__bar">VR.EXE ACTIVE</div>
+        <div class="hud-terminal__body">
+          <p class="tl">&gt; SCANNING PLATFORM...</p>
+          <p class="tl">&gt; LOADING PROJECT DATABASE...</p>
+          <p class="tl tl--ok">&gt; SYSTEM READY.</p>
+          <p class="tl tl--ok">&gt; AWAITING ARRIVAL...</p>
+          <p class="tl tl--cursor">_</p>
+        </div>
+      </aside>
+
+      <!-- Arrival board — top centre -->
+      <div class="hud-board" aria-live="polite" aria-label="Train arrival information">
+        <div class="hud-board__row hud-board__row--now">
+          <span class="board-label">NOW ARRIVING</span>
+          <span class="board-name" id="ab-now">——</span>
+        </div>
+        <div class="hud-board__divider"></div>
+        <div class="hud-board__row hud-board__row--next">
+          <span class="board-label">NEXT TRAIN</span>
+          <span class="board-next" id="ab-next">——</span>
+          <span class="board-eta"  id="ab-eta">ETA: —:——</span>
+        </div>
+      </div>
+
+      <!-- Keyboard hint — top right -->
+      <div class="hud-hint" aria-label="Navigation controls">
+        <div class="hint-row">
+          <kbd class="hint-key">↑↓</kbd>
+          <span class="hint-desc">NAVIGATE<br><span class="hint-sub">NEXT TRAIN</span></span>
+        </div>
+        <div class="hint-row">
+          <kbd class="hint-key">↵</kbd>
+          <span class="hint-desc">SELECT<br><span class="hint-sub">OPEN GITHUB</span></span>
+        </div>
+      </div>
+
+    </div><!-- /.hud -->
+
+    <!-- ── EMPTY CONTAINERS for Milestones 2–4 ── -->
+    <!-- Train will be assembled here in Milestone 2 -->
+    <div class="train-container" id="train-container" aria-label="Train display area"></div>
+
+    <!-- Project UI will be injected here in Milestone 3 -->
+    <div class="ui-container"    id="ui-container"    aria-hidden="true"></div>
+
+    <!-- Post-processing / particle effects go here in Milestone 4 -->
+    <div class="fx-container"    id="fx-container"    aria-hidden="true"></div>
+
+    <!-- Dot navigation (right edge) — wired up in Milestone 4 -->
+    <nav class="dot-nav" id="dot-nav" aria-label="Project navigation" aria-hidden="true"></nav>
+
+    <!-- Mobile nav arrows — wired in Milestone 4 -->
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <button class="mnav-btn" id="mn-prev" aria-label="Previous project" disabled>↑</button>
+      <button class="mnav-btn" id="mn-next" aria-label="Next project"     disabled>↓</button>
     </div>
 
   </main><!-- /.station -->
