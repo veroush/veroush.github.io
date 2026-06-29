@@ -1,6 +1,12 @@
 /* ============================================================
    main.css
    ============================================================ */
+@font-face {
+  font-family: 'ModularAmplitude';
+  src: url('/fonts/ModularAmplitude-mR6a.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,6 +23,197 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: none; }
 ul, ol { list-style: none; }
+
+
+/* ============================================================
+   ICON SIZE CONTROLS
+   ============================================================ */
+
+:root {
+  --icon-home-w:    40px;
+  --icon-home-h:    40px;
+
+  --icon-about-w:   65px;
+  --icon-about-h:   65px;
+
+  --icon-work-w:    50px;
+  --icon-work-h:    40px;
+
+  --icon-contact-w: 60px;
+  --icon-contact-h: 60px;
+}
+
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #fff;
+  padding: 0 2.5rem;
+  height: 64px;
+
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* Logo — ModularAmplitude */
+.nav__logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #111;
+  flex-shrink: 0;
+  font-family: 'ModularAmplitude', sans-serif;
+}
+
+/* Section headings — ModularAmplitude, but NOT h1 (.hero__name) */
+h2, h3 {
+  font-family: 'ModularAmplitude', sans-serif;
+}
+
+/* Link list — evenly spaced across the nav */
+.nav__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex: 1;
+  margin: 0;
+}
+
+/* Individual link — icon always on the left via row direction */
+.nav__link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.45rem;
+
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  font-family: 'ModularAmplitude', sans-serif;
+
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav__link:hover {
+  background: none;
+  color: #111;
+}
+
+.nav__link.active {
+  background: #f0f0f0;
+  color: #111;
+}
+
+/* Icons — sized via CSS custom properties */
+.nav__icon {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.nav__icon--home    { width: var(--icon-home-w);    height: var(--icon-home-h);    }
+.nav__icon--about   { width: var(--icon-about-w);   height: var(--icon-about-h);   }
+.nav__icon--work    { width: var(--icon-work-w);    height: var(--icon-work-h);    }
+.nav__icon--contact { width: var(--icon-contact-w); height: var(--icon-contact-h); }
+
+
+/* ============================================================
+   HAMBURGER (mobile only)
+   ============================================================ */
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.nav__burger span {
+  display: block;
+  height: 2px;
+  background: #111;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav__burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav__burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.nav__burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ============================================================
+   RESPONSIVE NAV
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 0 1.25rem;
+  }
+
+  .nav__burger {
+    display: flex;
+  }
+
+  .nav__links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    flex: unset;
+
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+
+    background: #fff;
+    border-top: 1px solid #eee;
+    padding: 0.5rem 1rem 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav__links.open {
+    display: flex;
+  }
+
+  .nav__link {
+    padding: 0.75rem 0.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+  }
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
 
 .hero {
   position: relative;
@@ -52,8 +249,10 @@ ul, ol { list-style: none; }
   padding: 0 1rem;
 }
 
+/* Hero name stays plain sans-serif — NOT ModularAmplitude */
 .hero__name {
   font-size: clamp(2.5rem, 8vw, 6rem);
+  font-family: sans-serif;
   color: white;
   margin-bottom: 1rem;
 }
