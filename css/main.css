@@ -8,6 +8,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'HalfTermSchoolsOut';
+  src: url('/fonts/HalfTermSchoolsOut-V4q5l.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -261,4 +268,135 @@ h2, h3 {
   font-size: clamp(1rem, 2.5vw, 1.4rem);
   color: rgba(255, 255, 255, 0.8);
   letter-spacing: 0.15em;
+}
+
+/* ============================================================
+   ABOUT STRIP (homepage — white section after hero)
+   ============================================================ */
+
+.about-strip {
+  position: relative;
+  background: #fff;
+  padding: 5rem 3rem 5rem 2rem;
+  overflow: hidden;
+  min-height: 2000px;  /* increase this until nothing gets cut off */
+}
+
+/* Notebook — absolutely positioned, big, pushed to the left */
+.about-strip__notebook {
+  position: absolute;
+  top: 17%;
+  transform: translateY(-30%);
+  width: 90%;
+  left: -2%;
+}
+
+.about-strip__notebook img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Photo taped to the notebook */
+.about-strip__photo-wrap {
+  position: absolute;
+  top: 20%;        /* up/down on the notebook */
+  left: 60%;       /* left/right — 55% pushes it to the right page */
+  width: 23%;      /* size of the photo */
+  transform: rotate(-2deg);  /* adjust degrees to taste */
+
+}
+
+.about-strip__photo {
+  width: 100%;
+  height: 100px;     
+  display: block;
+  object-fit: cover;  /* crops cleanly instead of stretching */
+}
+
+/* Tape pieces */
+.about-strip__tape {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  z-index: 2;
+}
+
+.about-strip__tape--1 {
+  top: -25%;
+  left: 42%;
+}
+
+.about-strip__tape--2 {
+  top: 75%;
+  right: 40%;
+}
+
+/* Right column — floated on the right side */
+.about-strip__right {
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Origami heart */
+.about-strip__heart {
+  width: clamp(80px, 12vw, 160px);
+  height: auto;
+  display: block;
+}
+
+/* Sticky note wrapper */
+.about-strip__sticky-wrap {
+  position: absolute;  /* now fully independent */
+  width: 600px;        /* size */
+  top: -1rem;          /* up/down from the top of .about-strip__right */
+  left: -55rem;         /* left/right — negative goes toward the notebook */
+}
+
+.about-strip__sticky-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-strip__sticky-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18% 12% 12%;
+  font-family: 'HalfTermSchoolsOut';
+  font-size: 1.6rem;        /* bigger — try 1.4rem, 1.6rem etc */
+  line-height: 1.65;
+  color: #333;
+  text-align: center;
+  transform: rotate(3deg); /* match your sticky note angle — adjust degrees */
+}
+
+/* Mobile — stack vertically */
+@media (max-width: 768px) {
+  .about-strip {
+    padding: 3rem 1.5rem;
+  }
+
+  .about-strip__notebook {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: none;
+    width: 90%;
+    margin: 0 auto 2rem;
+  }
+
+  .about-strip__right {
+    width: 100%;
+    margin-left: 0;
+  }
 }
