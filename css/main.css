@@ -435,7 +435,7 @@ h2, h3 {
   align-items: flex-start;
   gap: 2rem;
   flex-wrap: wrap;
-  padding: 7rem 2rem 4rem; 
+  padding: 5rem 2rem 4rem;
   background: linear-gradient(180deg, #f5ede0 0%, #ece2d0 100%);
   min-height: 700px;       /* tune this — smallest value that doesn't clip the notes */
   overflow: hidden;
@@ -772,15 +772,34 @@ h2, h3 {
   transform: scale(1.1);
 }
 
+.roles-list__heading {
+  position: absolute;
+  font-family: 'RightRound', sans-serif;
+  color: purple;
+  font-size: 1.8rem;
+  top: 548px;      /* same coordinate space as .roles-list — adjust to sit above it */
+  left: -780px;
+  z-index: 8;
+  margin: 0;
+}
+
 .roles-list {
   position: absolute;
   font-family: 'RightRound', sans-serif;
   color: purple;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   list-style: none;
   padding: 0;
-  margin: 0;
-  top: -4px;       /* positive now — places it inside the section, below the top edge */
-  left: 100px;
-  z-index: 8;
+  margin: 0 0 2rem;  
+  top: 598px;       /* positive now — places it inside the section, below the top edge */
+  left: -780px;
+  z-index: 1;
+}
+
+.roles-list li {
+  margin-bottom: 0.5rem;
+}
+
+.roles-list li:last-child {
+  margin-bottom: 0;
 }
