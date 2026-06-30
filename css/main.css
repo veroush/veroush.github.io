@@ -279,13 +279,13 @@ h2, h3 {
   background: #fff;
   padding: 5rem 3rem 5rem 2rem;
   overflow: hidden;
-  min-height: 2000px;  /* increase this until nothing gets cut off */
+  min-height: 950px;  /* increase this until nothing gets cut off */
 }
 
 /* Notebook — absolutely positioned, big, pushed to the left */
 .about-strip__notebook {
   position: absolute;
-  top: 17%;
+  top: 300px; 
   transform: translateY(-30%);
   width: 90%;
   left: -2%;
@@ -399,4 +399,120 @@ h2, h3 {
     width: 100%;
     margin-left: 0;
   }
+}
+
+.experience-projects {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 4rem 2rem;
+    background: white;
+}
+
+.experience-projects__note {
+  position: relative;
+  width: 320px;
+  z-index: 1;
+}
+
+.experience-projects__note-bg {
+  width: 100%;
+  display: block;
+}
+
+.experience-projects__note-text {
+  position: absolute;
+  inset: 0;
+  padding: 2rem 1.5rem;
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+}
+
+.experience-projects__note-text h3 {
+  font-family: 'HalfTermSchoolsOut';
+  margin-bottom: 0.5rem;
+}
+
+.experience-projects__note-text p {
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.experience-projects__note-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.experience-projects__note-text li {
+  margin-bottom: 0.5rem;
+}
+
+.experience-projects__joke {
+  text-decoration: line-through;
+  color: black;
+}
+
+.experience-projects__note--work {
+  width: 1000px;
+  position: relative;
+  top: -40px;
+  left: -230px;
+}
+
+.experience-projects__note--projects {
+  width: 1000px;
+  position: relative;
+  top: -710px;
+  left: 320px;
+}
+
+.experience-projects__note--work .experience-projects__note-text {
+  position: absolute;
+  top: 120px;      /* smaller number = higher up */
+  left: 330px;
+  color: black;
+}
+
+.experience-projects__note--projects .experience-projects__note-text {
+  position: absolute;
+  top: 150px;      /* bigger number = lower down, relative to its own note */
+  left: 300px;
+  color: black;
+}
+
+.experience-projects__note--work .experience-projects__note-text p {
+  margin-bottom: 2rem;   /* increase this number for more space */
+  font-size: 1.6rem; 
+}
+
+.experience-projects__note--projects .experience-projects__note-text li {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem; 
+}
+
+.experience-projects__note--work .experience-projects__note-text h3 {
+  position: relative;
+  top: -30px;          /* negative = moves it up, independent of the p tags below */
+  left: 0;
+  font-size: 2rem;  /* bigger than the p/li text */
+  text-decoration: underline;
+}
+
+.experience-projects__note--projects .experience-projects__note-text h3 {
+  position: relative;
+  top: -20px;          /* negative = up, positive = down — independent of work header */
+  left: 0;
+  font-size: 2rem;   /* independent size from work header and from the li text below */
+  text-decoration: underline;
+}
+
+.experience-projects__arrow {
+  position: absolute;
+  top: -80px;
+  left: 100px;          /* LEFT/RIGHT: bigger number = further right, negative = further left */
+  width: 500px;     /* BIGGER/SMALLER: increase this number to make it bigger */
+  z-index: 0;
 }
