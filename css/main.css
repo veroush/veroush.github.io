@@ -224,7 +224,7 @@ h2, h3 {
 
 .hero {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -238,7 +238,7 @@ h2, h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
   z-index: 0;
 }
 
@@ -403,13 +403,15 @@ h2, h3 {
 
 .experience-projects {
   position: relative;
-  display: flex;
+  display: flex;          /* can stay, won't matter much once children are absolute */
   justify-content: center;
   align-items: flex-start;
   gap: 2rem;
   flex-wrap: wrap;
   padding: 4rem 2rem;
-    background: white;
+  background: white;
+  min-height: 700px;       /* tune this — smallest value that doesn't clip the notes */
+  /*overflow: hidden;*/
 }
 
 .experience-projects__note {
@@ -456,17 +458,17 @@ h2, h3 {
 }
 
 .experience-projects__note--work {
+  position: absolute;      /* was relative */
   width: 1000px;
-  position: relative;
-  top: -40px;
-  left: -230px;
+  top: 40px;                
+  left: 10px;
 }
 
 .experience-projects__note--projects {
+  position: absolute;      /* was relative */
   width: 1000px;
-  position: relative;
-  top: -710px;
-  left: 320px;
+  top: 80px;                
+  left: 580px;
 }
 
 .experience-projects__note--work .experience-projects__note-text {
@@ -515,4 +517,127 @@ h2, h3 {
   left: 100px;          /* LEFT/RIGHT: bigger number = further right, negative = further left */
   width: 500px;     /* BIGGER/SMALLER: increase this number to make it bigger */
   z-index: 0;
+}
+
+/* ============================================================
+   SKILLS SECTION
+   ============================================================ */
+
+.skills {
+  position: relative;
+  background: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+/* "My Skills" header with highlighter + flanking icons */
+.skills__title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 4rem;
+  color: #111;
+}
+
+.skills__title-icon {
+  width: 50px;        /* size of skills-icon.png on each side */
+  height: 50px;
+  object-fit: contain;
+}
+
+.skills__title-text {
+  position: relative;
+  display: inline-block;
+  z-index: 0;  
+}
+
+/* Highlighter sits behind the text, slightly larger, offset down */
+.skills__highlighter {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: 110%;        /* how far highlighter extends past the text */
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Console / laptop frame */
+.skills__console {
+  position: relative;
+  max-width: 1000px;   /* overall console size */
+  margin: 0 auto;
+}
+
+.skills__console-bg {
+  width: 100%;
+  display: block;
+}
+
+/* The "screen" area — position this to sit inside the laptop image */
+.skills__screen {
+  position: absolute;
+  top: 12%;     /* tune these 4 to fit inside your console.png's screen */
+  left: 10%;
+  width: 80%;
+  height: 65%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.skills__cluster {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skills__cluster h3 {
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.3rem;
+  color: #111;
+  margin-bottom: 1rem;
+}
+
+.skills__icon {
+  position: relative;   /* lets top/left nudge each icon independently */
+  width: 45px;           /* default size — each icon below can override */
+  height: 45px;
+  object-fit: contain;
+}
+
+/* Languages */
+.skills__icon--html   { top: 0px; left: 0px; width: 45px; height: 45px; }
+.skills__icon--css    { top: 0px; left: 0px; width: 45px; height: 45px; }
+.skills__icon--java   { top: 0px; left: 0px; width: 45px; height: 45px; }
+
+/* Frameworks & Libraries */
+.skills__icon--nodejs { top: 0px; left: 0px; width: 45px; height: 45px; }
+.skills__icon--react  { top: 0px; left: 0px; width: 45px; height: 45px; }
+
+/* Databases & ORMs */
+.skills__icon--postgresql { top: 0px; left: 0px; width: 45px; height: 45px; }
+.skills__icon--mysql      { top: 0px; left: 0px; width: 45px; height: 45px; }
+.skills__icon--prisma     { top: 0px; left: 0px; width: 45px; height: 45px; }
+
+/* Mobile — stack clusters vertically */
+@media (max-width: 768px) {
+  .skills__screen {
+    position: relative;
+    top: unset;
+    left: unset;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
 }
