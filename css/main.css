@@ -56,7 +56,7 @@ ul, ol { list-style: none; }
    ============================================================ */
 
 .nav {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
@@ -66,7 +66,9 @@ ul, ol { list-style: none; }
 
 .nav__bg {
   width: 100%;
-  height: auto;
+  max-height: 300px; 
+  object-fit: cover;
+  object-position: center bottom;
   display: block;
 }
 
@@ -74,9 +76,9 @@ ul, ol { list-style: none; }
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 0 2.5rem;
+  padding: 1.5rem 2.5rem 0;
 }
 
 /* Logo — ModularAmplitude */
@@ -101,7 +103,7 @@ h2, h3 {
   justify-content: center;
   gap: 2rem;
   flex: 1;
-  margin: 0;
+  margin: -30px 0 0;
 }
 
 /* Individual link — icon always on the left via row direction */
@@ -128,8 +130,9 @@ h2, h3 {
 }
 
 .nav__link.active {
-  background: #f0f0f0;
+  background: none;
   color: #111;
+  font-weight: 700;
 }
 
 /* Icons — sized via CSS custom properties */
@@ -159,6 +162,7 @@ h2, h3 {
   padding: 4px;
   border-radius: 6px;
   cursor: pointer;
+  margin-top: -10px;
 }
 
 .nav__burger span {
