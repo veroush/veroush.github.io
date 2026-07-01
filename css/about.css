@@ -1,7 +1,16 @@
 .about-intro {
-  min-height: 150vh; /* or whatever height you want this section to be */
-  background-image: url('../img/aboutpage/background2.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  min-height: 100vh;
+  background-color: #ffffff; /* white background for the section */
+  overflow: hidden; 
+}
+
+.about-intro__bg {
+  display: block;
+  position: absolute;
+  top: 120px;        /* nudge this to move the image down/up */
+  left: 350px;       /* nudge this to move the image left/right */
+  width: 820px;   /* set an explicit width — % of section, or a fixed px value */
+  height: 500px;  
+  z-index: 0;
 }
