@@ -21,14 +21,14 @@
   position: absolute;
   top: 490px;      /* moves ONLY the header image up/down */
   left: 400px;    /* moves ONLY the header image left/right */
-  width: 760px;
+  width: 700px;
   height: auto;
   z-index: 1;
 }
 
 .about-intro__title {
   position: absolute;
-  top: 560px;      /* moves ONLY the "About me" text up/down */
+  top: 550px;      /* moves ONLY the "About me" text up/down */
   left: 660px;    /* moves ONLY the "About me" text left/right */
   z-index: 2;
   font-family: 'ShinyPaint', sans-serif;
