@@ -321,3 +321,46 @@
   max-width: 500px;
 }
 
+/* ===== Hobbies Section ===== */
+
+.about-school__row--hobbies {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: -150px;   /* more negative = moves further up */
+}
+
+.about-school__hobbies-title {
+  font-family: 'ShinyPaint', sans-serif;
+  font-size: 3rem;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.about-school__hobbies-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: 80px; 
+}
+
+.about-school__hobby-img {
+  width: 150px;      /* size — same for all, adjust globally here */
+  height: auto;
+}
+
+/* individual rotation per image, so it looks scattered instead of a grid */
+.about-school__hobby-img--music        { position: relative; top: 0px; left: 0px; width: 100px; transform: rotate(-6deg); }
+.about-school__hobby-img--80s          { position: relative; top: 0px; left: 0px; width: 100px; transform: rotate(4deg); }
+.about-school__hobby-img--books        { position: relative; top: 80px; left: 0px; width: 100px; transform: rotate(-3deg); }
+.about-school__hobby-img--burgerking   { position: relative; top: 0px; left: 0px; width: 80px; transform: rotate(7deg); }
+.about-school__hobby-img--coding       { position: relative; top: 80px; left: 0px; width: 100px; transform: rotate(-8deg); }
+.about-school__hobby-img--daydreaming  { position: relative; top: 80px; left: 0px; width: 100px; transform: rotate(2deg); }
+.about-school__hobby-img--fantasy      { position: relative; top: 80px; left: 0px; width: 100px; transform: rotate(1deg); }
+.about-school__hobby-img--movies       { position: relative; top: 80px; left: 0px; width: 100px; transform: rotate(6deg); }
+.about-school__hobby-img--swimming     { position: relative; top: 0px; left: 0px; width: 90px; transform: rotate(-2deg); }
+.about-school__hobby-img--volunteering { position: relative; top: 0px; left: 0px; width: 100px; transform: rotate(5deg); }
+.about-school__hobby-img--writing      { position: relative; top: 80px; left: 0px; width: 100px; transform: rotate(-4deg); }
+
