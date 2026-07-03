@@ -273,7 +273,7 @@
 
 .about-school__image--newspaper {
   position: absolute;
-  top: 0px;
+  top: -250px;
   left: 0px;
   width: 380px;
   z-index: 1;
@@ -281,36 +281,43 @@
 
 .about-school__image--nanaaisa {
   position: absolute;
-  top: 350px;
-  left: 40px;
-  width: 300px;
+  top: 0px;
+  left: -20px;
+  width: 200px;
   z-index: 2;
+  transform: rotate(-8deg);  /* negative = counter-clockwise, positive = clockwise */
 }
 
 .about-school__text--writing {
   position: relative;
-  top: 0px;
-  left: 0px;
+  top: -250px;
+  left: 30px;
 }
 
 .about-school__arrow--5 {
   position: relative;
-  top: 0px;
-  left: 0px;
+  top: -270px;      /* ↑ negative = up, positive = down */
+  left: 0px;     /* ↔ negative = left, positive = right */
+  width: 400px;  /* size — increase to make bigger, decrease to make smaller */
+  z-index: 2;
+  transform: rotate(15deg);  /* negative = counter-clockwise, positive = clockwise */
 }
 
 .about-school__arrow--6 {
   position: relative;
-  top: 0px;      /* negative = up, positive = down */
-  left: 0px;     /* positive = right, negative = left */
+  top: -80px;
+  left: 100px;
+  width: 150px;
 }
 
 .about-school__text--book {
-  flex: 1;
+  flex: none;
   font-family: 'HalfTermSchoolsOut', sans-serif;
   font-size: 1.4rem;
   line-height: 1.6;
   position: relative;
-  top: 0px;
-  left: 0px;
+  top: -170px;
+  left: 380px;
+  max-width: 500px;
 }
+
