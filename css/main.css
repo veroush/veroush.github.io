@@ -305,10 +305,10 @@ h2, h3 {
 
 .about-strip {
   position: relative;
-  background: linear-gradient(180deg, #3e6881 0%, #d8c9b3 35%, #f5ede1 100%);
+  background: linear-gradient(180deg, #3e6881 0%, #ffffff 25%);
   padding: 5rem 3rem 5rem 2rem;
   overflow: hidden;
-  min-height: 950px;  /* increase this until nothing gets cut off */
+  min-height: 800px;  /* increase this until nothing gets cut off */
 }
 
 /* Notebook — absolutely positioned, big, pushed to the left */
@@ -317,11 +317,11 @@ h2, h3 {
   top: 300px; 
   transform: translateY(-30%);
   width: 90%;
-  left: -2%;
+  left: 2%;
 }
 
 .about-strip__notebook img {
-  width: 100%;
+  width: 70%;
   height: auto;
   display: block;
 }
@@ -330,10 +330,8 @@ h2, h3 {
 .about-strip__photo-wrap {
   position: absolute;
   top: 20%;        /* up/down on the notebook */
-  left: 60%;       /* left/right — 55% pushes it to the right page */
-  width: 23%;      /* size of the photo */
-  transform: rotate(-2deg);  /* adjust degrees to taste */
-
+  left: 42%;       /* left/right — 55% pushes it to the right page */
+  width: 20%;      /* size of the photo */
 }
 
 .about-strip__photo {
@@ -341,6 +339,7 @@ h2, h3 {
   height: 100px;     
   display: block;
   object-fit: cover;  /* crops cleanly instead of stretching */
+  border: 3px solid #000;
 }
 
 /* Tape pieces */
@@ -353,12 +352,12 @@ h2, h3 {
 
 .about-strip__tape--1 {
   top: -25%;
-  left: 42%;
+  left: 28%;
 }
 
 .about-strip__tape--2 {
   top: 75%;
-  right: 40%;
+  right: 57%;
 }
 
 /* Right column — floated on the right side */
@@ -380,12 +379,28 @@ h2, h3 {
   display: block;
 }
 
+.about-strip__intro-text {
+  position: absolute;
+  width: 260px;
+  top: 205px;        /* up/down — adjust to sit above the sticky note */
+  left: -770px;       /* left/right — start it matching the sticky note's left value */
+  font-family: 'HalfTermSchoolsOut';
+  font-size: 1.4rem;
+  color: #333;
+  text-align: center;
+}
+
+.about-strip__intro-text--top {
+  position: relative;
+  top: -60px;
+}
+
 /* Sticky note wrapper */
 .about-strip__sticky-wrap {
   position: absolute;  /* now fully independent */
-  width: 600px;        /* size */
-  top: -1rem;          /* up/down from the top of .about-strip__right */
-  left: -55rem;         /* left/right — negative goes toward the notebook */
+  width: 300px;        /* size */
+  top: 300px;          /* up/down from the top of .about-strip__right */
+  left: -800px;         /* left/right — negative goes toward the notebook */
 }
 
 .about-strip__sticky-bg {
@@ -398,15 +413,38 @@ h2, h3 {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.75rem;
   padding: 18% 12% 12%;
   font-family: 'HalfTermSchoolsOut';
-  font-size: 1.6rem;        /* bigger — try 1.4rem, 1.6rem etc */
+  font-size: 1.4rem;
   line-height: 1.65;
   color: #333;
   text-align: center;
-  transform: rotate(3deg); /* match your sticky note angle — adjust degrees */
+  transform: rotate(3deg);
+}
+
+.about-strip__bio-text {
+  position: absolute;
+  width: 400px;
+  top: 270px;          /* up/down — adjust to position it where you want */
+  left: 140px;          /* left/right — adjust to position it next to the notebook */
+  font-family: 'HalfTermSchoolsOut';
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #333;
+  text-align: left;
+}
+
+.about-strip__arrow {
+  position: absolute;
+  width: 100px;
+  top: 250px;
+  left: 30px;
+  z-index: 3;
+  transform: rotate(200deg);
 }
 
 /* Mobile — stack vertically */
@@ -437,8 +475,8 @@ h2, h3 {
   align-items: flex-start;
   gap: 2rem;
   flex-wrap: wrap;
-  padding: 5rem 2rem 4rem;
-  background: linear-gradient(180deg, #f5ede0 0%, #ece2d0 100%);
+  padding: rem 2rem 4rem;
+  background: #ffffff;
   min-height: 700px;       /* tune this — smallest value that doesn't clip the notes */
   overflow: hidden;
 }
@@ -554,7 +592,7 @@ h2, h3 {
 
 .skills {
   position: relative;
-  background: #ece2d0;
+  background: #ffffff;
   padding: 4rem 2rem;
   text-align: center;
 }
@@ -727,7 +765,7 @@ h2, h3 {
 }
 
 .footer--home {
-  background: #ece2d0;
+  background: #ffffff;
 }
 
 .footer__bg {
@@ -777,27 +815,29 @@ h2, h3 {
   transform: scale(1.1);
 }
 
-.roles-list__heading {
+.about-strip__roles {
   position: absolute;
-  font-family: 'RightRound', sans-serif;
-  color: purple;
-  font-size: 1.8rem;
-  top: 548px;      /* same coordinate space as .roles-list — adjust to sit above it */
-  left: -780px;
+  top: 420px;
+  left: 144px;
+}
+
+.roles-list__heading {
+  position: relative;
+  font-family: 'HalfTermSchoolsOut';
+  color: #333;
+  font-size: 1.4rem;
   z-index: 8;
   margin: 0;
 }
 
 .roles-list {
-  position: absolute;
-  font-family: 'RightRound', sans-serif;
-  color: purple;
-  font-size: 1.6rem;
+  position: relative;
+  font-family: 'HalfTermSchoolsOut';
+  color: #333;
+  font-size: 1.4rem;
   list-style: none;
   padding: 0;
-  margin: 0 0 2rem;  
-  top: 598px;       /* positive now — places it inside the section, below the top edge */
-  left: -780px;
+  margin: 0.5rem 0 2rem;
   z-index: 1;
 }
 
