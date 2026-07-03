@@ -147,6 +147,12 @@
   line-height: 1.6;
 }
 
+.about-school__text--unasat {
+  position: relative;
+  top: -20px;      /* negative = up, positive = down */
+  left: 50px;      /* positive = right, negative = left */
+}
+
 .about-school__line {
   margin-bottom: 1.2rem;
 }
@@ -160,7 +166,21 @@
   transform: rotate(90deg);
 }
 
+.about-school__arrow--1-big {
+  width: 200px;             /* bigger than the shared 100px — adjust this number for size */
+  position: relative;
+  top: -50px;                /* negative = up, positive = down */
+  left: 50px;                 /* positive = right, negative = left */
+  transform: rotate(30deg);   /* positive = clockwise, negative = counter-clockwise. adjust the degree number */
+}
+
 .about-school__image {
   width: 400px;
   flex-shrink: 0;
+}
+
+.about-school__image--unasat {
+  width: 480px;           /* bigger than the shared 400px — adjust this number for size */
+  position: relative;
+  top: -100px;              /* negative = moves up. adjust this number for how far */
 }
