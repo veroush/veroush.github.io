@@ -732,7 +732,7 @@ h2, h3 {
 
 .footer__bg {
   width: 100%;
-  max-height: 300px; 
+  max-height: 230px; 
   object-fit: cover;
   object-position: center top;
   display: block;
@@ -744,7 +744,7 @@ h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 0.2rem;
 }
 
 .footer__link {
@@ -759,17 +759,17 @@ h2, h3 {
 
 .footer__icon--github {
   width: 90px;
-  height: 90px;
+  height: 60px;
   max-width: none;
-  top: 50px;
+  top: 60px;
   left: 0px;
 }
 
 .footer__icon--linkedin {
   width: 90px;
-  height: 90px;
+  height: 60px;
   max-width: none;
-  top: 50px;
+  top: 60px;
   left: 0px;
 }
 
