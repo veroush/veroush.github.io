@@ -10,51 +10,180 @@
   padding: 5rem 2rem;
 }
 
+.work-console {
+  position: relative;
+  width: 95%;
+  max-width: 1400px;
+  height: 750px;
+  margin: -200px auto 3rem;
+  overflow: hidden;
+}
+
+.work-console__bg {
+  position: absolute;
+  object-fit: fill;
+  width: 1250px;      /* size — bigger/smaller number for wider/narrower */
+  height: 700px;       /* size — bigger/smaller number for taller/shorter */
+  top: 20px;           /* ↑ negative = up, positive = down */
+  left: 50px;            /* ↔ negative = left, positive = right, relative to centered position below */
+}
+
+.work-console__screen {
+  position: absolute;
+  top: 12%;
+  left: 10%;
+  width: 80%;
+  height: 70%;        /* ← this is a fixed height, always the same regardless of what's inside */
+  overflow: hidden;    /* ← this clips anything that doesn't fit inside that height */
+}
+
 .work-topbar {
+  position: relative;      /*  — needed so the absolute child positions relative to this */
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  height: 80px;             /* — gives .work-topbar a fixed height of its own, independent of the image inside it */
 }
 
 .work-topbar__url {
-  width: 500px;                    /* size of the url bar — tune as needed */
-  transform: translateX(-80px);    /* nudges it left of dead center — increase to push further left */
+  position: absolute;
+  object-fit: fill;
+  width: 500px;
+  height: 120px;
+  top: 40px;      /* ↑ negative = up, positive = down */
+  left: 50%;       /* keeps it centered in .work-topbar */
+  margin-left: -280px;  /* half of width, negated, plus your -30px left nudge folded in */
 }
 
 .work-nav-row {
   display: flex;
-  align-items: center;             /* keeps left cluster + right cluster on the same line/height */
-  justify-content: space-between;  /* hamburger+github on far left, icon cluster on far right */
-  padding: 0 2rem;
-  margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
 }
 
 .work-nav-row__left {
   display: flex;
   align-items: center;
-  gap: 1rem;                       /* space between hamburger.png and work-github.png */
+  gap: 0.75rem;
 }
 
 .work-nav-row__right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;                    /* space between each icon in the right cluster */
+  gap: 0.5rem;
 }
 
 .work-nav-row__icon {
-  height: 40px;                    /* shared height so everything in this row lines up — override per icon below if needed */
+  height: 28px;             /* smaller now since it's living inside the console screen */
   width: auto;
 }
 
 .work-subnav {
   display: flex;
   align-items: center;
-  gap: 2rem;                       /* space between overview/repositories/projects/packages/stars */
-  padding: 0 2rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
+  padding: 0 1rem;
 }
 
 .work-subnav__icon {
-  height: 30px;
+  height: 22px;
   width: auto;
+}
+
+.work-visual-cluster {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.work-visual-cluster__flork {
+  width: 120px;              /* tune size as needed */
+  height: auto;
+  display: block;
+}
+
+.work-visual-cluster__smiley {
+  position: absolute;
+  top: 10px;                 /* tune position on top of flork2.png */
+  left: 20px;
+  width: 40px;
+  height: auto;
+}
+
+.project-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* 2 columns = 2 rows of 2 for your 4 cards */
+  gap: 1.5rem;
+}
+
+.project-card {
+  position: relative;
+}
+
+.project-card__bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-card__content {
+  position: absolute;
+  inset: 0;
+  padding: 1.5rem;
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+}
+
+.project-card__public-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 20px;
+  height: auto;
+}
+
+.project-card__public-text {
+  position: absolute;
+  top: 1rem;
+  right: 2.5rem;             /* sits just left of the public icon */
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.project-card__title {
+  color: #0969da;             /* GitHub's link blue */
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;         /* pushes it below the public icon row */
+}
+
+.project-card__desc {
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.project-card__lang {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+}
+
+.project-card__lang-dot {
+  width: 12px;
+  height: 12px;
+}
+
+.project-card__lang-text {
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 0.9rem;
+  color: #333;
 }
