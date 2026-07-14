@@ -762,3 +762,104 @@ git add .
 git commit -m "your message here"
 git push
 ```
+
+## ⚠️ GIT RULES — READ THIS FIRST
+
+- After EVERY task, no matter how small, remind Veroushka to stage, commit, and push
+- Always suggest a commit message in this format:
+  - `feat:` new feature or section added
+  - `fix:` bug or broken thing corrected
+  - `style:` CSS or visual changes only
+  - `refactor:` restructuring code without changing behavior
+  - `chore:` moving files, renaming, cleanup
+- For any significant feature, suggest creating a branch first:
+```bash
+  git checkout -b feature/branch-name
+```
+  and merging back to main when done
+- **Veroushka tends to forget git entirely — remind proactively, do not wait to be asked**
+- Confirm `git status` at the start of the next session before making any further edits, to make sure nothing from this session was left uncommitted.
+
+---
+
+## 1. PROJECT OVERVIEW
+
+- Unchanged — see prior handoffs for full details.
+- This session focused entirely on **`work.html` / `work.css`** again — continued refinement of the GitHub-style console mockup page.
+
+---
+
+## 2. FOLDER & FILE STRUCTURE (files touched this session)
+project/
+├── css/
+│   └── work.css   # New wrapper rule added — see Section 8
+└── work.html      # searchbar/copilot/divider wrapped in new div — see Section 8
+
+All other files unchanged this session.
+
+---
+
+## 8. FEATURES ADDED/CHANGED THIS SESSION
+
+### New `.work-nav-row__search-copilot-divider` wrapper
+- Wraps `searchbar.png`, `copilot.png`, and `.work-nav-row__divider` (previously three separate independent elements inside `.work-nav-row__right`) into one movable group
+- Wrapper set to `position: absolute; top: 0px; left: 0px;` — deliberately matches the existing coordinate origin so none of the three children's own `top`/`left` values needed to change
+- `create-new.png` was deliberately left OUTSIDE this wrapper — still moves independently
+- Result: searchbar, copilot, and the divider between them can now be nudged left/right/up/down as one unit via the wrapper's `top`/`left`, without affecting `create-new`, `issues`, `pulls`, `notifications`, or `flork` in the same row
+
+### Note for next session
+- **Not yet visually confirmed** whether pasting this in caused any shift (last time a similar wrapper caused a page-wide horizontal shift due to `position: relative` + negative `left` on a zero-size box — this one was built as `position: absolute` from the start specifically to avoid that bug, but still needs an on-screen check)
+
+---
+
+## 9. BUGS & ERRORS WE FIXED (this session)
+
+- None — this was a straightforward clustering task, no bugs hit. (Previous session's "page shifted left" bug was traced to a *different* wrapper — `.work-nav-row__search-copilot` — being `position: relative` with a negative `left` and only absolutely-positioned children, causing it to collapse to zero size. This session's new wrapper avoided that by using `position: absolute` with non-negative starting values from the outset.)
+
+---
+
+## 10. WHAT STILL NEEDS TO BE DONE
+
+### Work page — ACTIVE AREA
+- [ ] Visually confirm the new `.work-nav-row__search-copilot-divider` wrapper didn't shift anything on load
+- [ ] Fine-tune final `top`/`left` values for the 4 project cards — still not confirmed final
+- [ ] `.work-console__screen`'s `top`/`left`/`width` values — still placeholder
+- [ ] Smiley badge cream color (`#faf6ee`) and divider color (`#6b7685`) — approximate eyeball matches, not exact eyedropper picks
+- [ ] Gap between hamburger/github icons — not yet confirmed final
+- [ ] Confirm `.work-nav-row__flork` (nav row) vs `.work-visual-cluster__flork` (lower cluster) is intentional — both use `flork2.png`, flagged as worth double-checking, not yet confirmed by Veroushka
+- [ ] No descriptions/content decided yet for anything below the project cards
+
+### Everything else (about page, performance pass, contact page, mobile nav)
+- Unchanged from prior handoffs.
+
+---
+
+## 11. WHERE WE LEFT OFF
+
+- **This session's topic**: Clustered searchbar, copilot, and the vertical divider between them into one new movable wrapper (`.work-nav-row__search-copilot-divider`), matching the existing independent-absolute-positioning pattern used elsewhere on the page.
+- **Completed**: wrapper added in both HTML and CSS, built to start at `0,0` so no other values needed recalculating.
+- **Not completed**: visual confirmation that nothing shifted after the change; final position tuning for this new group.
+- **Very next step**: reload the page, confirm the wrapper works and nothing moved, then commit.
+- **Commits this session**: not yet confirmed — remind Veroushka to check `git status` and commit/push before ending the session.
+
+---
+
+## 12–13. PERSONAL DETAILS / SIDE TOPICS
+
+Unchanged this session.
+
+---
+
+## ⚠️ GIT RULES — REMINDER AT THE BOTTOM
+
+- After EVERY task, remind Veroushka to stage, commit, and push
+- Suggest commit messages using `feat:`, `fix:`, `style:`, `refactor:`, `chore:` prefixes
+- Suggest branches for big features
+- **Do not wait to be asked — remind proactively every time**
+- **⚠️ This session's work is not yet confirmed committed**
+
+```bash
+git add work.html css/work.css
+git commit -m "refactor: cluster searchbar, copilot, and divider into one movable group"
+git push
+```

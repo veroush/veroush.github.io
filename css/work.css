@@ -93,13 +93,13 @@
 
 .work-nav-row__hamburger     { top: -5px;     left: 0px;   height: 52px; width: 50px; }
 .work-nav-row__github        { top: -10px;     left: 35px;  height: 60px; width: 60px; }
-.work-nav-row__searchbar     { top: -20px; left: 230px; height: 80px; width: 200px; }
-.work-nav-row__copilot       { top: -4px;     left: 415px; height: 47px; width: 70px; }
-.work-nav-row__create        { top: -6px;     left: 465px; height: 51px; width: 72px; }
-.work-nav-row__issues        { top: -2px;     left: 520px; height: 45px; width: 43px; }
-.work-nav-row__pulls         { top: -1px;     left: 554px; height: 42px; width: 43px; }
-.work-nav-row__notifications { top: -2px;     left: 588px; height: 43px; width: 44px; }
-.work-nav-row__flork         { top: 5px;   left: 631px; height: 30px; width: 30px; }
+.work-nav-row__searchbar     { top: -20px; left: 230px; height: 80px; width: 200px; max-width: none; }
+.work-nav-row__copilot       { top: -5px;     left: 411px; height: 48px; width: 70px; max-width: none; }
+.work-nav-row__create        { top: -9px;     left: 464px; height: 54px; width: 72px; }
+.work-nav-row__issues        { top: -5px;     left: 517px; height: 48px; width: 48px; }
+.work-nav-row__pulls         { top: -4px;     left: 553px; height: 45px; width: 48px; }
+.work-nav-row__notifications { top: -6px;     left: 588px; height: 47px; width: 48px; }
+.work-nav-row__flork         { top: 2px;   left: 631px; height: 31px; width: 31px; }
 
 .work-nav-row__right {
   position: relative;   /* now the icons inside anchor to THIS instead of .work-nav-row */
@@ -121,6 +121,12 @@
   font-size: 1.2rem;
   color: #333;
   white-space: nowrap;
+}
+
+.work-nav-row__search-copilot-divider {
+  position: absolute;
+  top: 0px;
+  left: -25px;
 }
 
 /* subnav icons + labels — each pair independently positioned */
@@ -164,8 +170,8 @@
 
 .work-nav-row__divider {
   position: absolute;
-  top: 4px;
-  left: 473px;
+  top: 3px;
+  left: 490px;
   width: 2px;
   height: 30px;
   background: #6b7685;   /* lighter than #4a5568, keeps the same slate-blue hue */
@@ -287,18 +293,28 @@
   position: absolute;
   top: 0;              /* ↑ negative = up, positive = down */
   left: 0;               /* ↔ negative = left, positive = right */
-  width: 12px;           /* bigger/smaller number = bigger/smaller circle */
-  height: 12px;
+  width: 30px;           /* bigger/smaller number = bigger/smaller circle */
+  height: 30px;
 }
+
+.project-card__lang-dot--1 { top: -30px; left: -20px; }
+.project-card__lang-dot--2 { top: -11px; left: -20px; }
+.project-card__lang-dot--3 { top: -11px; left: -20px; }
+.project-card__lang-dot--4 { top: 8px; left: -20px; }
 
 .project-card__lang-text {
   position: absolute;
   top: 0;
-  left: 20px;             /* keep this fixed so removing flex's auto-gap doesn't collide the text into the dot */
+  left: 20px;
   font-family: 'HalfTermSchoolsOut', sans-serif;
   font-size: 1rem;
   color: #333;
 }
+
+.project-card__lang-text--1 { top: -25px; left: 10px; }
+.project-card__lang-text--2 { top: -6px; left: 10px; }
+.project-card__lang-text--3 { top: -6px; left: 10px; }
+.project-card__lang-text--4 { top: 12px; left: 10px; }
 
 .project-card__public-text {
   position: absolute;
