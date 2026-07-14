@@ -3,6 +3,17 @@
    Fresh start — page-specific styles for work.html only.
    Nav/footer styling lives in main.css, don't duplicate it here.
    ============================================================ */
+.work-hero {
+  padding: 2rem 2rem 2rem;
+  text-align: center;
+  margin-top: -120px;
+}
+
+.work-hero__title {
+  font-family: 'RightRound', sans-serif;
+  color: black;
+  font-size: 4rem;
+}
 
 .work-intro {
   min-height: 80vh;
@@ -14,7 +25,7 @@
   position: relative;
   width: 100%;
   height: 800px;
-  margin: -200px auto 3rem;
+  margin: -80px auto 3rem;
   overflow: visible;      /* was: hidden — nothing clips at the console edge anymore */
 }
 
@@ -22,7 +33,7 @@
   position: absolute;
   object-fit: fill;
   width: 1400px;
-  height: 800px;
+  height: 850px;
   top: 20px;
   left: 40px;
 }
@@ -44,22 +55,28 @@
   position: absolute;
   object-fit: fill;
   width: 400px;
-  height: 120px;
-  top: 40px;
+  height: 130px;
+  top: -65px;
   left: 53%;
   margin-left: -280px;
 }
 
 .work-topbar__url-text {
   position: absolute;
-  top: 85px;              /* ↑ nudge to vertically center inside the bar image */
+  top: -15px;              /* ↑ nudge to vertically center inside the bar image */
   left: 53%;
-  margin-left: -250px;    /* ↔ nudge in from the bar's left edge (bar itself starts at -280px) */
+  margin-left: -240px;    /* ↔ nudge in from the bar's left edge (bar itself starts at -280px) */
   font-family: 'HalfTermSchoolsOut', sans-serif;
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #333;
   white-space: nowrap;
-  z-index: 2;
+  z-index: 2
+}
+
+.work-nav-cluster {
+  position: relative;
+  top: -80px;      /* ↑ negative = up, positive = down — moves nav row + both dividers + subnav together */
+  left: 0px;     /* ↔ negative = left, positive = right */
 }
 
 /* nav row icons — each now independently positioned instead of flex-aligned */
@@ -74,10 +91,10 @@
   width: auto;
 }
 
-.work-nav-row__hamburger     { top: 0px;     left: 0px;   height: 40px; width: 40px; }
-.work-nav-row__github        { top: 0;     left: 40px;  height: 40px; width: 40px; }
+.work-nav-row__hamburger     { top: -5px;     left: 0px;   height: 52px; width: 50px; }
+.work-nav-row__github        { top: -10px;     left: 35px;  height: 60px; width: 60px; }
 .work-nav-row__searchbar     { top: -20px; left: 230px; height: 80px; width: 200px; }
-.work-nav-row__copilot       { top: -3px;     left: 415px; height: 46px; width: 60px; }
+.work-nav-row__copilot       { top: -4px;     left: 415px; height: 48px; width: 60px; }
 .work-nav-row__create        { top: -6px;     left: 465px; height: 51px; width: 72px; }
 .work-nav-row__issues        { top: -2px;     left: 520px; height: 45px; width: 43px; }
 .work-nav-row__pulls         { top: -1px;     left: 554px; height: 42px; width: 43px; }
@@ -96,10 +113,20 @@
   left: 0px;    /* stays on the left side, independent of the right cluster's left */
 }
 
+.work-nav-row__github-text {
+  position: absolute;
+  top: 9px;              /* ↑ nudge to vertically center against the 40px-tall github icon */
+  left: 95px;              /* ↔ github icon starts at left: 40px + its own 40px width + a small gap */
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  white-space: nowrap;
+}
+
 /* subnav icons + labels — each pair independently positioned */
 .work-subnav {
   position: relative;
-  top: 60px;             /* ↑ negative = up, positive = down — moves ALL 5 icon+text pairs together */
+  top: 100px;             /* ↑ negative = up, positive = down — moves ALL 5 icon+text pairs together */
   left: 0px;             /* ↔ negative = left, positive = right — moves ALL 5 icon+text pairs together */
   height: 40px;
 }
@@ -116,9 +143,9 @@
 
 .work-subnav__overview     { top: 0; left: 0px; }
 .work-subnav__repositories { top: 0; left: 90px; }
-.work-subnav__projects     { top: 0; left: 190px; }
-.work-subnav__packages     { top: 0; left: 280px; }
-.work-subnav__stars        { top: 0; left: 370px; }
+.work-subnav__projects     { top: 0; left: 200px; }
+.work-subnav__packages     { top: 0; left: 290px; }
+.work-subnav__stars        { top: 0; left: 380px; }
 
 .work-subnav__label {
   position: absolute;
@@ -131,9 +158,18 @@
 
 .work-subnav__label--overview     { left: 28px; }   /* icon left + icon width + gap */
 .work-subnav__label--repositories { left: 118px; }
-.work-subnav__label--projects     { left: 218px; }
-.work-subnav__label--packages     { left: 308px; }
-.work-subnav__label--stars        { left: 398px; }
+.work-subnav__label--projects     { left: 228px; }
+.work-subnav__label--packages     { left: 318px; }
+.work-subnav__label--stars        { left: 408px; }
+
+.work-nav-row__divider {
+  position: absolute;
+  top: 4px;
+  left: 473px;
+  width: 2px;
+  height: 30px;
+  background: #6b7685;   /* lighter than #4a5568, keeps the same slate-blue hue */
+}
 
 .work-visual-cluster {
   position: relative;
@@ -156,9 +192,9 @@
   left: 260px;
   width: 40px;
   height: 40px;
-  background: #ffffff;
+  background: #faf6ee;      /* cream, matches the console background */
   border-radius: 50%;
-  border: 2px solid #e0e0e0;
+  border: 2px solid #6b7685;   /* matches your divider gray */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -262,4 +298,13 @@
   font-family: 'HalfTermSchoolsOut', sans-serif;
   font-size: 0.9rem;
   color: #333;
+}
+
+.work-subnav__divider {
+  position: absolute;
+  top: 200px;
+  left: 0px;
+  width: 1000px;
+  height: 2px;
+  background: #6b7685;   /* lighter than #4a5568, keeps the same slate-blue hue */
 }
