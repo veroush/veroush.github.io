@@ -63,22 +63,16 @@
 /* Postcard */
 .contact-card {
   position: relative;
-  width: 700px;      /* tune once you see the real image size */
+  width: 750px;
   max-width: 100%;
-}
-
-.contact-card {
-  position: relative;
-  width: 750px;   /* bigger = larger postcard, both width and height scale together */
-  max-width: 100%;
-  top: 0px;       /* negative = up, positive = down */
+  top: 0px;
 }
 
 .contact-card__bg {
   width: 100%;
   height: auto;
   display: block;
-  transform: rotate(-1deg);   /* match this to .contact-card__form below */
+  transform: rotate(-1deg);
 }
 
 .contact-card__form {
@@ -86,7 +80,7 @@
   inset: 0;
   padding: 10% 8%;
   font-family: 'HalfTermSchoolsOut', sans-serif;
-  transform: rotate(0.7deg);   /* match the exact value from .contact-card__bg */
+  transform: rotate(1deg); /* now matches .contact-card__bg exactly */
 }
 
 .contact-card__field {
