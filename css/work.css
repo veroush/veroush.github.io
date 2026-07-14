@@ -50,6 +50,18 @@
   margin-left: -280px;
 }
 
+.work-topbar__url-text {
+  position: absolute;
+  top: 85px;              /* ↑ nudge to vertically center inside the bar image */
+  left: 53%;
+  margin-left: -250px;    /* ↔ nudge in from the bar's left edge (bar itself starts at -280px) */
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  white-space: nowrap;
+  z-index: 2;
+}
+
 /* nav row icons — each now independently positioned instead of flex-aligned */
 .work-nav-row {
   position: relative;
@@ -138,18 +150,50 @@
   height: auto;
 }
 
-.work-visual-cluster__smiley {
+.work-visual-cluster__smiley-badge {
   position: absolute;
-  top: 10px;
-  left: 20px;
+  top: 275px;
+  left: 260px;
   width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.work-visual-cluster__smiley {
+  width: 50px;
+  max-width: none;   /* overrides the global img { max-width: 100% } reset */
   height: auto;
+}
+
+.work-visual-cluster__name {
+  position: absolute;
+  top: 340px;              /* ↑ below the smiley badge (badge sits at top: 275px, ~40px tall) */
+  left: 100px;              /* ↔ roughly centered under flork */
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.project-cards__heading {
+  position: absolute;
+  top: 280px;             /* ↑ just above .project-cards' own top: 320px */
+  left: 320px;             /* ↔ matches .project-cards' left, so it lines up with the cards */
+  font-family: 'ShinyPaint', sans-serif;
+  font-size: 1.5rem;
+  color: #333;
 }
 
 /* project cards — no more grid, each card is its own free-floating block */
 .project-cards {
   position: absolute;   /* was: relative — now it can be moved as a whole */
-  top: 300px;               /* ↑ negative = up, positive = down — moves ALL 4 cards together */
+  top: 320px;               /* ↑ negative = up, positive = down — moves ALL 4 cards together */
   left: 320px;              /* ↔ negative = left, positive = right — moves ALL 4 cards together */
   height: 600px;
 }
