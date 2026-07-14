@@ -79,17 +79,21 @@
       <section class="contact-form-section">
 
         <div class="contact-icons">
-          <a href="mailto:ramjiawanveroushka95@gmail.com" class="contact-icons__link" aria-label="Email">
+          <a href="mailto:ramjiawanveroushka95@gmail.com" class="contact-icons__item contact-icons__item--mail" aria-label="Email">
             <img src="./img/contactpage/mail-icon.png" alt="" class="contact-icons__icon contact-icons__icon--mail" aria-hidden="true" />
+            <span class="contact-icons__label">ramjiawanveroushka95@gmail.com</span>
           </a>
-          <a href="tel:+5977462470" class="contact-icons__link" aria-label="Phone">
+          <a href="tel:+5977462470" class="contact-icons__item contact-icons__item--phone" aria-label="Phone">
             <img src="./img/contactpage/phone-icon.png" alt="" class="contact-icons__icon contact-icons__icon--phone" aria-hidden="true" />
+            <span class="contact-icons__label">+597 746 2470</span>
           </a>
-          <a href="https://www.linkedin.com/in/veroushka-ramjiawan-636114392/" target="_blank" rel="noopener noreferrer" class="contact-icons__link" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/veroushka-ramjiawan-636114392/" target="_blank" rel="noopener noreferrer" class="contact-icons__item contact-icons__item--linkedin" aria-label="LinkedIn">
             <img src="./img/linkedin-icon.png" alt="" class="contact-icons__icon contact-icons__icon--linkedin" aria-hidden="true" />
+            <span class="contact-icons__label">veroushka-ramjiawan-636114392/</span>
           </a>
-          <a href="https://github.com/Veroush" target="_blank" rel="noopener noreferrer" class="contact-icons__link" aria-label="GitHub">
+          <a href="https://github.com/Veroush" target="_blank" rel="noopener noreferrer" class="contact-icons__item contact-icons__item--github" aria-label="GitHub">
             <img src="./img/origami_github.png" alt="" class="contact-icons__icon contact-icons__icon--github" aria-hidden="true" />
+            <span class="contact-icons__label">https://github.com/Veroush</span>
           </a>
         </div>
 
@@ -115,8 +119,18 @@
               </div>
             </div>
           </form>
+          <div class="contact-card__submit" id="submit-arrow">
+            <span class="contact-card__submit-label">Click on the arrow when you're done typing</span>
+            <button type="button" class="contact-card__submit-btn" id="submit-btn" aria-label="Send message">
+              <img src="./img/contactpage/green-arrow.png" alt="" class="contact-card__submit-arrow-img" />
+            </button>
+          </div>
         </div>
-
+      
+        <div class="contact-card__sent" id="sent-confirmation">
+          <p class="contact-card__sent-text" id="sent-text"></p>
+          <img src="./img/contactpage/message-sent-envelope.png" alt="Message sent" class="contact-card__sent-img" />
+        </div>
       </section>
 
       <section class="contact-thankyou">

@@ -863,3 +863,110 @@ git add work.html css/work.css
 git commit -m "refactor: cluster searchbar, copilot, and divider into one movable group"
 git push
 ```
+
+# Session Handoff Document — Veroushka Ramjiawan Portfolio (Work Page Session 3 + About Page Session)
+
+---
+
+## ⚠️ GIT RULES — READ THIS FIRST
+
+- After EVERY task, no matter how small, remind Veroushka to stage, commit, and push
+- Always suggest a commit message in this format:
+  - `feat:` new feature or section added
+  - `fix:` bug or broken thing corrected
+  - `style:` CSS or visual changes only
+  - `refactor:` restructuring code without changing behavior
+  - `chore:` moving files, renaming, cleanup
+- For any significant feature, suggest creating a branch first
+- **Veroushka tends to forget git entirely — remind proactively, do not wait to be asked**
+- **⚠️ Confirm `git status` at the start of the next session before making any further edits, to make sure this session's work was fully committed and pushed.**
+
+---
+
+## 1. PROJECT OVERVIEW
+
+- Unchanged — see prior handoffs for full details.
+- This session covered two areas: finishing up `work.html`/`work.css` (search-copilot-divider wrapper, lang-dot/lang-text independent positioning, clickable links), and `about.html`/`about.css` (background image swap, header clustering, clipping fix).
+
+---
+
+## 2. FOLDER & FILE STRUCTURE (files touched this session)
+project/
+├── css/
+│   ├── work.css    # max-width fixes, lang-dot/lang-text per-card classes, title link styling
+│   └── about.css   # background4.png sizing, header-cluster wrapper, min-height increase
+├── work.html        # search-copilot-divider wrapper re-added, lang-dot/lang-text modifier classes,
+│                     # title links, url-bar link
+└── about.html        # background4.png swap, header-cluster wrapper
+
+---
+
+## 8. FEATURES ADDED/CHANGED THIS SESSION
+
+### Work page
+- **`.work-nav-row__search-copilot-divider` wrapper — re-added.** This was documented as added in the prior session but was confirmed MISSING from the live files at the start of this session (never actually saved). Re-added in both HTML and CSS this session.
+- **Fixed: searchbar/copilot images invisible inside the wrapper.** Cause: global `img { max-width: 100%; }` reset in `main.css` was resolving against the wrapper's computed width, which was `0` (since its only children were `position: absolute` and didn't contribute to its size). Fix: added `max-width: none;` directly to `.work-nav-row__searchbar` and `.work-nav-row__copilot`. **This is the second time this exact bug pattern has hit the project** (first was the smiley image in an earlier session) — worth proactively adding `max-width: none` to any future image dropped into a new wrapper.
+- **`.project-card__lang-dot` and `.project-card__lang-text` split into independent per-card classes** (`--1` through `--4`) so each project card's language dot/label can be moved independently instead of all four moving together.
+- **`.project-card__lang-dot` size increased** (was `12px`, now larger per Veroushka's request — confirm final value in work.css).
+- **`.project-card__desc` given a shared `margin-top`** to push all four card descriptions down together (previously had no dedicated rule at all).
+- **`.project-card__title` given color** — GitHub blue `#0969da`, applied to all 4 cards via the shared class.
+- **Project titles made clickable** — each `<h3 class="project-card__title">` now wraps an `<a>` tag linking to its GitHub repo, opens in new tab. New `.project-card__title-link` class makes the link inherit existing color/font/size (no visual change, just clickable).
+- **URL bar text made clickable** — `.work-topbar__url-text` now wraps an `<a>` linking to `https://github.com/Veroush`, same inherit-styling pattern via new `.work-topbar__url-link` class.
+- **Discussed but NOT yet confirmed built**: a `.work-lower-cluster` wrapper to group `.work-visual-cluster` + `.project-cards__heading` + `.project-cards` together for unified movement. Proposed in this session — check next session whether Veroushka actually added it, since it wasn't visually confirmed.
+
+### About page
+- **`background2.png` → `background4.png`** swap for `.about-intro__bg`.
+- **`.about-intro__bg` resized to span full viewport width** — changed from fixed `800px` width + `350px` left offset, to `width: 100vw; left: 0;`. Height changed from fixed `500px` to `100%` (matches parent).
+- **New `.about-intro__header-cluster` wrapper** added around `.about-intro__header-img` + `.about-intro__title`, so both move together via one `top`/`left` instead of needing separate tuning. Currently set to `top: 120px`.
+- **Fixed: "About me" text/header image getting clipped when moved down.** Cause: `.about-intro` has `overflow: hidden` and a fixed `min-height: 100vh` — since the header cluster is `position: absolute` (out of normal flow), pushing it down doesn't grow the parent container, so it eventually moves past the `100vh` boundary and gets clipped. Fix: increased `.about-intro`'s `min-height` (started testing at `130vh`) to give more room. **Not yet confirmed as a final value** — Veroushka was mid-testing.
+
+---
+
+## 9. BUGS & ERRORS WE FIXED (this session)
+
+### Searchbar/copilot images invisible after wrapper re-add
+See Section 8 above — global `img { max-width: 100% }` reset + zero-width parent. Fixed via `max-width: none` on the specific images.
+
+### "About me" header cluster disappearing when pushed down
+See Section 8 above — `overflow: hidden` + fixed `min-height` clipping an absolutely-positioned child once it moves past the container's boundary. Fixed by increasing `.about-intro`'s `min-height`.
+
+---
+
+## 10. WHAT STILL NEEDS TO BE DONE — UPDATED
+
+### Resolved this session (remove from old lists):
+- [x] `.work-nav-row__search-copilot-divider` wrapper — confirmed re-added and working
+- [x] Searchbar/copilot visibility bug — fixed
+
+### Still open / new from this session:
+- [ ] Confirm final `.about-intro` `min-height` value (testing started at `130vh`, not yet locked in)
+- [ ] Confirm `.about-intro__header-cluster`'s final `top` value (currently `120px`)
+- [ ] Confirm whether `.work-lower-cluster` wrapper (grouping visual-cluster + heading + project-cards) was actually added — discussed but not confirmed built
+- [ ] `.project-card__lang-dot--1` through `--4` and `.project-card__lang-text--1` through `--4` — all currently set to identical placeholder values (`top: 0px; left: 0px` / `left: 20px`), not yet individually fine-tuned per card
+- [ ] `.project-card__desc`'s `margin-top` value — first pass, not confirmed final, and worth a visual check that it doesn't crowd the language row below it
+- [ ] Confirm GitHub blue (`#0969da`) looks right against the card background — not yet visually confirmed
+- [ ] All prior outstanding items from earlier handoffs (project card top/left tuning, `.work-console__screen` placeholder values, smiley badge/divider exact color picks, hobbies section centering, "Who I Am"/Education sections not yet added to about.html, full image optimization pass, contact page pause, mobile nav re-test) — **still open, unchanged**
+
+---
+
+## 11. WHERE WE LEFT OFF
+
+- **This session's topics**: Fixed the previously-missing search-copilot-divider wrapper on the work page (including a new max-width bug it exposed), added independent per-card positioning for language dots/labels, added GitHub-blue clickable links to project titles and the URL bar text, and — on the about page — swapped the background image to `background4.png` at full viewport width, clustered the header image + "About me" title into one movable group, and fixed a clipping bug that was hiding the header when pushed too far down.
+- **Not completed**: final min-height value for `.about-intro` not locked in; per-card lang-dot/lang-text values still all identical placeholders; `.work-lower-cluster` wrapper status unconfirmed.
+- **Very next step**: confirm `git status` is clean, then continue fine-tuning the about-intro min-height and header-cluster position, then move to individually positioning each project card's lang-dot/lang-text.
+- **Commits this session**: confirmed committed and pushed by Veroushka.
+
+---
+
+## 12–13. PERSONAL DETAILS / SIDE TOPICS
+
+Unchanged this session.
+
+---
+
+## ⚠️ GIT RULES — REMINDER AT THE BOTTOM
+
+- After EVERY task, remind Veroushka to stage, commit, and push
+- Suggest commit messages using `feat:`, `fix:`, `style:`, `refactor:`, `chore:` prefixes
+- **Do not wait to be asked — remind proactively every time**
+- **✅ This session's work was confirmed committed and pushed before ending**

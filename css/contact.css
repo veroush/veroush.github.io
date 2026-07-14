@@ -33,20 +33,29 @@
 .contact-form-section {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;   /* was center */
   gap: 4rem;
-  padding: 2rem 2rem 5rem;
+  padding: 2rem 4rem 5rem;
   flex-wrap: wrap;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .contact-icons {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  align-items: center;
+  align-items: flex-start;   /* was center — needs left-align now that labels sit beside icons */
   position: relative;
-  top: 0px;     /* negative = up, positive = down */
-  left: -60px;    /* negative = left, positive = right */
+  top: 0px;
+  left: 0px;
+}
+
+.contact-icons__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
 }
 
 .contact-icons__icon {
@@ -54,10 +63,62 @@
   height: 60px;
   object-fit: contain;
   transition: transform 0.15s ease;
+  flex-shrink: 0;
 }
 
-.contact-icons__link:hover .contact-icons__icon {
+.contact-icons__item:hover .contact-icons__icon {
   transform: scale(1.1);
+}
+
+.contact-icons__label {
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+.contact-icons__icon--mail {
+  width: 45px;
+  height: 45px;
+}
+.contact-icons__icon--phone {
+  width: 53px;
+  height: 60px;
+}
+
+.contact-icons__icon--linkedin {
+  width: 60px;
+  height: 60px;
+}
+
+.contact-icons__icon--github {
+  width: 60px;
+  height: 60px;
+}
+
+.contact-icons__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  position: relative;
+  left: 0px;
+}
+
+.contact-icons__item--mail {
+  left: 5px;
+}
+
+.contact-icons__item--phone {
+  left: 0px;
+}
+
+.contact-icons__item--linkedin {
+  left: 0px;
+}
+
+.contact-icons__item--github {
+  left: 0px;
 }
 
 /* Postcard */
@@ -119,6 +180,7 @@
   resize: none;
   min-height: 180px;
   max-height: 320px;
+  width: 100%;
   height: auto;
   overflow-y: hidden;
   border-bottom: none;
@@ -181,5 +243,90 @@
   .contact-icons {
     flex-direction: row;
   }
+}
+
+/* Submit arrow + label — hidden until the user starts typing */
+.contact-card__submit {
+  position: absolute;
+  top: 15%;
+  right: 6%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.contact-card__submit.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contact-card__submit-label {
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 0.95rem;
+  color: #333;
+  white-space: nowrap;
+  transform: rotate(1deg);   /* positive = rotates clockwise (to the right) */
+}
+
+.contact-card__submit-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.contact-card__submit-arrow-img {
+  width: 50px;
+  height: auto;
+  transition: transform 0.15s ease;
+}
+
+.contact-card__submit-btn:hover .contact-card__submit-arrow-img {
+  transform: scale(1.1);
+}
+
+/* Sent confirmation — hidden until submit is clicked */
+.contact-card__sent {
+  position: relative;
+  width: 750px;
+  max-width: 100%;
+  display: none;
+  text-align: center;
+}
+
+.contact-card__sent-text {
+  position: absolute;
+  top: 285px;       /* nudge down/up by changing this number */
+  left: 120px;
+  width: 100%;
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.6rem;
+  color: #333;
+  margin: 0;
+  z-index: 1;
+  transform: rotate(1deg);   
+}
+
+.contact-card__sent.is-visible {
+  display: block;
+}
+
+.contact-card__sent-text {
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.contact-card__sent-img {
+  width: 800px;
+  height: 450px;
+  display: block;
+  margin: 0 auto;
+  transform: rotate(1deg);
 }
 
