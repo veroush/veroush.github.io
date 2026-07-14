@@ -590,3 +590,175 @@ git add .
 git commit -m "style: independent positioning and sizing for work-nav-row, work-subnav, and work-visual-cluster"
 git push
 ```
+
+---
+
+# Session Handoff Document — Veroushka Ramjiawan Portfolio (Work Page Session 2)
+
+---
+
+## ⚠️ GIT RULES — READ THIS FIRST
+
+- After EVERY task, no matter how small, remind Veroushka to stage, commit, and push
+- Always suggest a commit message in this format:
+  - `feat:` new feature or section added
+  - `fix:` bug or broken thing corrected
+  - `style:` CSS or visual changes only
+  - `refactor:` restructuring code without changing behavior
+  - `chore:` moving files, renaming, cleanup
+- For any significant feature, suggest creating a branch first:
+```bash
+  git checkout -b feature/branch-name
+```
+  and merging back to main when done
+- **Veroushka tends to forget git entirely — remind proactively, do not wait to be asked**
+- Confirm `git status` at the start of the next session before making any further edits, to make sure nothing from this session was left uncommitted.
+
+---
+
+## 1. PROJECT OVERVIEW
+
+- Personal portfolio website for Veroushka Ramjiawan
+- IT student at UNASAT (Stichting University of Applied Sciences and Technology Suriname), Paramaribo
+- School assignment requiring: home, about, work, and contact pages
+- Tech stack: plain vanilla HTML, CSS, JavaScript only — no frameworks, no libraries (teacher requirement)
+- GitHub base: `https://github.com/Veroush/`
+- Site is published via GitHub Pages — standard `git add . / git commit / git push` triggers redeploy automatically
+- This session focused entirely on **`work.html` / `work.css`** again — continued refinement of the GitHub-style console mockup page
+
+---
+
+## 2. FOLDER & FILE STRUCTURE (files touched this session)
+project/
+├── css/
+│   └── work.css   # All changes this session — see Section 8 for full breakdown
+└── work.html      # work-hero section added, nav-cluster wrapper added, dividers added — see Section 8
+All other files (`main.css`, `about.css`, `about.html`, `index.html`, `contact.html`, `contact.css`, fonts, images) — **unchanged this session**.
+
+---
+
+## 3–7. ROUTES / DATABASE / CONTROLLERS / MIDDLEWARE / AUTH
+
+Not applicable — static HTML/CSS/JS only, no backend. Skipping.
+
+---
+
+## 8. FEATURES ALREADY WORKING (added/changed this session)
+
+### New `.work-hero` section — "View my work"
+- Added as its own `<section class="work-hero">` sibling of `.work-intro`, mirroring `.contact-hero`'s exact structure/styling from `contact.css` (same font `RightRound`, `font-size: 4rem`, `color: black`, `margin-top: -120px`)
+- **Important structural lesson**: initially nested inside `.work-intro`, which caused it to not display correctly (padding/margin interaction issue). Fixed by pulling it out to be a direct sibling of `.work-intro` inside `<main>`, matching the contact page's DOM structure exactly.
+
+### URL bar text
+- Added `<span class="work-topbar__url-text">https://github.com/Veroush</span>` inside `.work-topbar`, positioned absolutely over `url-bar.png`
+- Font size bumped from `1rem` → `1.3rem` per Veroushka's request (bigger/more legible)
+
+### "Popular repositories" heading
+- Added `<h2 class="project-cards__heading">Popular repositories</h2>` as a sibling directly above `.project-cards`, positioned to align with the cards' left edge
+
+### "Veroush" name label under flork+smiley cluster
+- Added `<span class="work-visual-cluster__name">Veroush</span>` inside `.work-visual-cluster`, positioned below the smiley badge
+
+### "Veroush" text next to github icon (nav row left)
+- Added `<span class="work-nav-row__github-text">Veroush</span>` inside `.work-nav-row__left`, positioned to the right of the github icon
+
+### Smiley badge — solid circle background (transparent PNG fix)
+- **Problem**: `smiley-face.png` has a transparent background, so simply overlapping it on flork didn't create the "badge" look from reference images
+- **Fix**: wrapped the smiley image in a new `.work-visual-cluster__smiley-badge` div, styled as a real circle (`border-radius: 50%`, solid `background`, `border`, `box-shadow`) — the transparent PNG now sits centered inside a CSS-drawn circle instead of relying on the image's own background
+- Badge color evolution: started white (`#ffffff`) → changed to cream `#faf6ee` to match `console.png`'s background tone (color eyedropper-matched by eye, not exact)
+- Badge border color: changed to `#6b7685` (slate-gray) to match the divider color / hamburger icon line color
+- Smiley image sizing inside badge: went through several iterations — percentage-based (`70%`) didn't allow growing past badge size due to a suspected global `img { max-width: 100% }` reset in `main.css`; switched to fixed `width` in `px` with explicit `max-width: none` override so the face can be sized larger than the badge itself and intentionally overflow its edges
+
+### Two new visual dividers (GitHub-style separators)
+- `.work-nav-row__divider`: thin vertical line between `create-new` and `issues` icons in the nav row
+- `.work-subnav__divider`: thin horizontal line below the subnav (Overview/Repositories/Projects/Packages/Stars row), separating it from the project cards below
+- Both dividers color-matched to `#6b7685` (slate-gray, sampled from `hamburger.png`'s icon line color), then lightened from an initial darker `#4a5568` since 2px-wide dark lines read as "too dark" at that thickness — kept width at 2px per Veroushka's preference, adjusted color instead of width
+
+### New `.work-nav-cluster` wrapper
+- Added to group `.work-nav-row` (both left/right icon clusters + the vertical divider) AND `.work-subnav` (+ its horizontal divider) under one shared positioning wrapper
+- Lets Veroushka move the entire nav-row + subnav + both dividers as ONE unit via a single `top`/`left` on `.work-nav-cluster`, without affecting the URL bar above or the "Popular repositories"/project cards below
+- **Important**: this wrapper does NOT include `.work-topbar` or `.project-cards`/`.project-cards__heading` — those remain independent
+
+### Console vertical position adjustment
+- `.work-console`'s `margin-top` changed from `-200px` → `-80px` (later fine-tuned to `-80px`) to stop the console from overlapping `.work-hero`'s "View my work" heading once `.work-hero` became a proper sibling section
+
+---
+
+## 9. BUGS & ERRORS WE FIXED (this session)
+
+### "View my work" heading not visible at all
+- **Cause**: `.work-hero` was nested inside `.work-intro` (which has its own `padding: 5rem 2rem`), unlike `.contact-hero` which sits as a direct sibling inside `<main>`. The padding/margin interaction pushed the heading out of the visible area.
+- **Fix**: moved `.work-hero` to be a sibling of `.work-intro`, matching the contact page's exact DOM structure.
+- **Lesson**: when copying a pattern from another page (e.g. `.contact-hero`), match its DOM position/nesting level exactly, not just its CSS class rules — nesting context changes how margins/padding interact.
+
+### Console image overlapping the new "View my work" heading
+- **Cause**: `.work-console` had a large negative `margin-top: -200px` (originally tuned for the old layout without `.work-hero` above it). Once `.work-hero` became a real sibling section, this negative margin pulled the console back up over the heading.
+- **Fix**: reduced the negative margin to `-80px`.
+- **Lesson**: negative margins tuned for one layout can silently break when new sibling elements are added above/below — always re-check after structural changes.
+
+### Smiley image wouldn't grow past ~40px no matter the width value set
+- **Cause**: a suspected global `img { max-width: 100%; height: auto; }` reset rule in `main.css` was capping the image at its containing block's width (the 40px badge).
+- **Fix**: added `max-width: none;` directly on `.work-visual-cluster__smiley` to override the global reset.
+- **Lesson**: if an image's explicit `width` value appears to have zero effect, check for a global `img { max-width: ... }` reset rule before assuming a specificity or typo issue.
+
+### Nav row left/right clusters don't move together automatically
+- Reconfirmed same open pattern from last session (see prior handoff) — solved this session by wrapping BOTH clusters (plus subnav) in the new `.work-nav-cluster`, so a single `top`/`left` value now moves everything together instead of needing manual sync between `.work-nav-row__left` and `.work-nav-row__right`.
+
+---
+
+## 10. WHAT STILL NEEDS TO BE DONE
+
+### Work page — ACTIVE AREA
+- [ ] Fine-tune final `top`/`left` values for the 4 project cards — still not confirmed final
+- [ ] Confirm `searchbar` icon's `height: 80px` / `width: 200px` proportions — still flagged from last session, not yet visually confirmed
+- [ ] `.project-card__lang` block's exact position (`bottom: -2rem`) — not yet confirmed final
+- [ ] `.project-card__public-icon` width (`80px`) — still not confirmed as intentional vs. leftover from tuning
+- [ ] `.work-console__screen`'s `top`/`left`/`width` values — still placeholder
+- [ ] `.work-nav-cluster`'s `top`/`left` (currently `-80px`/`0px`) — first pass, not confirmed final
+- [ ] `.work-console`'s `margin-top: -80px` — not yet confirmed as the final resting value now that `.work-hero` is above it
+- [ ] Smiley badge cream color (`#faf6ee`) — approximate eyeball match to `console.png`, not confirmed via exact eyedropper/hex-pick
+- [ ] Divider color (`#6b7685`) — approximate match to `hamburger.png`'s line color, same caveat
+- [ ] Gap between hamburger and github icons in nav-row-left — was being discussed/tuned (`left: 60px`+ suggested), final value not yet confirmed
+- [ ] No descriptions/content decided yet for anything below the project cards
+- [ ] General visual pass across the whole work page once all positions are finalized
+
+### Everything else (about page, performance pass, contact page, mobile nav)
+- Unchanged from prior handoffs — not touched this session. Refer to the full project handoff document for the complete outstanding list.
+
+---
+
+## 11. WHERE WE LEFT OFF
+
+- **This session's topic**: Added a `.work-hero` heading ("View my work"), URL bar text, "Popular repositories" heading, "Veroush" labels (under visual cluster + next to github icon), converted the transparent smiley PNG into a proper CSS circle badge, added two GitHub-style divider lines (vertical in nav row, horizontal under subnav), and grouped nav-row + subnav under one new `.work-nav-cluster` wrapper for unified movement.
+- **Completed**: all of the above, confirmed committed and pushed.
+- **Not completed**: final position/color/size fine-tuning across almost everything touched this session — see Section 10.
+- **Very next step**: likely continue nudging `top`/`left` values (project cards, nav-cluster, console margin) by eye, and/or do an eyedropper color-pick on `console.png`/`hamburger.png` to lock in exact hex values for the smiley badge and dividers instead of approximate matches.
+- **Commits this session**: confirmed committed and pushed by Veroushka — commit message used: `"style: add work-hero heading, url-bar text, nav-row/subnav dividers, smiley badge styling, and spacing tweaks"`
+
+---
+
+## 12. PERSONAL DETAILS & CONTENT
+
+Unchanged this session. See prior full handoff document (Section 12) for name, contact details, bio text, and project descriptions.
+
+---
+
+## 13. SIDE TOPICS
+
+- Considered switching `.work-nav-row__left` to `display: flex` with a real `gap` property (for easier icon spacing) — **decided against it**, staying consistent with the page's independent-absolute-positioning philosophy. Manual `left` value tuning remains the approach for spacing icons apart.
+
+---
+
+## ⚠️ GIT RULES — REMINDER AT THE BOTTOM
+
+- After EVERY task, remind Veroushka to stage, commit, and push
+- Suggest commit messages using `feat:`, `fix:`, `style:`, `refactor:`, `chore:` prefixes
+- Suggest branches for big features
+- **Do not wait to be asked — remind proactively every time**
+- **✅ This session's work was confirmed committed and pushed before ending**
+
+```bash
+git add .
+git commit -m "your message here"
+git push
+```
