@@ -330,3 +330,46 @@
   transform: rotate(1deg);
 }
 
+/* ============================================================
+   TYPEWRITER — click to play
+   ============================================================ */
+
+.contact-typewriter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 4rem 70px;
+  margin-top: -50px;
+}
+
+.contact-typewriter__flork {
+  width: 100px;
+  height: auto;
+}
+
+.contact-typewriter__text {
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+.contact-typewriter__arrow {
+  width: 60px;
+  height: auto;
+}
+
+.contact-typewriter__img {
+  width: 120px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  position: relative;
+  top: 70px;
+  z-index: 2;
+}
+
+.contact-typewriter__img:hover {
+  transform: scale(1.05);
+}

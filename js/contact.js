@@ -70,4 +70,31 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Something went wrong sending your message — please try again or email me directly.');
     }
   });
+
+  // Typewriter — click to play/stop (resets on explicit stop), pauses without resetting on tab/focus loss
+  const typewriterImg = document.getElementById('typewriter-img');
+  const typewriterAudio = document.getElementById('typewriter-audio');
+
+  if (typewriterImg && typewriterAudio) {
+    typewriterImg.addEventListener('click', () => {
+      if (typewriterAudio.paused) {
+        typewriterAudio.play();
+      } else {
+        typewriterAudio.pause();
+        typewriterAudio.currentTime = 0;
+      }
+    });
+
+    // Just pause (keep position) when the tab/window loses focus —
+    // clicking the image again resumes from where it left off
+    const pauseOnLeave = () => {
+      typewriterAudio.pause();
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseOnLeave();
+    });
+
+    window.addEventListener('blur', pauseOnLeave);
+  }
 });
