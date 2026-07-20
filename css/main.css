@@ -570,65 +570,40 @@ h2, h3 {
   mix-blend-mode: multiply; 
 }
 
-/* Console / laptop frame */
-.skills__console {
+.skills__cube {
   position: relative;
-  max-width: 750px;  /* overall console size */ 
+  max-width: 750px;
   margin: 0 auto;
-  overflow: hidden; 
 }
 
-.skills__console-bg {
+.skills__cube-bg {
   width: 100%;
-  height: 100%;
-  object-fit: cover;        /* fills the box, crops instead of squishing */
-  object-position: center top;
+  height: auto;
   display: block;
 }
 
-/* The "screen" area — position this to sit inside the laptop image */
-.skills__screen {
+.skills__cube-title {
   position: absolute;
-  top: 12%;     /* tune these 4 to fit inside your console.png's screen */
-  left: 10%;
-  width: 80%;
-  height: 65%;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.skills__cluster {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative; 
-}
-
-.skills__cluster--languages {
-  top: 50px;
-  left: 0px;
-}
-
-.skills__cluster--frameworks {
-  top: 240px;
-  left: 0px;
-}
-
-.skills__cluster--databases {
-  top: 50px;
-  left: -15px;
-}
-
-.skills__cluster h3 {
   font-family: 'HalfTermSchoolsOut', sans-serif;
   font-size: 1.3rem;
   color: #111;
-  margin-bottom: 1rem;
+  text-align: center;
+  width: 160px;
 }
+
+.skills__cube-title--languages { top: 45%; left: -170px; }
+.skills__cube-title--frameworks { top: -50px; left: 50%; transform: translateX(-50%); }
+.skills__cube-title--databases { top: 45%; right: -170px; }
+
+.skills__cube-icons {
+  position: absolute;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skills__cube-icons--languages { top: 20%; left: 5%; }
+.skills__cube-icons--frameworks { top: 5%; left: 38%; }
+.skills__cube-icons--databases { top: 20%; right: 5%; }
 
 .skills__icon {
   position: relative;   /* lets top/left nudge each icon independently */
@@ -638,31 +613,76 @@ h2, h3 {
 }
 
 /* Languages */
-.skills__icon--html { top: 0px; left: -60px; width: 90px; height: 90px; max-width: none; }
-.skills__icon--css    { top: 0px; left: 0px; width: 90px; height: 90px; max-width: none; }
-.skills__icon--java   { top: -180px; left: 60px; width: 90px; height: 90px; max-width: none; }
+.skills__icon--html {
+  width: 90px;
+  height: 90px;
+  max-width: none;
+  position: relative;
+  top: 160px;
+  left: 55px;
+  transform: rotate(3deg) skewY(23deg);
+}
+
+.skills__icon--css { 
+  width: 90px;
+  height: 90px;
+  max-width: none;
+  position: relative;
+  top: 255px;
+  left: 145px;
+  transform: rotate(3deg) skewY(23deg);
+}
 
 /* Frameworks & Libraries */
-.skills__icon--nodejs { top: 0px; left: -50px; width: 90px; height: 90px; max-width: none; }
-.skills__icon--react  { top: -88px; left: 50px; width: 90px; height: 90px; max-width: none; }
+.skills__icon--nodejs { 
+  width: 85px;
+  height: 85px;
+  max-width: none;
+  position: relative;
+  top: 30px;
+  left: -50px;
+  transform: rotate(-67deg) skewY(40deg);
+}
+
+.skills__icon--react { 
+  width: 85px;
+  height: 85px;
+  max-width: none;
+  position: relative;
+  top: 118px;
+  left: 49px;
+  transform: rotate(-67deg) skewY(40deg);
+}
 
 /* Databases & ORMs */
-.skills__icon--postgresql { top: 0px; left: -60px; width: 90px; height: 90px; max-width: none; }
-.skills__icon--mysql      { top: 0px; left: 0px; width: 90px; height: 90px; max-width: none; }
-.skills__icon--prisma     { top: -180px; left: 50px; width: 90px; height: 90px; max-width: none; }
+.skills__icon--postgresql { 
+  width: 90px;
+  height: 90px;
+  max-width: none;
+  position: relative;
+  top: 375px;
+  left: -45px;
+  transform: rotate(-3deg) skewY(-27deg);
+}
 
-/* Mobile — stack clusters vertically */
-@media (max-width: 768px) {
-  .skills__screen {
-    position: relative;
-    top: unset;
-    left: unset;
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
+.skills__icon--mysql { 
+  width: 90px;
+  height: 90px;
+  max-width: none;
+  position: relative;
+  top: 95px;
+  left: -50px;
+  transform: rotate(-3deg) skewY(-19deg);
+}
+
+.skills__icon--prisma { 
+  width: 90px;
+  height: 90px;
+  max-width: none;
+  position: relative;
+  top: 275px;
+  left: -60px;
+  transform: rotate(-3deg) skewY(-29deg);
 }
 
 /* ============================================================
