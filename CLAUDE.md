@@ -1315,3 +1315,383 @@ git add js/contact.js
 git commit -m "fix: correct beat-detection averaging, restore missing if-guard and console logging in typewriter feature"
 git push
 ```
+
+# Session Handoff Document — Veroushka Ramjiawan Portfolio (Homepage Session + GitHub Rename + File Cleanup)
+
+---
+
+## ⚠️ GIT RULES — READ THIS FIRST
+
+- After EVERY task, no matter how small, remind Veroushka to stage, commit, and push
+- Always suggest a commit message in this format:
+  - `feat:` new feature or section added
+  - `fix:` bug or broken thing corrected
+  - `style:` CSS or visual changes only
+  - `refactor:` restructuring code without changing behavior
+  - `chore:` moving files, renaming, cleanup
+- For any significant feature, suggest creating a branch first:
+  ```bash
+  git checkout -b feature/branch-name
+  ```
+  and merging back to main when done
+- **Veroushka tends to forget git entirely — remind proactively, do not wait to be asked**
+- **⚠️ Confirm `git status` at the start of the next session before making any further edits, to make sure this session's work was fully committed and pushed. This session ended with multiple uncommitted changes across about.html, index.html, main.css, and several renamed files — commit status not explicitly reconfirmed at end of session.**
+
+---
+
+## 1. PROJECT OVERVIEW (reconfirmed / unchanged)
+
+- Personal portfolio website for Veroushka Ramjiawan, IT student at UNASAT (Stichting University of Applied Sciences and Technology Suriname), Paramaribo
+- School assignment requiring: home, about, work, and contact pages
+- Visual direction: origami + graffiti school aesthetic, ripped/torn paper texture imagery for nav and footer, continuous color gradient flowing down the homepage. About page uses a "taped-up scrapbook/sticky-note" visual motif (tape graphics, overlapping photos, handwriting font).
+- Tech stack: plain vanilla HTML, CSS, JavaScript only — no frameworks, no libraries (teacher requirement)
+- Site is published via GitHub Pages — standard `git add . / git commit / git push` workflow triggers redeploy automatically. No separate deploy step needed. Browser hard refresh may be needed if changes don't appear live immediately.
+- Veroushka uses Microsoft Edge as her primary browser — relevant for any browser-specific rendering bugs (previously documented: Chromium/Edge caret-under-rotated-ancestor rendering bug).
+- Site loads slowly due to the large number of images in `img/`. Full image optimization plan documented but explicitly deferred to end of project.
+
+### ⚠️ MAJOR CHANGE THIS SESSION — GitHub identity
+- **GitHub username changed**: `Veroush` → **`veroush`** (lowercase)
+- **Repo renamed**: → **`veroush.github.io`** — this converts the site from a **project page** to a **user/root page**
+- **New site URL**: `https://veroush.github.io/` (root domain, no subpath — previously `veroush.github.io/repo-name/` if it was a project page before)
+- **Local git remote must be updated** (if not already done):
+  ```bash
+  git remote set-url origin https://github.com/veroush/veroush.github.io.git
+  git remote -v   # confirm it shows the new URL for both fetch and push
+  ```
+- **All GitHub project links need updating everywhere they're referenced** — old links used `https://github.com/Veroush/` (capital V) as the base. Check:
+  - Footer GitHub icon link (all 4 pages)
+  - Work page project card links (TaskFlow, Chronicles of Booksteria, Pixel Jumper, Studie4SU)
+  - Work page URL bar text (`https://github.com/Veroush` → should become `https://github.com/veroush`)
+  - Contact page GitHub icon/label
+  - **NOT yet confirmed done — needs a full find-and-replace pass across all HTML files next session**
+- **Font path bug possibly self-resolved by this rename**: `main.css` font `@font-face` blocks use absolute root paths (`/fonts/...`). If the site was previously a project page (subpath), `/fonts/...` would have resolved to the wrong place (true domain root instead of the actual subpath) — a likely-invisible pre-existing bug. Now that the site is a root user page, `/fonts/...` resolves correctly automatically. **Veroushka confirmed fonts are now displaying correctly** — worth remembering this fix was incidental (a side effect of the rename), not a direct font-related fix.
+
+---
+
+## 2. FOLDER & FILE STRUCTURE — CHANGES THIS SESSION
+
+```
+project/
+├── css/
+│   ├── main.css          # about-strip: removed notebook/photo/tape rules, merged intro-text + bio-text
+│   │                      # into one paragraph, added footer__tear-left rule, background SVG experiments
+│   │                      # (see Section 8). NOT yet confirmed committed — verify git status.
+│   └── about.css         # unchanged this session (last touched: aboutme-header removal — see below)
+├── fonts/
+│   ├── half-term-schools-out-v4q5l.ttf   # RENAMED from HalfTermSchoolsOut-V4q5l.ttf (kebab-case)
+│   ├── right-round-wq7g.ttf              # RENAMED from RightRound-Wq7G.ttf
+│   ├── shiny-paint-zpwez.otf             # RENAMED from ShinyPaint-ZpWEZ.otf
+│   └── sprinkles-colors-njrj.ttf         # RENAMED from Sprinklescolors-njrJ.ttf (still unused/unconfirmed)
+├── img/
+│   ├── origami-github.png    # RENAMED from origami_github.png — referenced in footer on ALL 4 pages
+│   ├── aboutpage/
+│   │   ├── hskh.jpg           # RENAMED from HSKH.jpg — volunteer row, about.html
+│   │   ├── hskkh-2.jpg        # RENAMED from HSKKH2.jpg — volunteer row, about.html
+│   │   ├── aboutme-header.png # REMOVED FROM USE — see Section 8, About page changes
+│   ├── homepage/
+│   │   ├── html5-icon.png     # RENAMED from HTML5-icon.png — skills section, index.html
+│   │   ├── homepage2.png      # REMOVED FROM USE (notebook image) — see Section 8
+│   │   ├── tape1.png / tape2.png   # REMOVED FROM USE (were inside removed photo-wrap)
+│   │   ├── Sara.jpeg          # STATUS UNCONFIRMED — was inside removed photo-wrap block.
+│   │   │                        Check if file still exists in repo; if truly unused, safe to
+│   │   │                        `git rm`, otherwise rename to sara.jpeg for kebab-case compliance.
+│   │   └── about-strip-bg.svg # NEW — scattered confetti/blob decorative SVG, intended as
+│   │                            .about-strip background. Sizing/position still being tuned
+│   │                            (see Section 8) — confirm final background-size/position values.
+│   └── contactpage/
+│       └── the-typewriter-by-leroy-anderson.mp3  # RENAMED from "The Typewriter by Leroy
+│                                                     Anderson.mp3" — also removes need for %20
+│                                                     URL-encoding in contact.html audio source
+├── index.html    # .about-strip__notebook block fully removed (notebook img + photo-wrap +
+│                  # tape + Sara.jpeg). .about-strip__intro-text and .about-strip__bio-text
+│                  # merged into ONE paragraph. html5-icon.png reference updated.
+│                  # KNOWN ISSUE STILL UNRESOLVED: .about-strip__right still missing its
+│                  # closing </div> tag — flagged again this session, not yet fixed.
+├── about.html    # .about-intro__header-cluster wrapper REMOVED. aboutme-header.png image
+│                  # REMOVED. .about-intro__title is now a standalone element (no longer
+│                  # wrapped), text color changed to black. hskh.jpg/hskkh-2.jpg references
+│                  # updated to new kebab-case filenames.
+├── work.html     # NOT touched this session — GitHub link references here still need the
+│                  # username-case update (Veroush → veroush) mentioned above
+└── contact.html  # Footer GitHub icon reference updated to origami-github.png. Audio source
+                   # updated to kebab-case filename (drops %20 encoding). GitHub-related links
+                   # elsewhere on this page still need the username-case update.
+```
+
+---
+
+## 3–7. ROUTES / DATABASE / CONTROLLERS / MIDDLEWARE / AUTH
+
+Not applicable — static HTML/CSS/JS only, no backend. Skipping.
+
+---
+
+## 8. FEATURES ADDED/CHANGED THIS SESSION
+
+### Footer — new torn-paper-edge SVG (about.html, and shared footer markup across pages)
+- New SVG (torn/ripped paper edge graphic, saved as its own file — confirm final filename/path,
+  likely `img/footer-tear-left.svg`) added via `<img>` tag as `.footer__tear-left`, positioned
+  absolutely at the left edge of the footer, layered above `.footer__bg`
+- Fits the established "ripped/torn paper texture" visual direction for nav/footer
+- **NOT yet confirmed**: whether this was added to ALL FOUR pages' footers, or just about.html
+  (footer markup is duplicated per-page, not a shared include, so each page needs the `<img>`
+  tag added individually)
+
+### Homepage — `.about-strip__notebook` fully removed
+- Removed: notebook image (`homepage2.png`), photo-wrap div, both tape images (`tape1.png`/`tape2.png`),
+  and the photo itself (`Sara.jpeg`)
+- **Known consequence, not yet fixed**: several `.about-strip__right` elements use large *negative*
+  `left` values (e.g. `left: -800px` on `.about-strip__sticky-wrap`, `left: -770px` on
+  `.about-strip__intro-text`) specifically because they were designed to reach left and overlap
+  the now-deleted notebook. These need to be nudged back toward positive/smaller values to
+  re-center the remaining content in `.about-strip__right`'s own space. **This re-centering has
+  NOT been done yet** — flagged as the very next thing to tackle on the homepage.
+- Dead CSS from this removal (still needs deleting from `main.css`, NOT yet confirmed removed):
+  `.about-strip__notebook`, `.about-strip__notebook img`, `.about-strip__photo-wrap`,
+  `.about-strip__photo`, `.about-strip__tape`, `.about-strip__tape--1`, `.about-strip__tape--2`,
+  plus the notebook rule inside the `@media (max-width: 768px)` block
+
+### Homepage — intro text + bio text merged into one paragraph
+- Old: two separate elements, `.about-strip__intro-text` ("Hello there! My name is...") and
+  `.about-strip__bio-text` ("This is me. I'm a curious...")
+- New: single `.about-strip__intro-text` paragraph containing all four lines in order:
+  "Hello there!" / "My name is Veroushka Ramjiawan" / the full bio sentence / "Here's a little
+  tour guide:"
+- `.about-strip__bio-text` CSS rule is now dead — **flagged for deletion, not yet confirmed removed**
+- `.about-strip__intro-text`'s `width: 260px` is likely too narrow now that it holds much more
+  text — **recommended widening to ~450px, not yet confirmed applied**
+
+### Homepage — new decorative SVG background attempt (`about-strip-bg.svg`)
+- Scattered confetti/blob-style SVG intended as a background for `.about-strip`, layered
+  underneath the existing white gradient fade
+- **Bug encountered and explained (not yet re-verified fixed live)**: Veroushka's `background`
+  shorthand only listed ONE image (gradient had been dropped), but `background-size` /
+  `background-position` still had TWO comma-separated values — mismatched layer counts cause
+  the browser to silently use only the first value in each list. Fix given: either drop back to
+  one layer + one set of values, OR restore the two-layer gradient+SVG version with matching
+  comma-counts throughout. **Which version Veroushka ended up keeping is NOT confirmed** — check
+  live `main.css` next session.
+- Size/position are meant to be controlled via `background-size` (SVG's own width is 1422px) and
+  `background-position` (percentage or px offset) — these were being tuned live, **final values
+  not confirmed**.
+
+### About page — `aboutme-header.png` and header-cluster wrapper removed
+- Old structure:
+  ```html
+  <div class="about-intro__header-cluster">
+    <img src="./img/aboutpage/aboutme-header.png" alt="" class="about-intro__header-img" />
+    <h1 class="about-intro__title">About me</h1>
+  </div>
+  ```
+- New structure: standalone `<h1 class="about-intro__title">About me</h1>`, no wrapper, no image
+- `.about-intro__header-img` and `.about-intro__header-cluster` CSS rules are now dead —
+  **flagged for deletion, not yet confirmed removed**
+- Text color changed to black (`color: #000000`), white text-shadow removed (would look muddy
+  against black text)
+- **Known consequence, not yet re-verified**: since `.about-intro__title` is no longer nested
+  inside the (positioned) `.header-cluster`, its `top`/`left` values now resolve against
+  `.about-intro` directly instead of the cluster's own coordinate space — the title likely needs
+  its `top` value adjusted (roughly ~70px less than before, to compensate for the cluster's
+  `top: 70px` no longer being "inherited") to land in the same visual spot. **Not yet confirmed
+  checked live.**
+
+### GitHub username + repo rename (see Section 1 for full details)
+- Username: `Veroush` → `veroush`
+- Repo: renamed to `veroush.github.io` (project page → user/root page)
+- Local `git remote set-url` — **execution not explicitly confirmed this session, verify `git
+  remote -v` next session**
+
+### File renames for kebab-case compliance (linter-flagged)
+Full list of files renamed via `git mv` this session:
+- `HSKH.jpg` → `hskh.jpg`
+- `HSKKH2.jpg` → `hskkh-2.jpg`
+- `HTML5-icon.png` → `html5-icon.png`
+- `HalfTermSchoolsOut-V4q5l.ttf` → `half-term-schools-out-v4q5l.ttf`
+- `RightRound-Wq7G.ttf` → `right-round-wq7g.ttf`
+- `ShinyPaint-ZpWEZ.otf` → `shiny-paint-zpwez.otf`
+- `Sprinklescolors-njrJ.ttf` → `sprinkles-colors-njrj.ttf`
+- `The Typewriter by Leroy Anderson.mp3` → `the-typewriter-by-leroy-anderson.mp3`
+- `origami_github.png` → `origami-github.png`
+- `Sara.jpeg` → status unconfirmed (see Section 2 above)
+
+**NOT renamed (intentionally, do not rename)**:
+- `CLAUDE.md` — required exact filename for Claude Code tooling
+- `vite.config.js` — required exact filename for Vite tooling (though this project doesn't use
+  Vite per the stated vanilla stack — worth checking if this file is even needed/used, or a
+  leftover from something else)
+
+All corresponding HTML/CSS references were updated to match the new filenames in the same session
+(font `@font-face` blocks, volunteer row images, skills section icon, footer GitHub icon on all
+pages, contact page audio source).
+
+---
+
+## 9. BUGS & ERRORS WE FIXED (this session)
+
+### Fonts stopped displaying after file renames
+- Initially appeared broken after the kebab-case font renames
+- **Root cause turned out to be unrelated to the renames themselves** — most likely the
+  pre-existing absolute-root-path bug in `@font-face` (`/fonts/...`) resolving incorrectly while
+  the site was still served from a project-page subpath. Once the GitHub username/repo rename
+  converted the site to a root user page, the paths started resolving correctly and fonts began
+  displaying. **Veroushka confirmed this is now working.** Worth remembering this was likely two
+  separate changes (rename + Pages URL structure) resolving one bug, not a direct fix applied to
+  the font code itself.
+
+### Background SVG size/position not responding to CSS changes
+- **Cause**: `background` shorthand had only ONE image (gradient layer had been dropped from the
+  declaration), but `background-size`/`background-position` still had comma-separated values
+  meant for TWO layers. With only one actual background image, the browser uses only the first
+  value in each comma-list and ignores the second — so changing the "second" value (meant for the
+  SVG) had zero visible effect.
+- **Fix given**: match the number of comma-separated values in `background-size`/
+  `background-position` to the actual number of images in the `background` shorthand — either
+  drop to one full set of values (single-layer version) or restore the two-layer gradient+SVG
+  version with matching double values throughout.
+- **Lesson** (same pattern flagged before elsewhere in this project, e.g. mismatched image
+  width/height causing distortion): comma-separated shorthand values must positionally match
+  their corresponding layers/images — a count mismatch fails silently instead of erroring,
+  making it easy to miss.
+
+---
+
+## 10. WHAT STILL NEEDS TO BE DONE — UPDATED
+
+### Homepage — ACTIVE AREA, in progress
+- [ ] **Re-center `.about-strip__right` content** now that the notebook is gone — large negative
+  `left` values (sticky-wrap, intro-text, arrow) need to be nudged back toward the section's own
+  center. This is the most visually urgent open item on the homepage right now.
+- [ ] Confirm final decision on `.about-strip-bg.svg` — one-layer or two-layer (with gradient)
+  background, and final `background-size`/`background-position` values
+- [ ] Delete dead CSS: `.about-strip__notebook`, `.about-strip__notebook img`,
+  `.about-strip__photo-wrap`, `.about-strip__photo`, `.about-strip__tape`,
+  `.about-strip__tape--1`, `.about-strip__tape--2`, `.about-strip__bio-text`, plus the notebook
+  rule inside the mobile media query
+- [ ] **FIX STILL-OPEN BUG, CARRIED OVER MULTIPLE SESSIONS**: `.about-strip__right` is still
+  missing its closing `</div>` tag in `index.html`. Low risk (browsers auto-close it) but fragile
+  — should be fixed properly now while other homepage edits are already in progress.
+- [ ] `.about-strip` `min-height` still not locked to a final confirmed value (carried over from
+  much earlier sessions)
+- [ ] Confirm `Sara.jpeg` file status — delete if unused, or rename to `sara.jpeg` if still needed
+  somewhere
+
+### GitHub rename cleanup — NEW, ACTIVE AREA
+- [ ] Confirm `git remote -v` shows the new `veroush/veroush.github.io` URL
+- [ ] Full find-and-replace across all 4 HTML files for any hardcoded `github.com/Veroush`
+  (capital V) references — footer icons, work page project links, work page URL bar text,
+  contact page GitHub link/label
+- [ ] Confirm GitHub Pages is still serving correctly at the new root URL
+  (`https://veroush.github.io/`) — check Settings → Pages in the repo if anything looks off
+- [ ] Hard-refresh all 4 live pages and visually confirm all three custom fonts
+  (HalfTermSchoolsOut, ShinyPaint, RightRound) are rendering correctly post-rename
+
+### About page — ACTIVE AREA, in progress
+- [ ] Confirm/adjust `.about-intro__title`'s `top` value now that it's no longer nested inside
+  `.about-intro__header-cluster` (coordinate space changed — see Section 8)
+- [ ] Delete dead CSS: `.about-intro__header-img`, `.about-intro__header-cluster`
+- [ ] Confirm whether `background6.png` (currently live `.about-intro__bg` source) is the final
+  intended background image — doc history shows this has changed multiple times
+  (background2 → background4 → background6) without explicit confirmation each time
+- [ ] Everything else carried over unchanged: hobbies cluster fine-tuning/centering decision,
+  "Who I Am" + Education sections still not added to HTML (content is drafted/approved, just
+  needs placement), "People I admire" still explicitly deferred
+
+### Work page — carried over, unchanged this session
+- All items from prior handoffs remain open: project card position tuning, subnav/nav-row
+  cluster final values, console__screen placeholder values, smiley badge/divider exact color
+  picks, plus the NEW item: GitHub username case fix in project links/URL bar text
+
+### Contact page — carried over, unchanged this session
+- Postcard rotation mismatch (drifted, needs re-fixing)
+- Sent-confirmation envelope image stretched again (needs `aspect-ratio` fix restored)
+- Duplicate `.contact-card__sent-text` CSS rule
+- Typewriter positioning/animation values still first-pass
+- NEW item: GitHub username case fix in GitHub link/label
+
+### Performance — still deferred to end of project, unchanged
+- Full image compression/resize pass (Squoosh workflow, documented in earlier handoffs)
+- Unused fonts/files cleanup (`sprinkles-colors-njrj.ttf` still unconfirmed if needed at all)
+
+### Global
+- Mobile hamburger nav (`main.js`) still not re-tested against current nav structure
+
+---
+
+## 11. WHERE WE LEFT OFF
+
+- **This session's topics**: Added a torn-paper footer SVG; removed the homepage notebook/photo/
+  tape block entirely; merged the homepage intro + bio text into one paragraph; experimented with
+  a new decorative SVG background for `.about-strip` (hit and explained a comma-count mismatch
+  bug); changed GitHub username to `veroush` and renamed the repo to `veroush.github.io`
+  (converting it to a root user page); renamed ~9 files to kebab-case for linter compliance and
+  updated all their references; removed the About page header image + wrapper, making the "About
+  me" title standalone with black text; diagnosed and resolved a font-not-displaying scare
+  (turned out to be the rename fixing a pre-existing path bug, not a new problem).
+- **Not completed**: `.about-strip__right`'s re-centering after notebook removal; several pieces
+  of now-dead CSS across `main.css` and `about.css` not yet deleted; GitHub link username-casing
+  not yet swept across work.html/contact.html; `Sara.jpeg`'s fate undecided; the long-standing
+  missing `</div>` bug on `.about-strip__right` still not fixed.
+- **Very next step**: confirm `git status`/`git remote -v` are both clean and correct, then
+  tackle the `.about-strip__right` re-centering as the top visual priority, followed by the dead
+  CSS cleanup pass.
+- **Commits this session**: **NOT explicitly confirmed** — multiple changes were made across
+  several files (index.html, about.html, main.css, all the renamed files) without an explicit
+  "committed and pushed" confirmation at any point this session. **Treat this as the highest
+  priority git check for next session — there is likely a large uncommitted/unpushed changeset
+  right now.**
+
+---
+
+## 12. PERSONAL DETAILS & CONTENT
+
+Unchanged this session — see the main project handoff document (Section 12) for full details:
+name, date of birth, school, contact info, location, primary browser, all live About page text
+content, not-yet-placed "Who I Am"/Education drafts, "People I admire" reference material, and
+Work page project descriptions.
+
+**One update**: GitHub base URL should now be referenced as `https://github.com/veroush/`
+(lowercase) everywhere going forward, not `https://github.com/Veroush/`.
+
+---
+
+## 13. SIDE TOPICS
+
+- **GitHub Pages URL structure change**: worth remembering as a one-time structural shift — the
+  site moved from (potentially) a project-page subpath to a true root user page. If any future
+  bug looks like a "path" issue (broken links, broken asset loading), check whether it's related
+  to this URL structure change before assuming it's a new bug.
+- **`vite.config.js` presence**: flagged as worth double-checking — this project's stated stack
+  is vanilla HTML/CSS/JS with no frameworks/build tools, so a Vite config file's presence is a
+  bit unusual. Not urgent, but worth asking Veroushka if it's a leftover from scaffolding that
+  can be safely deleted, or if it's actually being used for something.
+
+---
+
+## ⚠️ GIT RULES — REMINDER AT THE BOTTOM
+
+- After EVERY task, remind Veroushka to stage, commit, and push
+- Suggest commit messages using `feat:`, `fix:`, `style:`, `refactor:`, `chore:` prefixes
+- Suggest branches for big features
+- **Do not wait to be asked — remind proactively every time**
+- **⚠️⚠️ HIGH PRIORITY: this entire session's work (footer SVG, notebook removal, text merge,
+  about-strip background SVG, About page header removal, all 9 file renames + reference updates)
+  has NOT been explicitly confirmed as committed or pushed. Run `git status` FIRST at the start
+  of the next session before making any further edits, and if there are uncommitted changes,
+  commit them in logical separate commits rather than one giant commit — e.g.:**
+
+```bash
+git add fonts/ img/*.png img/aboutpage/HSK* img/contactpage/*.mp3
+git commit -m "chore: rename files to kebab-case, update all references"
+
+git add index.html css/main.css
+git commit -m "refactor: remove homepage notebook block, merge intro and bio text"
+
+git add about.html css/about.css
+git commit -m "refactor: remove About page header image and cluster wrapper"
+
+git add about.html index.html work.html contact.html
+git commit -m "style: add torn-paper footer SVG"
+
+git push
+```
+```
