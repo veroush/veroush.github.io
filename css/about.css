@@ -1,9 +1,9 @@
 .about-intro {
   position: relative;
-  min-height: 120vh;      /* ↑ increase further if you push things down more */
+  min-height: 100vh;      /* ↑ increase further if you push things down more */
   background-color: #ffffff;
   overflow: hidden;
-  margin-top: -250px;
+  margin-top: -215px;
 }
 
 .about-intro__bg {
@@ -12,36 +12,19 @@
   top: -50px;
   left: 0;
   width: 100vw;
-  height: 880px;      
+  height: 820px;      
   z-index: 0;
-}
-
-.about-intro__header-img {
-  display: block;
-  position: absolute;
-  top: 490px;      /* moves ONLY the header image up/down */
-  left: 400px;    /* moves ONLY the header image left/right */
-  width: 700px;
-  height: auto;
-  z-index: 1;
 }
 
 .about-intro__title {
   position: absolute;
-  top: 550px;      /* moves ONLY the "About me" text up/down */
+  top: 500px;      /* moves ONLY the "About me" text up/down */
   left: 660px;    /* moves ONLY the "About me" text left/right */
   z-index: 2;
   font-family: 'ShinyPaint', sans-serif;
   font-size: 4rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+  color: #000000;
   margin: 0;
-}
-
-.about-intro__header-cluster {
-  position: relative;
-  top: 70px;      
-  left: 0px;
 }
 
 /* ===== About Story Section (Paramaribo photo + text) ===== */

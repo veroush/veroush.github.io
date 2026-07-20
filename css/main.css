@@ -297,59 +297,13 @@ h2, h3 {
 
 .about-strip {
   position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #ffffff 100%);
+  background: url('/img/homepage/about-strip-bg.svg');
+  background-repeat: no-repeat;
+  background-size: 650px auto;
+  background-position: 10% center;
   padding: 5rem 3rem 5rem 2rem;
   overflow: hidden;
-  min-height: 800px;  /* increase this until nothing gets cut off */
-}
-
-/* Notebook — absolutely positioned, big, pushed to the left */
-.about-strip__notebook {
-  position: absolute;
-  top: 300px; 
-  transform: translateY(-30%);
-  width: 90%;
-  left: 2%;
-}
-
-.about-strip__notebook img {
-  width: 70%;
-  height: auto;
-  display: block;
-}
-
-/* Photo taped to the notebook */
-.about-strip__photo-wrap {
-  position: absolute;
-  top: 20%;        /* up/down on the notebook */
-  left: 42%;       /* left/right — 55% pushes it to the right page */
-  width: 20%;      /* size of the photo */
-}
-
-.about-strip__photo {
-  width: 100%;
-  height: 100px;     
-  display: block;
-  object-fit: cover;  /* crops cleanly instead of stretching */
-  border: 3px solid #000;
-}
-
-/* Tape pieces */
-.about-strip__tape {
-  position: absolute;
-  width: 300px;
-  height: auto;
-  z-index: 2;
-}
-
-.about-strip__tape--1 {
-  top: -25%;
-  left: 28%;
-}
-
-.about-strip__tape--2 {
-  top: 75%;
-  right: 57%;
+  min-height: 600px;
 }
 
 /* Right column — floated on the right side */
@@ -373,9 +327,9 @@ h2, h3 {
 
 .about-strip__intro-text {
   position: absolute;
-  width: 260px;
-  top: 205px;        /* up/down — adjust to sit above the sticky note */
-  left: -770px;       /* left/right — start it matching the sticky note's left value */
+  width: 450px;   /* was 260px — widen to fit the added sentence */
+  top: 160px;
+  left: -720px;    /* revisit this too, since you just removed the notebook it was anchored to */
   font-family: 'HalfTermSchoolsOut';
   font-size: 1.4rem;
   color: #333;
@@ -391,8 +345,8 @@ h2, h3 {
 .about-strip__sticky-wrap {
   position: absolute;  /* now fully independent */
   width: 300px;        /* size */
-  top: 300px;          /* up/down from the top of .about-strip__right */
-  left: -800px;         /* left/right — negative goes toward the notebook */
+  top: 260px;          /* up/down from the top of .about-strip__right */
+  left: -200px;         /* left/right — negative goes toward the notebook */
 }
 
 .about-strip__sticky-bg {
@@ -418,23 +372,11 @@ h2, h3 {
   transform: rotate(3deg);
 }
 
-.about-strip__bio-text {
-  position: absolute;
-  width: 400px;
-  top: 270px;          /* up/down — adjust to position it where you want */
-  left: 140px;          /* left/right — adjust to position it next to the notebook */
-  font-family: 'HalfTermSchoolsOut';
-  font-size: 1.4rem;
-  line-height: 1.5;
-  color: #333;
-  text-align: left;
-}
-
 .about-strip__arrow {
   position: absolute;
   width: 100px;
-  top: 250px;
-  left: 30px;
+  top: 320px;
+  left: -350px;
   z-index: 3;
   transform: rotate(200deg);
 }
@@ -443,15 +385,6 @@ h2, h3 {
 @media (max-width: 768px) {
   .about-strip {
     padding: 3rem 1.5rem;
-  }
-
-  .about-strip__notebook {
-    position: relative;
-    top: unset;
-    left: unset;
-    transform: none;
-    width: 90%;
-    margin: 0 auto 2rem;
   }
 
   .about-strip__right {
@@ -487,7 +420,7 @@ h2, h3 {
 .experience-projects__note-text {
   position: absolute;
   inset: 0;
-  padding: 2rem 1.5rem;
+  padding: 4rem 2rem;
   font-family: 'HalfTermSchoolsOut', sans-serif;
 }
 
@@ -807,9 +740,18 @@ h2, h3 {
   transform: scale(1.1);
 }
 
+.footer__tear-left {
+  position: absolute;
+  top: 130px;
+  left: 10px;
+  width: 150px;   /* tune to taste */
+  height: auto;
+  z-index: 1;      /* bump above .footer__bg, below .footer__content if needed */
+}
+
 .about-strip__roles {
   position: absolute;
-  top: 420px;
+  top: 120px;
   left: 144px;
 }
 

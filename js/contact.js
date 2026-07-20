@@ -100,26 +100,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!beatDetectionActive) return;
 
     analyser.getByteFrequencyData(dataArray);
-    const energy = dataArray.slice(0, 20).reduce((sum, val) => sum + val, 0);
 
-    // compare against average of PAST frames only, before adding the current one
+    // Typewriter clacks/bell are sharp transients in the higher end —
+    // sample a higher bin range instead of the low melodic content
+    const clackEnergy = dataArray.slice(40, 90).reduce((sum, val) => sum + val, 0);
+
     const avgEnergy = energyHistory.length > 0
       ? energyHistory.reduce((a, b) => a + b, 0) / energyHistory.length
-      : energy;
+      : clackEnergy;
 
-    console.log('energy:', energy.toFixed(1), 'avg:', avgEnergy.toFixed(1));
+    console.log('clack:', clackEnergy.toFixed(1), 'avg:', avgEnergy.toFixed(1));
 
     const now = performance.now();
 
-    if (energy > avgEnergy * 1.08 && energy > 50 && now - lastBeatTime > 150) {
+    if (clackEnergy > avgEnergy * 1.3 && clackEnergy > 30 && now - lastBeatTime > 150) {
       onBeat();
       lastBeatTime = now;
     }
 
-    energyHistory.push(energy);
-    if (energyHistory.length > 8) energyHistory.shift();
+   energyHistory.push(clackEnergy);
+   if (energyHistory.length > 8) energyHistory.shift();
 
-    requestAnimationFrame(detectBeat);
+   requestAnimationFrame(detectBeat);
   }
 
   function onBeat() {
