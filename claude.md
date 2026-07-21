@@ -2041,3 +2041,387 @@ git add .
 git commit -m "your message here"
 git push
 ```
+---
+
+# Session Handoff Document — Veroushka Ramjiawan Portfolio (Homepage Skills Section + Contact Typewriter Manual Beat Session)
+
+---
+
+## ⚠️ GIT RULES — READ THIS FIRST
+
+- After EVERY task, no matter how small, remind Veroushka to stage, commit, and push
+- Always suggest a commit message in this format:
+  - `feat:` new feature or section added
+  - `fix:` bug or broken thing corrected
+  - `style:` CSS or visual changes only
+  - `refactor:` restructuring code without changing behavior
+  - `chore:` moving files, renaming, cleanup
+- For any significant feature, suggest creating a branch first:
+  ```bash
+  git checkout -b feature/branch-name
+  ```
+  and merging back to main when done
+- **Veroushka tends to forget git entirely — remind proactively, do not wait to be asked**
+- **⚠️ This session's work (skills section rebuild + contact.js rebuild) — commit status NOT explicitly confirmed at end of session. Run `git status` FIRST at the start of the next session before making any further edits.**
+- **Reminder: Windows case-only renames need the two-step `git mv` trick (see earlier in this document) — do not assume a simple rename in VS Code was picked up by Git without verifying via `git show --name-status HEAD`.**
+- **Reminder: HTML files must NOT contain inline `style=""` attributes, `<style>` blocks, `onclick=""` or other inline event handlers — this is a strict teacher requirement, checked automatically. JavaScript setting `element.style.property` at runtime from an external `.js` file is fully compliant and NOT the same thing as an inline style — this distinction came up this session and Veroushka confirmed she's comfortable with the `element.style` approach going forward (see Section 8, contact.js typewriter).**
+
+---
+
+## 1. PROJECT OVERVIEW (reconfirmed / unchanged)
+
+- Personal portfolio website for Veroushka Ramjiawan, IT student at UNASAT (Stichting University of Applied Sciences and Technology Suriname), Paramaribo
+- **School assignment full requirements** (for reference, copied in full so nothing gets lost):
+  - Pages required: home (intro, current roles, recent work experience, recent projects/achievements, skills), about (detailed background/interests + education), work (projects with title/description/tech/link), contact (social links, email, phone; optional contact form)
+  - Must be responsive across desktop/tablet/mobile
+  - Tech stack: HTML, CSS, JavaScript only
+  - Deployment: GitHub Pages (using this), Vercel, or Netlify
+  - Deliverables: public GitHub repo, live deployed URL, all pages linked via relative paths
+  - **Strict file/folder rules being graded**: kebab-case filenames throughout; root must contain `index.html`, `work.html`, `contact.html` (+ others); `css/` must contain `main.css`, `work.css`, `contact.css` (+ others); `js/` folder if present must contain at least one `.js` file AND each HTML file must reference at least one external script; all images in a folder literally named `img` (not `images`); every HTML file must link `main.css`; `work.html`/`contact.html` must each also link their own stylesheet
+  - **Strict code rules being graded**: **no inline styles or `<style>` blocks in HTML**; **no inline event handlers (`onclick=` etc.) or `<script>` blocks in HTML**; stylesheets must include `@media` queries for responsiveness
+  - Design inspiration references given by teacher: Paul Bakaus, Una Kravets, Josh W. Comeau, Wes Bos, Kevin Powell
+- Visual direction: origami + graffiti school aesthetic, ripped/torn paper texture imagery for nav and footer, continuous color gradient flowing down the homepage. About page uses a "taped-up scrapbook/sticky-note" visual motif (tape graphics, overlapping photos, handwriting font).
+- Tech stack: plain vanilla HTML, CSS, JavaScript only — no frameworks, no libraries, no build tools (teacher requirement, strictly enforced/graded — see above)
+- GitHub username: **`veroush`** (lowercase). Repo: **`veroush.github.io`** (root user page, not a project page). Live site: `https://veroush.github.io/`
+- Site is published via GitHub Pages — standard `git add . / git commit / git push` workflow triggers automatic Actions-based redeploy. No separate deploy step needed. Browser hard refresh may be needed if changes don't appear live immediately.
+- Veroushka uses Microsoft Edge as her primary browser
+- Local dev/preview: **VS Code "Live Server" extension** (Vite has been fully removed from this project — do not suggest Vite/npm commands)
+- Site loads slowly due to the large number of images in `img/`. Full image optimization plan documented (Squoosh workflow) but explicitly deferred to end of project — **still not started, still deferred**.
+
+---
+
+## 2. FOLDER & FILE STRUCTURE — CONFIRMED CURRENT STATE (from live `Get-ChildItem` output this session)
+
+```
+project/
+├── css/
+│   ├── about.css
+│   ├── contact.css
+│   ├── main.css
+│   └── work.css
+├── fonts/
+│   ├── half-term-schools-out-v4q5l.ttf
+│   ├── right-round-wq7g.ttf
+│   ├── shiny-paint-zpwez.otf
+│   └── sprinkles-colors-njrj.ttf
+├── img/
+│   ├── favicon.png / logo.png / footer.png / footer-tear-left.svg / topnavbar.webp /
+│   │   home-page-icon.png / about-me-icon.png / work-icon.png / contact.png /
+│   │   linkedin-icon.png / origami-github.png / about-me-icon.png / work-icon.png
+│   │   cat-playing-animation.svg   # NEW this session — footer decorative SVG, added to
+│   │                                 EVERY page's footer (confirmed done: index, about, work, contact)
+│   ├── aboutpage/         # unchanged this session — full list unchanged from prior handoffs
+│   ├── contactpage/       # unchanged this session — full list unchanged from prior handoffs
+│   ├── homepage/          # rubix-cube.png NEW this session (replaces console.png in skills section)
+│   │                        console.png still exists on disk but NO LONGER REFERENCED anywhere —
+│   │                        candidate for deletion in a future cleanup pass, not yet removed
+│   └── workpage/          # unchanged this session
+├── js/
+│   ├── main.js         # unchanged this session
+│   ├── contact.js      # FULLY REBUILT this session — see Section 8
+│   └── work.js         # unchanged this session
+├── index.html            # skills section markup rebuilt this session — see Section 8
+├── about.html
+├── work.html
+├── contact.html           # footer cat SVG added
+├── claude.md
+└── README.md
+```
+
+---
+
+## 3–7. ROUTES / DATABASE / CONTROLLERS / MIDDLEWARE / AUTH
+
+Not applicable — static HTML/CSS/JS only, no backend (Formspree used for the contact form's email delivery, third-party, no custom backend). Skipping.
+
+---
+
+## 8. FEATURES ADDED/CHANGED THIS SESSION
+
+### Homepage — Skills section rebuilt: `console.png` → `rubix-cube.png`
+
+**What changed and why**: Veroushka wanted to move away from the laptop/console mockup for the skills section and instead use a Rubik's cube image, with each visible cube face representing one skill category.
+
+**Markup — old `.skills__console` block removed, replaced with:**
+```html
+<div class="skills__cube">
+  <img src="img/homepage/rubix-cube.png" alt="" class="skills__cube-bg" aria-hidden="true" />
+
+  <h3 class="skills__cube-title skills__cube-title--languages">Languages</h3>
+  <div class="skills__cube-icons skills__cube-icons--languages">
+    <img src="img/homepage/html5-icon.png" alt="HTML5" class="skills__icon skills__icon--html" />
+    <img src="img/homepage/css3-icon.png" alt="CSS3" class="skills__icon skills__icon--css" />
+  </div>
+
+  <h3 class="skills__cube-title skills__cube-title--frameworks">Frameworks &amp; Libraries</h3>
+  <div class="skills__cube-icons skills__cube-icons--frameworks">
+    <img src="img/homepage/nodejs-icon.png" alt="Node.js" class="skills__icon skills__icon--nodejs" />
+    <img src="img/homepage/react-icon.png" alt="React" class="skills__icon skills__icon--react" />
+  </div>
+
+  <h3 class="skills__cube-title skills__cube-title--databases">Databases &amp; ORMs</h3>
+  <div class="skills__cube-icons skills__cube-icons--databases">
+    <img src="img/homepage/postgresql-icon.png" alt="PostgreSQL" class="skills__icon skills__icon--postgresql" />
+    <img src="img/homepage/mysql-icon.png" alt="MySQL" class="skills__icon skills__icon--mysql" />
+    <img src="img/homepage/prisma-icon.png" alt="Prisma" class="skills__icon skills__icon--prisma" />
+  </div>
+</div>
+```
+
+**Layout logic** (per Veroushka's explicit spec):
+- **Languages** title sits to the LEFT of the cube; its icons (HTML5, CSS3) sit on top of the cube's LEFT-facing face
+- **Frameworks & Libraries** title sits ABOVE/on TOP of the cube; its icons (Node.js, React) sit on the cube's TOP face
+- **Databases & ORMs** title sits to the RIGHT of the cube; its icons (PostgreSQL, MySQL, Prisma) sit on the cube's RIGHT-facing face
+
+**Important scope note**: original markup had 3 language icons (html5, css3, **java**). Veroushka said "both languages" (2) — **java-icon.png was deliberately dropped from the languages cluster this session**. If she wants it back, it needs a decision on where to place it (there's no natural 4th face on a cube for it).
+
+**CSS — new rules added:**
+```css
+.skills__cube {
+  position: relative;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.skills__cube-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.skills__cube-title {
+  position: absolute;
+  font-family: 'HalfTermSchoolsOut', sans-serif;
+  font-size: 1.3rem;
+  color: #111;
+  text-align: center;
+  width: 160px;
+}
+
+.skills__cube-title--languages { top: 45%; left: -170px; }
+.skills__cube-title--frameworks { top: -50px; left: 50%; transform: translateX(-50%); }
+.skills__cube-title--databases { top: 45%; right: -170px; }
+
+.skills__cube-icons {
+  position: absolute;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skills__cube-icons--languages { top: 20%; left: 5%; }
+.skills__cube-icons--frameworks { top: 5%; left: 38%; }
+.skills__cube-icons--databases { top: 20%; right: 5%; }
+```
+
+**⚠️ ALL of the above position values (`top`/`left`/`right`/`width`) are first-pass starting guesses only — NOT yet visually confirmed against the real cube image. This needs a full tuning pass next session, same as the lego labels were tuned earlier in the project.**
+
+**CSS — deleted entirely this session** (replaced by the above):
+```css
+.skills__console { ... }
+.skills__console-bg { ... }
+.skills__screen { ... }
+.skills__cluster { ... }
+.skills__cluster--languages { ... }
+.skills__cluster--frameworks { ... }
+.skills__cluster--databases { ... }
+.skills__cluster h3 { ... }
+/* + the mobile media query block for .skills__screen */
+```
+
+**CSS — per-icon overrides simplified** (removed old `top`/`left` nudge values since positioning now lives on the wrapper divs instead of individual icons):
+```css
+.skills__icon--html { width: 90px; height: 90px; max-width: none; }
+.skills__icon--css { width: 90px; height: 90px; max-width: none; }
+.skills__icon--nodejs { width: 90px; height: 90px; max-width: none; }
+.skills__icon--react { width: 90px; height: 90px; max-width: none; }
+.skills__icon--postgresql { width: 90px; height: 90px; max-width: none; }
+.skills__icon--mysql { width: 90px; height: 90px; max-width: none; }
+.skills__icon--prisma { width: 90px; height: 90px; max-width: none; }
+```
+`.skills__icon--java` rule **removed entirely** (icon dropped from markup — see above).
+
+**New per-icon rotate/skew example added — HTML icon given a "sticker on an angled surface" tilt**, same design language as the homepage lego labels and About page rotated arrows:
+```css
+.skills__icon--html {
+  width: 90px;
+  height: 90px;
+  max-width: none;
+  position: relative;
+  top: 10px;
+  left: -8px;
+  transform: rotate(-8deg) skewY(6deg);
+}
+```
+This is a first-pass example value, not confirmed final — same "tune by eye against the real image" pattern used throughout this project (lego labels, arrow rotations, etc.).
+
+### Footer — new `cat-playing-animation.svg`, added to ALL FOUR pages
+
+- New self-contained animated SVG (Lottie file converted/exported to a true SVG — confirmed self-contained, not requiring the `lottie-web` JS library, which would have broken the teacher's "no frameworks/libraries" rule)
+- Added via plain `<img>` tag — no JS needed, since the SVG's animation is baked into the file itself
+- Positioned bottom-left of the footer on every page:
+```html
+<img src="./img/cat-playing-animation.svg" alt="" class="footer__cat" aria-hidden="true" />
+```
+```css
+.footer__cat {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 120px;
+  height: auto;
+  z-index: 2;
+}
+```
+- **Confirmed added to `contact.html` this session** (visible in the file Veroushka shared). **NOT explicitly re-confirmed for `index.html`, `about.html`, `work.html` this session — verify all three still have it, since only contact.html's markup was actually reviewed live.**
+- Positioning values (`bottom: 10px; left: 10px; width: 120px`) are first-pass, not confirmed final.
+
+### Contact page — `contact.js` fully rebuilt: beat-detection → manual beat schedule
+
+**Why**: the old typewriter animation used live Web Audio API frequency analysis (`AnalyserNode`) to auto-detect "beats" in the song and trigger movement. This had been buggy across multiple sessions (syntax errors, averaging bugs, threshold tuning issues — see much earlier handoff sections) and the song's rhythm is irregular enough that auto-detection was fighting a losing battle. Veroushka wanted full manual control instead: hand-place exact timestamps and exact movement offsets herself, based on listening to the song.
+
+**Old system removed entirely**: `audioCtx`, `analyser`, `dataArray`, `source`, `setupAudioAnalyser()`, `detectBeat()`, `onBeat()`, `energyHistory`, `lastBeatTime`, `shuffleStep`, `shufflePositions` array, and all `is-shuffle-*` CSS class toggling.
+
+**New system**: a hand-authored schedule array + a polling loop that checks the audio's `currentTime` against it:
+
+```javascript
+const beatSchedule = [
+  { time: 0.8, x: -6, y: 0 },
+  { time: 1.6, x: 6, y: 0 },
+  { time: 2.1, x: 0, y: -8 },
+  { time: 3.4, x: 0, y: 8 },
+  { time: 3.9, x: -6, y: -8 },
+  // add as many entries as needed, in ascending time order
+];
+
+let nextBeatIndex = 0;
+
+function checkSchedule() {
+  if (typewriterAudio.paused) return;
+  const t = typewriterAudio.currentTime;
+  const next = beatSchedule[nextBeatIndex];
+  if (next && t >= next.time) {
+    typewriterImg.style.transform = `translate(${next.x}px, ${next.y}px)`;
+    nextBeatIndex++;
+  }
+  requestAnimationFrame(checkSchedule);
+}
+```
+
+- Movement is applied via `element.style.transform` set directly in JS (NOT inline HTML attributes) — this was specifically discussed and confirmed compliant with the teacher's "no inline styles" rule, since that rule targets `style=""` written in the HTML markup itself, not runtime DOM manipulation from an external `.js` file. **Veroushka explicitly chose to keep this approach (`element.style`) over an alternative CSS-class-toggling approach that was offered — this is her confirmed preference, don't re-suggest switching to classes unless she brings it up again.**
+- `play`/`pause` event handlers updated to call `checkSchedule()` on play, and to reset `typewriterImg.style.transform = ''` + `nextBeatIndex = 0` on pause (mirrors the old system's reset-on-pause behavior)
+- Click handler simplified — removed the `setupAudioAnalyser()`/`audioCtx.resume()` calls since there's no longer an AnalyserNode to set up
+- **Everything else in `contact.js` is unchanged from before**: fake-caret focus/blur/input logic, submit-arrow visibility-on-typing logic, Formspree POST submission handler, tab-blur pause-without-reset behavior for the typewriter, bop animation on `flork-music.webp` synced to audio `play`/`pause` events
+
+**CSS cleanup still needed, NOT yet done**: the old `.is-shuffle-up/down/left/right/center` rules in `contact.css` are now fully dead code (movement is inline `style.transform` now) — **flagged for deletion, not yet removed from `contact.css`**.
+
+**The full rebuilt file was generated and delivered to Veroushka this session** — she has it, needs to save it as `js/contact.js` (replacing the old one) if she hasn't already.
+
+### Beat-schedule authoring workflow — established this session
+
+Since the song's rhythm is irregular and Veroushka wants to place beats "by ear" rather than algorithmically:
+1. Play the song via `document.getElementById('typewriter-audio').play()` typed directly in the browser DevTools console (NOT by clicking the typewriter image on the page — clicking it again while playing triggers the pause-and-reset click handler, which was causing confusion/restarts when she tried this)
+2. Every time a beat is heard, type `document.getElementById('typewriter-audio').currentTime` in the console and note the returned number — this only reads the value, doesn't affect playback
+3. Pair each captured timestamp with a hand-picked `x`/`y` offset (small offsets like `±6px` to `±8px` suggested as a starting range) to build out the `beatSchedule` array
+4. **This capture process was being walked through live at the very end of the session — Veroushka had NOT yet actually produced a real timestamp list. The `beatSchedule` array currently in the delivered file is still just 5 placeholder example entries, not real song data.**
+
+---
+
+## 9. BUGS & ERRORS WE FIXED (this session)
+
+### Song restarting every time DevTools console command was run
+- **Cause**: Veroushka was clicking the typewriter image on the page (to start the song) while also trying to interact with DevTools — if the typewriter image got clicked a second time while the song was already playing, the click handler's "explicit pause = reset to 0" behavior fired, restarting the song each time she tried to read a timestamp.
+- **Fix**: bypass the image entirely — start playback via `document.getElementById('typewriter-audio').play()` typed in the console, and only ever *read* `currentTime` (never call `.play()`/`.pause()`/click the image) while capturing beat timestamps.
+- **Lesson**: the click-to-restart behavior on the typewriter image is intentional/by-design (built in an earlier session), but it's easy to trigger by accident when also trying to interact with the same page via DevTools — worth remembering this interaction exists if similar debugging comes up again.
+
+### Console flooded with "clack: ... avg: ..." log spam (from the OLD file, prior to rebuild)
+- **Cause**: the old `detectBeat()` function (now fully removed) had a `console.log` running on every `requestAnimationFrame` tick while the song played, making it impossible to read anything else typed into the console.
+- **Fix**: resolved automatically by the full `contact.js` rebuild this session — the new manual-schedule system has no per-frame logging at all.
+
+---
+
+## 10. WHAT STILL NEEDS TO BE DONE — UPDATED
+
+### Homepage — Skills/cube section — NEW, ACTIVE AREA
+- [ ] **Full visual tuning pass on all `.skills__cube-*` position values** — titles (`--languages`/`--frameworks`/`--databases`) and icon-group wrappers (same three) are all first-pass placeholder numbers, not checked against the real `rubix-cube.png` image yet
+- [ ] Decide what to do with the dropped `java-icon.png` — leave it out permanently, or find a place for it (note: doesn't map cleanly to a 3rd visible cube face)
+- [ ] Tune the HTML icon's `rotate(-8deg) skewY(6deg)` sticker-tilt values (and consider whether to apply similar tilt to the other icons for visual consistency, or leave HTML as the only tilted one — not yet discussed)
+- [ ] `console.png` no longer referenced anywhere — candidate for deletion from `img/homepage/`, not yet removed (leaving it doesn't break anything, just unused disk weight)
+
+### Contact page — typewriter — ACTIVE AREA
+- [ ] **Build out the real `beatSchedule` array** — currently only 5 placeholder example entries exist in the delivered `contact.js`, none are real captured timestamps from the actual song yet. This is the very next thing to do.
+- [ ] Once real timestamps are captured, decide on `x`/`y` offset patterns per beat (e.g. bigger jumps for strong beats/bell dings, smaller shifts for soft clacks — discussed as an idea, not yet applied)
+- [ ] Delete dead `.is-shuffle-*` CSS rules from `contact.css` (now unused — see Section 8)
+- [ ] Confirm the rebuilt `contact.js` was actually saved into the project (replacing the old beat-detection version) — file was delivered this session but save-and-replace was not explicitly confirmed back
+
+### Footer cat SVG
+- [ ] Confirm `cat-playing-animation.svg` is present in the footer on ALL FOUR pages (index.html, about.html, work.html — only contact.html was actually visually confirmed this session)
+- [ ] Tune final `bottom`/`left`/`width` values on `.footer__cat` — first pass, not confirmed final
+- [ ] Double check the SVG animation itself plays correctly when rendered via `<img>` tag (self-contained SMIL/CSS animation assumed based on it being a proper exported SVG, not explicitly re-verified live in browser this session)
+
+### Carried over, explicitly deprioritized this session, still open (all details preserved in earlier sections of this document above — not repeating in full here):
+- **Homepage**: `.about-strip__right` re-centering after notebook removal — still the longest-standing visually urgent item across the whole project, explicitly NOT touched again this session ("we will do this in another session, its not a priority now")
+- **Homepage**: missing closing `</div>` on `.about-strip__right`
+- **Homepage**: `about-strip-bg.svg` one-layer vs two-layer background decision unconfirmed
+- **Homepage**: dead CSS from notebook removal not yet deleted
+- **Homepage**: lego label rotation/skew — only TaskFlow (`--1`) confirmed tuned in the CSS reviewed this session; `--2`/`--3`/`--4` DO have transform values now (contrary to what an earlier handoff claimed) — worth a fresh visual check next session on whether all 4 actually look right, especially `--3` (red block) which currently has NO `rotate`/`skewY` at all, just `top`/`left`
+- **GitHub link casing sweep**: still needs a full find-and-replace across `work.html`/`contact.html` for any leftover `github.com/Veroush` (capital V)
+- **About page**: hobbies cluster centering, "Who I Am"/Education sections not yet added, `.about-intro__title` top-value re-check, `background6.png` final confirmation
+- **Work page**: project card position tuning, subnav/nav-row cluster final values, `.work-console__screen` placeholder values, smiley badge/divider exact color picks
+- **Contact page**: postcard rotation mismatch, sent-confirmation envelope image stretch fix, duplicate `.contact-card__sent-text` CSS rule
+- **Performance**: full image compression/resize pass via Squoosh — still deferred to end of project
+- **Global**: mobile hamburger nav (`main.js`) still not re-tested against current nav structure; no mobile/responsive pass has been done on any page
+
+---
+
+## 11. WHERE WE LEFT OFF
+
+- **This session's topics**: Rebuilt the homepage Skills section from a laptop/console mockup to a Rubik's-cube-based layout (Languages/Frameworks/Databases mapped to left/top/right cube faces), added rotate+skew "sticker tilt" styling to the HTML icon as an example, discussed a Lottie animation file and converted the plan to use a true self-contained SVG instead (`cat-playing-animation.svg`) added to all four page footers, clarified the "no inline styles" school rule does NOT prohibit JS-driven `element.style` changes, and fully rebuilt `contact.js`'s typewriter animation system from live beat-detection (Web Audio API frequency analysis) to a manual hand-authored `beatSchedule` array — including walking through how to capture real song timestamps via the browser DevTools console.
+- **Completed**: Skills section markup + CSS fully rebuilt and delivered; footer cat SVG added and confirmed on contact.html; `contact.js` fully rebuilt and delivered (with placeholder example schedule data, not real song data yet); DevTools timestamp-capture workflow explained and troubleshot (fixed the "song restarts every command" issue).
+- **Not completed**: no real `beatSchedule` timestamps captured yet (still placeholder data); cube section position values are all first-pass, not visually tuned; footer cat SVG not explicitly confirmed present on index/about/work pages; dead `.is-shuffle-*` CSS not yet removed from `contact.css`; **homepage `.about-strip__right` re-centering explicitly deferred again, still the top-priority open visual item overall**.
+- **Very next step**: Veroushka should (1) save the delivered `contact.js` into the project if not already done, (2) use the DevTools capture workflow to build a real `beatSchedule`, (3) confirm the cube section footer SVG are visually working, (4) run `git status`/commit/push. After that, likely continue tuning the Skills/cube positions, or finally circle back to the long-deferred `.about-strip__right` re-centering.
+- **Commits this session**: **NOT confirmed** — no explicit "committed and pushed" confirmation was given for either the skills-section rebuild, the footer cat SVG addition, or the contact.js rebuild. **Treat all of this session's work as unconfirmed/uncommitted until verified via `git status` next session.**
+
+Suggested commits for this session's work (kept as separate logical commits per the project's git rules):
+```bash
+git add index.html css/main.css img/homepage/rubix-cube.png
+git commit -m "refactor: replace console.png with rubix-cube.png in skills section
+
+- remove .skills__console, .skills__screen, .skills__cluster markup/styles
+- add .skills__cube wrapper with title + icon positioning per cube face
+  (languages left, frameworks top, databases right)
+- drop unused java icon from languages cluster
+- simplify per-icon size overrides, move positioning to icon-group wrappers
+- add rotate/skew styling to html icon for sticker-style tilt"
+
+git add index.html about.html work.html contact.html img/cat-playing-animation.svg css/main.css
+git commit -m "feat: add animated cat SVG to footer on all pages"
+
+git add js/contact.js
+git commit -m "refactor: replace typewriter beat-detection with manual beat schedule
+
+- remove Web Audio API analyser/frequency-detection code entirely
+- add hand-authored beatSchedule array (time, x, y offsets)
+- add checkSchedule() polling loop driven by audio currentTime
+- movement applied via element.style.transform (JS-driven, not inline HTML —
+  confirmed compliant with no-inline-styles requirement)
+- simplify click handler (no more audioCtx setup/resume needed)"
+
+git push
+```
+
+---
+
+## 12. PERSONAL DETAILS & CONTENT
+
+Unchanged this session — see earlier sections of this document for full details: name, date of birth, school, contact info, location, primary browser, all live About page text content, not-yet-placed "Who I Am"/Education drafts, "People I admire" reference material, Work page project descriptions, GitHub username/URLs.
+
+---
+
+## 13. SIDE TOPICS
+
+- **Full school assignment rubric now documented in full in Section 1 of this addendum** — worth referring back to this any time a "is X allowed?" question comes up (inline styles, inline scripts, file naming, folder structure, required stylesheet links, responsive `@media` query requirement), since Veroushka is being graded against this exact checklist.
+- **The "no inline styles" rule specifically only restricts HTML markup** (`style=""` attributes, `<style>` blocks) — it does NOT restrict JavaScript's `element.style.property = value` at runtime from an external `.js` file. This distinction was explicitly discussed and confirmed this session — worth remembering so this doesn't need re-explaining if it comes up again on a different page/feature.
+- **Lottie files are JSON, not SVG**, even when people call them ".svg" — using the standard `lottie-web` player would violate the "no frameworks/libraries" rule. If Veroushka brings up another Lottie-style animation in the future, the same three options apply: (1) recreate as CSS `@keyframes` on a real SVG, (2) convert to GIF/MP4 via LottieFiles.com and use a plain `<img>`/`<video>` tag, or (3) ask the teacher if `lottie-web` counts as an acceptable narrow exception. This session went with a pre-existing real SVG file instead, sidestepping the issue entirely.
+```
+
+---
