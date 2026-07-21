@@ -401,9 +401,3 @@
   62.5% { transform: translate(8px, 0); }    /* right */
   75% { transform: translate(0, 0); }
 }
-
-.contact-typewriter__img.is-shuffle-up     { transform: translateY(-8px); }
-.contact-typewriter__img.is-shuffle-down   { transform: translateY(8px); }
-.contact-typewriter__img.is-shuffle-left   { transform: translateX(-6px); }
-.contact-typewriter__img.is-shuffle-right  { transform: translateX(6px); }
-.contact-typewriter__img.is-shuffle-center { transform: translate(0, 0); }

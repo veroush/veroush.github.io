@@ -77,83 +77,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const florkImg = document.querySelector('.contact-typewriter__flork');
 
   if (typewriterImg && typewriterAudio) {
-  // --- Beat detection setup ---
-  let audioCtx, analyser, dataArray, source;
-  let beatDetectionActive = false;
-  let energyHistory = [];
-  let lastBeatTime = 0;
-  let shuffleStep = 0;
-  const shufflePositions = ['up', 'down', 'left', 'right', 'center'];
 
-  function setupAudioAnalyser() {
-    if (audioCtx) return; // only set up once
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    source = audioCtx.createMediaElementSource(typewriterAudio);
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-    dataArray = new Uint8Array(analyser.frequencyBinCount);
-  }
+    // --- Manual beat schedule ---
+    // Each entry: { time: seconds into the song, x: px left/right, y: px up/down }
+    // Fill this in by ear to match the song's irregular rhythm.
+    // Positive x = right, negative x = left. Positive y = down, negative y = up.
+    const beatSchedule = [
+      { time: 0.8, x: -6, y: 0 },
+      { time: 1.6, x: 6, y: 0 },
+      { time: 2.1, x: 0, y: -8 },
+      { time: 3.4, x: 0, y: 8 },
+      { time: 3.9, x: -6, y: -8 },
+      // add as many entries as you want, kept in ascending time order
+    ];
 
-  function detectBeat() {
-    if (!beatDetectionActive) return;
+    let nextBeatIndex = 0;
 
-    analyser.getByteFrequencyData(dataArray);
+    function checkSchedule() {
+      if (typewriterAudio.paused) return;
 
-    // Typewriter clacks/bell are sharp transients in the higher end —
-    // sample a higher bin range instead of the low melodic content
-    const clackEnergy = dataArray.slice(40, 90).reduce((sum, val) => sum + val, 0);
+      const t = typewriterAudio.currentTime;
+      const next = beatSchedule[nextBeatIndex];
 
-    const avgEnergy = energyHistory.length > 0
-      ? energyHistory.reduce((a, b) => a + b, 0) / energyHistory.length
-      : clackEnergy;
+      if (next && t >= next.time) {
+        typewriterImg.style.transform = `translate(${next.x}px, ${next.y}px)`;
+        nextBeatIndex++;
+      }
 
-    console.log('clack:', clackEnergy.toFixed(1), 'avg:', avgEnergy.toFixed(1));
-
-    const now = performance.now();
-
-    if (clackEnergy > avgEnergy * 1.3 && clackEnergy > 30 && now - lastBeatTime > 150) {
-      onBeat();
-      lastBeatTime = now;
+      requestAnimationFrame(checkSchedule);
     }
 
-   energyHistory.push(clackEnergy);
-   if (energyHistory.length > 8) energyHistory.shift();
-
-   requestAnimationFrame(detectBeat);
-  }
-
-  function onBeat() {
-    // remove any previous position class, add the next one in sequence
-    shufflePositions.forEach(pos => typewriterImg.classList.remove(`is-shuffle-${pos}`));
-    typewriterImg.classList.add(`is-shuffle-${shufflePositions[shuffleStep]}`);
-    shuffleStep = (shuffleStep + 1) % shufflePositions.length;
-  }
-
     typewriterImg.addEventListener('click', () => {
-        setupAudioAnalyser();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-
-        if (typewriterAudio.paused) {
-          typewriterAudio.play();
-        } else {
-          typewriterAudio.pause();
-          typewriterAudio.currentTime = 0;
-          shuffleStep = 0;
-        }
-      });
+      if (typewriterAudio.paused) {
+        typewriterAudio.play();
+      } else {
+        typewriterAudio.pause();
+        typewriterAudio.currentTime = 0;
+        nextBeatIndex = 0;
+      }
+    });
 
     // Sync the animations to actual play/pause state, not just clicks
     typewriterAudio.addEventListener('play', () => {
       if (florkImg) florkImg.classList.add('is-bopping');
-      beatDetectionActive = true;
-      detectBeat();
+      checkSchedule();
     });
 
     typewriterAudio.addEventListener('pause', () => {
-      beatDetectionActive = false;
-      typewriterImg.classList.remove('is-shuffle-up', 'is-shuffle-down', 'is-shuffle-left', 'is-shuffle-right', 'is-shuffle-center');
+      typewriterImg.style.transform = '';
+      nextBeatIndex = 0;
       if (florkImg) florkImg.classList.remove('is-bopping');
     });
 
